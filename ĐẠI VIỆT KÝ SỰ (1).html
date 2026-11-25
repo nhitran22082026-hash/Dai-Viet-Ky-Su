@@ -1,0 +1,2449 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ĐẠI VIỆT KÝ SỰ</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --crimson: #8B1E1E;
+      --crimson-light: #A82424;
+      --crimson-dark: #450B0B;
+      --gold: #D4AF37;
+      --gold-light: #F4E6B3;
+      --gold-dark: #9A7B16;
+      --ivory: #FAF6EB;
+      --ivory-dark: #EFE6D1;
+      --ink: #231815;
+      --ink-muted: #59463F;
+      --emerald: #1E5631;
+      --shadow-cinematic: 0 18px 38px -12px rgba(35, 24, 21, 0.22);
+      --border-gold: 1px solid rgba(212, 175, 55, 0.5);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      font-size: 16px;
+      scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      font-family: 'Be Vietnam Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background-color: var(--ivory);
+      color: var(--ink);
+      line-height: 1.8;
+      letter-spacing: 0.012em;
+      overflow-x: hidden;
+      background-image: 
+        radial-gradient(circle at 12% 45%, rgba(212, 175, 55, 0.09) 0%, transparent 45%),
+        radial-gradient(circle at 88% 25%, rgba(139, 30, 30, 0.06) 0%, transparent 45%);
+    }
+
+    h1, h2, h3, h4, .serif {
+      font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
+      line-height: 1.38;
+      letter-spacing: 0.015em;
+    }
+
+    p + p { margin-top: 0.9rem; }
+
+    /* ================= NAVIGATION BAR ================= */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(69, 11, 11, 0.97);
+      backdrop-filter: blur(12px);
+      border-bottom: 2px solid var(--gold);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+    }
+
+    .nav-container {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 0.9rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .brand-emblem {
+      width: 44px;
+      height: 44px;
+      border: 2px solid var(--gold);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--gold);
+      font-family: 'Playfair Display', serif;
+      font-weight: 800;
+      font-size: 1.3rem;
+      background: radial-gradient(circle, var(--crimson-light), var(--crimson-dark));
+      box-shadow: 0 0 12px rgba(212, 175, 55, 0.4);
+      flex-shrink: 0;
+    }
+
+    .brand-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--gold);
+      line-height: 1.3;
+    }
+
+    .brand-sub {
+      font-size: 0.74rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--gold-light);
+      opacity: 0.9;
+    }
+
+    nav.nav-links {
+      display: flex;
+      gap: 0.45rem;
+      flex-wrap: wrap;
+    }
+
+    .nav-btn {
+      background: transparent;
+      border: 1px solid transparent;
+      color: var(--ivory);
+      padding: 0.55rem 1rem;
+      font-size: 0.88rem;
+      font-weight: 500;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+
+    .nav-btn:hover {
+      color: var(--gold);
+      border-color: rgba(212, 175, 55, 0.45);
+      background: rgba(212, 175, 55, 0.1);
+    }
+
+    .nav-btn.active {
+      background: linear-gradient(135deg, var(--gold), #B8860B);
+      color: var(--crimson-dark);
+      font-weight: 700;
+      box-shadow: 0 0 15px rgba(212, 175, 55, 0.45);
+    }
+
+    /* ================= PAGE SYSTEM ================= */
+    .page-section {
+      display: none;
+      animation: fadeSlideIn 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      min-height: calc(100vh - 140px);
+    }
+
+    .page-section.active { display: block; }
+
+    @keyframes fadeSlideIn {
+      from { opacity: 0; transform: translateY(14px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .container {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 3.5rem 1.5rem;
+    }
+
+    /* ================= HERO ================= */
+    .hero-banner {
+      position: relative;
+      background: linear-gradient(155deg, var(--crimson-dark) 0%, var(--crimson) 55%, #5C1111 100%);
+      color: var(--ivory);
+      padding: 4.5rem 1.5rem 5.2rem;
+      border-bottom: 3px solid var(--gold);
+      overflow: hidden;
+    }
+
+    .hero-pattern {
+      position: absolute;
+      inset: 0;
+      opacity: 0.08;
+      background-image: repeating-linear-gradient(45deg, var(--gold) 0, var(--gold) 1px, transparent 0, transparent 50%);
+      background-size: 28px 28px;
+      pointer-events: none;
+    }
+
+    .hero-grid {
+      position: relative;
+      z-index: 2;
+      max-width: 920px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .badge-pill {
+      display: inline-block;
+      padding: 0.42rem 1.25rem;
+      border: 1px solid var(--gold);
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      background: rgba(0, 0, 0, 0.28);
+      margin-bottom: 1.35rem;
+    }
+
+    .hero-title {
+      font-size: clamp(2.35rem, 4.8vw, 3.75rem);
+      font-weight: 800;
+      color: var(--gold);
+      line-height: 1.28;
+      text-shadow: 0 4px 24px rgba(0, 0, 0, 0.5);
+      margin-bottom: 0.8rem;
+    }
+
+    .hero-subtitle {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+      color: var(--ivory);
+      font-style: italic;
+      margin-bottom: 1.4rem;
+    }
+
+    .hero-desc {
+      font-size: 1.02rem;
+      line-height: 1.85;
+      color: rgba(250, 246, 235, 0.95);
+      max-width: 800px;
+      margin: 0 auto 2.1rem;
+    }
+
+    .hero-cta-group {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .btn-gold {
+      background: linear-gradient(135deg, var(--gold), #C59B27);
+      color: var(--crimson-dark);
+      border: none;
+      padding: 0.88rem 1.85rem;
+      font-weight: 700;
+      font-size: 0.95rem;
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .btn-gold:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 30px rgba(212, 175, 55, 0.45);
+    }
+
+    .btn-outline {
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--gold-light);
+      border: 1px solid var(--gold);
+      padding: 0.88rem 1.85rem;
+      font-weight: 600;
+      font-size: 0.95rem;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+
+    .btn-outline:hover { background: rgba(212, 175, 55, 0.18); }
+
+    .btn-outline-dark {
+      background: transparent;
+      color: var(--crimson);
+      border: 1px solid var(--crimson);
+      padding: 0.72rem 1.4rem;
+      font-weight: 600;
+      font-size: 0.9rem;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+
+    .btn-outline-dark:hover {
+      background: var(--crimson);
+      color: var(--gold-light);
+    }
+
+    /* Quick Stats Bar */
+    .stats-bar {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(215px, 1fr));
+      gap: 1.25rem;
+      margin-top: -2.4rem;
+      position: relative;
+      z-index: 5;
+    }
+
+    .stat-card {
+      background: #FFFDF8;
+      border: var(--border-gold);
+      border-top: 4px solid var(--crimson);
+      border-radius: 12px;
+      padding: 1.4rem 1.25rem;
+      text-align: center;
+      box-shadow: var(--shadow-cinematic);
+    }
+
+    .stat-label {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--ink-muted);
+      margin-bottom: 0.35rem;
+    }
+
+    .stat-value {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.55rem;
+      font-weight: 700;
+      color: var(--crimson);
+      margin-bottom: 0.3rem;
+    }
+
+    /* Section Headings */
+    .section-header {
+      text-align: center;
+      margin-bottom: 2.8rem;
+    }
+
+    .section-eyebrow {
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--crimson);
+      font-weight: 700;
+      margin-bottom: 0.45rem;
+    }
+
+    .section-title {
+      font-size: clamp(1.9rem, 3.8vw, 2.65rem);
+      color: var(--ink);
+      font-weight: 700;
+    }
+
+    .section-lead {
+      max-width: 740px;
+      margin: 1.15rem auto 0;
+      color: var(--ink-muted);
+      font-size: 1rem;
+    }
+
+    .divider-ornament {
+      width: 130px;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, var(--gold), var(--crimson), var(--gold), transparent);
+      margin: 0.9rem auto 0;
+    }
+
+    /* Journey Clusters */
+    .cluster-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(215px, 1fr));
+      gap: 1.35rem;
+    }
+
+    .cluster-card {
+      background: linear-gradient(180deg, #FFFDF8 0%, var(--ivory-dark) 100%);
+      border: var(--border-gold);
+      border-radius: 12px;
+      padding: 1.7rem 1.45rem;
+      position: relative;
+      transition: transform 0.3s ease;
+    }
+
+    .cluster-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--crimson);
+    }
+
+    .cluster-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.1rem;
+      font-weight: 700;
+      color: rgba(139, 30, 30, 0.18);
+      position: absolute;
+      top: 0.65rem;
+      right: 1rem;
+      line-height: 1;
+    }
+
+    /* ================= GRID & CARDS ================= */
+    .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem; }
+    .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 1.65rem; }
+    .grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(245px, 1fr)); gap: 1.55rem; }
+
+    .panel-card {
+      background: #FFFDF9;
+      border: var(--border-gold);
+      border-radius: 12px;
+      padding: 1.7rem 1.5rem;
+      box-shadow: 0 10px 25px rgba(35, 24, 21, 0.08);
+    }
+
+    .tile-badge {
+      display: inline-block;
+      padding: 0.35rem 0.9rem;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+    }
+
+    /* Màu thẻ & ô cập nhật theo chuẩn mới: Thẻ Lật Kèo thay cho Thẻ Sử Ký */
+    .tile-lat-keo { background: #1E5631; color: #FAF6EB; }
+    .tile-nhan-vat { background: #B8860B; color: #FFFDF8; }
+    .tile-bien-co { background: #EA580C; color: #FFF7ED; }
+    .tile-thu-thach { background: #B91C1C; color: #FEF2F2; }
+    .tile-dau-an { background: #D4AF37; color: #3B0707; }
+    .tile-nghi-chan { background: #4A5D23; color: #FAF6EB; }
+    .tile-khoi-hanh { background: #FAF6EB; color: #450B0B; border: 1.5px solid #D4AF37; }
+
+    .board-showcase {
+      background: radial-gradient(circle at center, #7F1D1D 0%, #3E0909 100%);
+      border: 4px solid var(--gold);
+      border-radius: 18px;
+      padding: 2.5rem 2.2rem;
+      color: var(--ivory);
+      margin: 3rem 0;
+      box-shadow: var(--shadow-cinematic);
+      text-align: center;
+    }
+
+    .seal-card {
+      background: linear-gradient(145deg, var(--crimson-dark), var(--crimson));
+      color: var(--ivory);
+      border: 2px solid var(--gold);
+      border-radius: 14px;
+      padding: 1.8rem 1.4rem;
+      text-align: center;
+      box-shadow: 0 12px 24px rgba(74, 14, 14, 0.22);
+    }
+
+    .seal-icon {
+      width: 62px;
+      height: 62px;
+      margin: 0 auto 1rem;
+      border-radius: 50%;
+      border: 2px solid var(--gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      background: rgba(212, 175, 55, 0.16);
+    }
+
+    /* ================= PAGE 3: CARDS LIBRARY ================= */
+    .filter-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      margin-bottom: 2.5rem;
+    }
+
+    .tab-btn {
+      padding: 0.65rem 1.4rem;
+      border-radius: 999px;
+      border: 1px solid var(--crimson);
+      background: transparent;
+      color: var(--crimson);
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+
+    .tab-btn.active, .tab-btn:hover {
+      background: var(--crimson);
+      color: var(--gold-light);
+    }
+
+    .grid-2, .grid-3, .grid-4, .cluster-grid, .stats-bar {
+      align-items: stretch;
+    }
+
+    .panel-card, .cluster-card, .stat-card, .seal-card {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .char-card {
+      background: #FFFDF8;
+      border: 2px solid var(--gold);
+      border-radius: 14px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      box-shadow: 0 10px 25px rgba(35, 24, 21, 0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .char-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 14px 30px rgba(35, 24, 21, 0.16);
+    }
+
+    .char-header {
+      background: linear-gradient(135deg, var(--crimson-dark), var(--crimson));
+      color: var(--gold);
+      padding: 1.15rem 1.3rem;
+      border-bottom: 2px solid var(--gold);
+      min-height: 96px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .char-role {
+      font-size: 0.75rem;
+      color: var(--gold-light);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 0.3rem;
+      line-height: 1.35;
+    }
+
+    .char-header h3 {
+      font-size: 1.28rem;
+      line-height: 1.3;
+    }
+
+    .char-body {
+      padding: 1.3rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 0.9rem;
+    }
+
+    .char-bio {
+      font-size: 0.9rem;
+      line-height: 1.65;
+      color: var(--ink);
+    }
+
+    .ability-box {
+      margin-top: auto;
+      padding: 0.95rem;
+      background: var(--ivory-dark);
+      border-left: 3px solid var(--crimson);
+      border-radius: 6px;
+      font-size: 0.89rem;
+      line-height: 1.65;
+    }
+
+    /* ================= PAGE 4: MERGED RULES, CALCULATOR & QUICK GUIDE ================= */
+    .step-row {
+      display: flex;
+      gap: 1.35rem;
+      align-items: flex-start;
+      background: #FFFDF9;
+      border: var(--border-gold);
+      padding: 1.35rem 1.55rem;
+      border-radius: 12px;
+      margin-bottom: 1.1rem;
+    }
+
+    .step-circle {
+      min-width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: var(--crimson);
+      color: var(--gold);
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid var(--gold);
+      flex-shrink: 0;
+    }
+
+    .calculator-box {
+      background: linear-gradient(160deg, var(--crimson-dark), var(--crimson));
+      color: var(--ivory);
+      border: 2px solid var(--gold);
+      border-radius: 16px;
+      padding: 2.2rem;
+      margin-top: 2.5rem;
+      box-shadow: var(--shadow-cinematic);
+    }
+
+    .calc-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.35rem;
+      margin: 1.65rem 0;
+    }
+
+    .calc-input-group label {
+      display: block;
+      font-size: 0.88rem;
+      color: var(--gold-light);
+      margin-bottom: 0.45rem;
+    }
+
+    .calc-input-group input, .calc-input-group select {
+      width: 100%;
+      padding: 0.72rem 0.92rem;
+      border-radius: 8px;
+      border: 1px solid var(--gold);
+      background: rgba(255, 255, 255, 0.96);
+      color: var(--ink);
+      font-weight: 600;
+      font-size: 0.98rem;
+    }
+
+    .total-score-display {
+      text-align: center;
+      padding: 1.4rem;
+      background: rgba(0, 0, 0, 0.32);
+      border-radius: 12px;
+      border: 1px solid var(--gold);
+    }
+
+    .quick-guide-box {
+      background: linear-gradient(155deg, #2C120E, var(--crimson-dark));
+      color: var(--ivory);
+      border: 2px solid var(--gold);
+      border-radius: 16px;
+      padding: 2.2rem;
+      margin-top: 2.5rem;
+      box-shadow: var(--shadow-cinematic);
+    }
+
+    /* ================= INTERACTIVE WEB BOARD GAME STYLES ================= */
+    .play-arena {
+      display: grid;
+      grid-template-columns: 1.32fr 0.88fr;
+      gap: 1.75rem;
+      align-items: start;
+    }
+
+    .board-grid-32 {
+      display: grid;
+      grid-template-columns: 1.3fr repeat(7, 1fr) 1.3fr;
+      grid-template-rows: 1.3fr repeat(7, 1fr) 1.3fr;
+      gap: 4px;
+      background: linear-gradient(135deg, var(--gold), var(--gold-dark), var(--gold));
+      padding: 7px;
+      border-radius: 16px;
+      border: 3px solid var(--crimson-dark);
+      box-shadow: var(--shadow-cinematic);
+      aspect-ratio: 1 / 1;
+      width: 100%;
+      max-width: 740px;
+      margin: 0 auto;
+    }
+
+    .game-tile {
+      position: relative;
+      border-radius: 7px;
+      padding: 3px 2px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      text-align: center;
+      cursor: pointer;
+      user-select: none;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      overflow: hidden;
+    }
+
+    .game-tile:hover {
+      transform: scale(1.06);
+      z-index: 15;
+      box-shadow: 0 0 12px rgba(69, 11, 11, 0.7);
+    }
+
+    .game-tile.current-focus {
+      box-shadow: 0 0 0 3px #FFF, 0 0 18px var(--gold);
+      z-index: 12;
+    }
+
+    .g-tile-lat-keo { background: #1E5631; color: #FAF6EB; }
+    .g-tile-nhan-vat { background: #B8860B; color: #FFFDF8; }
+    .g-tile-bien-co { background: #EA580C; color: #FFF7ED; }
+    .g-tile-thu-thach { background: #B91C1C; color: #FEF2F2; }
+    .g-tile-dau-an { background: linear-gradient(145deg, #F4E6B3, #D4AF37); color: #3B0707; border: 1.5px solid #8B1E1E; }
+    .g-tile-nghi-chan { background: #4A5D23; color: #FAF6EB; }
+    .g-tile-khoi-hanh { background: #FAF6EB; color: #450B0B; border: 1.5px solid #8B1E1E; }
+
+    .board-center-map {
+      grid-row: 2 / 9;
+      grid-column: 2 / 9;
+      border-radius: 12px;
+      background: var(--ivory);
+      border: 1.5px dashed rgba(139, 30, 30, 0.25);
+    }
+
+    .token-dot {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.78rem;
+      border: 1.5px solid #FFF;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.55);
+    }
+
+    .dice-face {
+      width: 54px;
+      height: 54px;
+      border-radius: 12px;
+      background: #FFFDF8;
+      color: var(--crimson);
+      border: 2px solid var(--gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.3rem;
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.35);
+      user-select: none;
+    }
+
+    @keyframes shakeDice {
+      0%, 100% { transform: rotate(0deg) scale(1); }
+      25% { transform: rotate(-16deg) scale(1.1); }
+      50% { transform: rotate(16deg) scale(1.12); }
+      75% { transform: rotate(-10deg) scale(1.06); }
+    }
+    .dice-animating { animation: shakeDice 0.4s infinite; }
+
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 2000;
+      background: rgba(35, 24, 21, 0.82);
+      backdrop-filter: blur(6px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      overflow-y: auto;
+    }
+
+    .modal-backdrop.open { display: flex; }
+
+    .modal-card {
+      background: #FFFDF8;
+      border: 3px solid var(--gold);
+      border-radius: 16px;
+      max-width: 600px;
+      width: 100%;
+      padding: 1.75rem;
+      color: var(--ink);
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.55);
+      animation: fadeSlideIn 0.3s ease;
+    }
+
+    .page-footer-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 3.5rem;
+      padding-top: 1.8rem;
+      border-top: 1px solid rgba(139, 30, 30, 0.22);
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    footer {
+      background: var(--crimson-dark);
+      color: var(--gold-light);
+      text-align: center;
+      padding: 2.5rem 1.5rem;
+      border-top: 2px solid var(--gold);
+    }
+
+    @media (max-width: 920px) { .play-arena { grid-template-columns: 1fr; } }
+    @media (max-width: 768px) {
+      .nav-container { flex-direction: column; align-items: flex-start; }
+      .hero-banner { padding: 3.5rem 1rem 4rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOP NAVIGATION (4 PHẦN CHÍNH + CHƠI TRỰC TIẾP) -->
+  <header>
+    <div class="nav-container">
+      <a class="brand" onclick="navigateTo('page-home')">
+        <div class="brand-emblem">龍</div>
+        <div class="brand-text">
+          <div class="brand-title">ĐẠI VIỆT KÝ SỰ</div>
+          <div class="brand-sub">CHUYỆN XƯA LÝ-TRẦN</div>
+        </div>
+      </a>
+
+      <nav class="nav-links" id="mainNav">
+        <button class="nav-btn active" data-target="page-home" onclick="navigateTo('page-home')">1. Tổng Quan</button>
+        <button class="nav-btn" data-target="page-play" onclick="navigateTo('page-play')" style="border-color: var(--gold); color: var(--gold);">🎲 Chơi Trực Tiếp</button>
+        <button class="nav-btn" data-target="page-board" onclick="navigateTo('page-board')">2. Bàn Cờ &amp; Dấu Ấn</button>
+        <button class="nav-btn" data-target="page-cards" onclick="navigateTo('page-cards')">3. Kho Thẻ Bài</button>
+        <button class="nav-btn" data-target="page-rules" onclick="navigateTo('page-rules')">4. Luật Chơi, Tính Điểm &amp; Hướng Dẫn Nhanh</button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- =====================================================================
+       PHẦN 1: TỔNG QUAN & CÂU CHUYỆN (HOME)
+       ===================================================================== -->
+  <main id="page-home" class="page-section active">
+    <section class="hero-banner">
+      <div class="hero-pattern"></div>
+      <div class="hero-grid">
+        <div>
+          <span class="badge-pill">Phiên Bản Board Game Lịch Sử • Chiến Thuật Lật Kèo &amp; Tương Tác</span>
+          <h1 class="hero-title">ĐẠI VIỆT KÝ SỰ</h1>
+          <p class="hero-subtitle">CHUYỆN XƯA LÝ-TRẦN</p>
+          <p class="hero-desc">
+            Người chơi hóa thân thành những nhà thám hiểm trên hành trình khám phá Đại Việt thời Lý (1009–1225) và Trần (1225–1400). Với hệ thống <strong>Thẻ Biến Cố</strong> đầy kịch tính, <strong>Thẻ Lật Kèo</strong> giữ trên tay để đảo ngược tình thế vào phút chót, <strong>Thẻ Thử Thách</strong> phản xạ nhanh và <strong>13 Thẻ Nhân Vật</strong> mang kỹ năng nội tại riêng biệt, mỗi lượt đi đều mở ra bước ngoặt bất ngờ!
+          </p>
+          <div class="hero-cta-group">
+            <button class="btn-gold" onclick="navigateTo('page-play')">🎲 Chơi Board Game Ngay</button>
+            <button class="btn-outline" onclick="navigateTo('page-cards')">Khám Phá Kho Thẻ Bài</button>
+            <button class="btn-outline" onclick="navigateTo('page-rules')">Luật Chơi &amp; Tính Điểm</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="container">
+      <div class="stats-bar">
+        <div class="stat-card">
+          <div class="stat-label">Số Người Chơi</div>
+          <div class="stat-value">2 – 6 Người</div>
+          <small style="color: var(--ink-muted);">Phù hợp nhất 3–5 người</small>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Bộ Thẻ Chiến Thuật</div>
+          <div class="stat-value">4 Nhóm Thẻ</div>
+          <small style="color: var(--ink-muted);">Biến Cố • Lật Kèo • Thử Thách • Nhân Vật</small>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Thời Lượng</div>
+          <div class="stat-value">30 – 50 Phút</div>
+          <small style="color: var(--ink-muted);">Hoặc chơi đủ 2 vòng bàn cờ</small>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Đơn Vị Điểm</div>
+          <div class="stat-value">Điểm Đại Việt</div>
+          <small style="color: var(--ink-muted);">&amp; 4 loại Dấu Ấn Lịch Sử</small>
+        </div>
+      </div>
+
+      <div class="section-header" style="margin-top: 4rem;">
+        <div class="section-eyebrow">Chủ Đề Lịch Sử Lý (1009–1225) &amp; Trần (1225–1400)</div>
+        <h2 class="section-title">Năm Cụm Ô Theo Hành Trình Lịch Sử</h2>
+        <div class="divider-ornament"></div>
+      </div>
+
+      <div class="cluster-grid">
+        <div class="cluster-card">
+          <span class="cluster-num">01</span>
+          <h3 style="color: var(--crimson); font-size: 1.25rem; margin-bottom: 0.45rem;">Buổi Đầu Nhà Lý</h3>
+          <p style="font-size: 0.92rem; color: var(--ink-muted);">Khởi nguồn nhà Lý năm 1009, đặt nền móng cho kỷ nguyên độc lập lâu dài.</p>
+        </div>
+        <div class="cluster-card">
+          <span class="cluster-num">02</span>
+          <h3 style="color: var(--crimson); font-size: 1.25rem; margin-bottom: 0.45rem;">Kinh Thành Thăng Long</h3>
+          <p style="font-size: 0.92rem; color: var(--ink-muted);">Dấu mốc Chiếu dời đô năm 1010 và công cuộc xây dựng kinh đô phồn thịnh.</p>
+        </div>
+        <div class="cluster-card">
+          <span class="cluster-num">03</span>
+          <h3 style="color: var(--crimson); font-size: 1.25rem; margin-bottom: 0.45rem;">Văn Hóa – Giáo Dục</h3>
+          <p style="font-size: 0.92rem; color: var(--ink-muted);">Văn Miếu – Quốc Tử Giám, khoa cử nho học và đời sống tinh thần Đại Việt.</p>
+        </div>
+        <div class="cluster-card">
+          <span class="cluster-num">04</span>
+          <h3 style="color: var(--crimson); font-size: 1.25rem; margin-bottom: 0.45rem;">Kháng Chiến Nguyên – Mông</h3>
+          <p style="font-size: 0.92rem; color: var(--ink-muted);">Hào khí Đông A, Hội nghị Diên Hồng và tinh thần đoàn kết toàn dân giữ nước.</p>
+        </div>
+        <div class="cluster-card">
+          <span class="cluster-num">05</span>
+          <h3 style="color: var(--crimson); font-size: 1.25rem; margin-bottom: 0.45rem;">Chiến Thắng Bạch Đằng</h3>
+          <p style="font-size: 0.92rem; color: var(--ink-muted);">Chiến thắng vang dội năm 1288 khẳng định ý chí độc lập tự chủ của dân tộc.</p>
+        </div>
+      </div>
+
+      <div class="page-footer-nav">
+        <span style="color: var(--ink-muted); font-size: 0.9rem;">Phần 1 / 4 — Tổng Quan &amp; Câu Chuyện</span>
+        <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+          <button class="btn-outline-dark" onclick="navigateTo('page-play')">🎲 Vào Bàn Cờ Trực Tuyến</button>
+          <button class="btn-gold" onclick="navigateTo('page-board')">Tiếp theo: Bàn Cờ &amp; Dấu Ấn &rarr;</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- =====================================================================
+       TRANG CHƠI TRỰC TIẾP: BÀN CỜ TƯƠNG TÁC 32 Ô (PLAYABLE WEB GAME)
+       ===================================================================== -->
+  <main id="page-play" class="page-section">
+    <div class="container" style="padding-top: 2.2rem;">
+      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.5rem;">
+        <div>
+          <div class="section-eyebrow" style="margin-bottom: 0.15rem;">Trải Nghiệm Trực Tuyến • Tích Hợp Thẻ Lật Kèo &amp; Biến Cố Mới</div>
+          <h2 class="section-title" style="font-size: 1.95rem;">Bàn Cờ Đại Việt Ký Sự (32 Ô)</h2>
+        </div>
+        <div style="display: flex; gap: 0.6rem; flex-wrap: wrap;">
+          <button id="soundToggleBtn" class="btn-outline-dark" onclick="toggleGameSound()" style="padding: 0.5rem 0.95rem;">🔊 Âm Thanh: Bật</button>
+          <button class="btn-outline-dark" onclick="openSetupGameModal()" style="padding: 0.5rem 0.95rem;">⚙️ Thiết Lập Ván Mới</button>
+          <button class="btn-gold" onclick="openEndGameSummary()" style="padding: 0.55rem 1.15rem;">🏆 Tổng Kết Điểm</button>
+        </div>
+      </div>
+
+      <div class="play-arena">
+        <!-- Cột trái: Bàn cờ vuông 32 ô -->
+        <div>
+          <div id="interactiveBoardGrid" class="board-grid-32"></div>
+          <div style="display: flex; flex-wrap: wrap; gap: 0.65rem; justify-content: center; margin-top: 1rem; font-size: 0.78rem; font-weight: 600;">
+            <span class="tile-badge tile-khoi-hanh" style="margin:0;">Khởi Hành (+2đ)</span>
+            <span class="tile-badge tile-lat-keo" style="margin:0;">Lật Kèo (Xanh ngọc)</span>
+            <span class="tile-badge tile-nhan-vat" style="margin:0;">Nhân Vật (Vàng đồng)</span>
+            <span class="tile-badge tile-bien-co" style="margin:0;">Biến Cố (Cam)</span>
+            <span class="tile-badge tile-thu-thach" style="margin:0;">Thử Thách (Đỏ)</span>
+            <span class="tile-badge tile-nghi-chan" style="margin:0;">Nghỉ Chân (Xanh rêu)</span>
+            <span class="tile-badge tile-dau-an" style="margin:0;">Dấu Ấn (+30đ)</span>
+          </div>
+        </div>
+
+        <!-- Cột phải: Bảng điều khiển xúc xắc & Hành trang người chơi -->
+        <div style="display: flex; flex-direction: column; gap: 1.25rem;">
+          <div style="background: linear-gradient(155deg, var(--crimson-dark), var(--crimson)); color: var(--ivory); border: 2px solid var(--gold); border-radius: 14px; padding: 1.35rem; box-shadow: var(--shadow-cinematic);">
+            <div style="display: flex; justify-content: space-between; align-items: center; gap: 0.5rem; margin-bottom: 0.9rem; flex-wrap: wrap;">
+              <span id="gameModeBadge" style="font-size: 0.76rem; padding: 0.25rem 0.7rem; border-radius: 999px; background: rgba(0,0,0,0.35); border: 1px solid var(--gold); color: var(--gold-light); font-weight: 600;">
+                Tiêu chuẩn • Mục tiêu: 2 Vòng
+              </span>
+              <div style="display: flex; gap: 0.35rem;">
+                <button id="dice1Btn" onclick="setGameDiceCount(1)" style="padding: 0.25rem 0.6rem; border-radius: 6px; font-size: 0.75rem; font-weight: 700; border: 1px solid var(--gold); background: var(--gold); color: var(--crimson-dark); cursor: pointer;">1 Xúc xắc</button>
+                <button id="dice2Btn" onclick="setGameDiceCount(2)" style="padding: 0.25rem 0.6rem; border-radius: 6px; font-size: 0.75rem; font-weight: 700; border: 1px solid var(--gold); background: transparent; color: var(--gold-light); cursor: pointer;">2 Xúc xắc</button>
+              </div>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; align-items: center; gap: 1rem; background: rgba(0,0,0,0.28); padding: 0.9rem; border-radius: 10px; border: 1px solid rgba(212,175,55,0.4);">
+              <div style="display: flex; align-items: center; gap: 0.75rem;">
+                <div id="turnPlayerAvatar" style="width: 46px; height: 46px; border-radius: 50%; background: var(--gold); color: var(--crimson-dark); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; border: 2px solid #FFF;">🐉</div>
+                <div>
+                  <div style="font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--gold-light);">Đang Đến Lượt</div>
+                  <div id="turnPlayerName" style="font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 700; color: var(--gold);">Minh Anh</div>
+                  <div id="turnPlayerLap" style="font-size: 0.8rem; opacity: 0.9;">Vòng 1 / 2</div>
+                </div>
+              </div>
+
+              <div style="display: flex; align-items: center; gap: 0.45rem;">
+                <div id="gameDice1" class="dice-face">⚀</div>
+                <div id="gameDice2" class="dice-face" style="display: none;">⚀</div>
+              </div>
+            </div>
+
+            <div id="gameLogBanner" style="margin-top: 0.85rem; padding: 0.75rem 0.9rem; border-radius: 8px; background: rgba(250, 246, 235, 0.12); border-left: 3px solid var(--gold); font-size: 0.88rem; line-height: 1.6;">
+              Sẵn sàng xuất phát! Mỗi người chơi khởi đầu với <strong>10 Điểm Đại Việt</strong> và <strong>1 Thẻ Lật Kèo</strong> trên tay.
+            </div>
+
+            <div id="preRollActions" style="display: flex; flex-direction: column; gap: 0.5rem; margin-top: 0.85rem;"></div>
+
+            <button id="rollDiceActionBtn" class="btn-gold" onclick="rollGameDice()" style="width: 100%; margin-top: 0.85rem; font-size: 1.02rem; padding: 0.85rem;">
+              🎲 Tung Xúc Xắc Di Chuyển
+            </button>
+          </div>
+
+          <!-- Danh Sách Người Chơi, Thẻ Lật Kèo & Nhân Vật -->
+          <div class="panel-card" style="padding: 1.25rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.85rem;">
+              <h3 style="color: var(--crimson); font-size: 1.18rem;">Hành Trang Thám Hiểm</h3>
+              <span style="font-size: 0.75rem; color: var(--ink-muted);">Tối đa 2 Lật Kèo • 2 Nhân Vật</span>
+            </div>
+            <div id="playerScoreboardList" style="display: flex; flex-direction: column; gap: 0.85rem;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- MODAL THIẾT LẬP VÁN CHƠI -->
+  <div id="setupGameModal" class="modal-backdrop">
+    <div class="modal-card">
+      <div style="text-align: center; border-bottom: 1.5px solid rgba(212,175,55,0.45); padding-bottom: 0.9rem; margin-bottom: 1.25rem;">
+        <span class="tile-badge tile-dau-an" style="margin-bottom: 0.35rem;">Đại Việt Ký Sự – Chuyện Xưa Lý-Trần</span>
+        <h3 style="font-size: 1.6rem; color: var(--crimson);">Thiết Lập Ván Chơi Mới</h3>
+      </div>
+
+      <div class="calc-grid" style="margin: 0 0 1rem;">
+        <div class="calc-input-group">
+          <label style="color: var(--ink); font-weight: 700;" for="setupCountSelect">Số người chơi (2–6)</label>
+          <select id="setupCountSelect" onchange="renderSetupPlayerFields()">
+            <option value="2">2 Người chơi</option>
+            <option value="3" selected>3 Người chơi (Phù hợp nhất)</option>
+            <option value="4">4 Người chơi</option>
+            <option value="5">5 Người chơi</option>
+            <option value="6">6 Người chơi</option>
+          </select>
+        </div>
+        <div class="calc-input-group">
+          <label style="color: var(--ink); font-weight: 700;" for="setupLapsSelect">Điều kiện kết thúc</label>
+          <select id="setupLapsSelect">
+            <option value="2" selected>Đủ 2 vòng bàn cờ</option>
+            <option value="1">Chơi nhanh 1 vòng</option>
+            <option value="99">Tự do (30–50 phút)</option>
+          </select>
+        </div>
+      </div>
+
+      <div id="setupPlayerFieldsContainer" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 0.7rem; margin-bottom: 1.35rem;"></div>
+
+      <div style="display: flex; justify-content: flex-end; gap: 0.75rem;">
+        <button class="btn-outline-dark" onclick="closeSetupGameModal()">Đóng</button>
+        <button class="btn-gold" onclick="confirmStartNewGame()">Bắt Đầu Hành Trình &rarr;</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL TƯƠNG TÁC THẺ BÀI TRONG LƯỢT -->
+  <div id="activeCardModal" class="modal-backdrop">
+    <div id="activeCardModalContent" class="modal-card"></div>
+  </div>
+
+  <!-- MODAL TỔNG KẾT ĐIỂM CHUNG CUỘC -->
+  <div id="endGameModal" class="modal-backdrop">
+    <div class="modal-card" style="max-width: 660px;">
+      <div style="text-align: center; margin-bottom: 1.2rem;">
+        <div style="font-size: 2.6rem;">🏆</div>
+        <h3 style="font-size: 1.8rem; color: var(--crimson);">Bảng Vàng Tổng Kết Đại Việt Ký Sự</h3>
+        <p style="font-size: 0.88rem; color: var(--ink-muted);">
+          Công thức: Điểm Đại Việt + 30đ mỗi Dấu Ấn khác nhau (+30đ thưởng đủ 4 loại) + 10đ mỗi thẻ Nhân Vật (tối đa 20đ).
+        </p>
+      </div>
+      <div id="endGameRankingBody" style="display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 1.35rem;"></div>
+      <div style="display: flex; justify-content: center; gap: 0.8rem;">
+        <button class="btn-outline-dark" onclick="document.getElementById('endGameModal').classList.remove('open')">Xem Lại Bàn Cờ</button>
+        <button class="btn-gold" onclick="document.getElementById('endGameModal').classList.remove('open'); openSetupGameModal();">Chơi Ván Mới ↺</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- =====================================================================
+       PHẦN 2: THÀNH PHẦN BỘ TRÒ CHƠI, BÀN CỜ & DẤU ẤN LỊCH SỬ
+       ===================================================================== -->
+  <main id="page-board" class="page-section">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-eyebrow">Thành Phần Bộ Trò Chơi Tiêu Chuẩn</div>
+        <h2 class="section-title">Cấu Trúc Bàn Cờ &amp; Bộ Thẻ Cân Bằng</h2>
+        <div class="divider-ornament"></div>
+      </div>
+
+      <div class="grid-3">
+        <div class="panel-card">
+          <h3 style="color: var(--crimson); font-size: 1.25rem; margin-bottom: 0.45rem;">1. Bàn Cờ, Quân Cờ &amp; Xúc Xắc</h3>
+          <p style="font-size: 0.93rem;">Thiết kế hình vuông <strong>32 ô</strong> đi theo chiều kim đồng hồ, kèm <strong>06 quân cờ</strong> đại diện và <strong>01–02 viên xúc xắc</strong>.</p>
+        </div>
+        <div class="panel-card">
+          <h3 style="color: var(--crimson); font-size: 1.25rem; margin-bottom: 0.45rem;">2. Thẻ Biến Cố (20 Thẻ)</h3>
+          <p style="font-size: 0.93rem;">Gồm <strong>10 loại biến cố</strong> (mỗi loại 2 thẻ) tạo áp lực chiến thuật, trừ điểm và tương tác trực tiếp giữa các người chơi.</p>
+        </div>
+        <div class="panel-card">
+          <h3 style="color: var(--crimson); font-size: 1.25rem; margin-bottom: 0.45rem;">3. Thẻ Lật Kèo (16 Thẻ)</h3>
+          <p style="font-size: 0.93rem;">Nâng cấp từ Thẻ Sử Ký cũ thành <strong>8 loại thẻ chiến thuật</strong> (mỗi loại 2 thẻ), giữ trên tay tối đa 2 thẻ để hóa giải hoặc phản đòn bất ngờ.</p>
+        </div>
+        <div class="panel-card">
+          <h3 style="color: var(--crimson); font-size: 1.25rem; margin-bottom: 0.45rem;">4. Thẻ Thử Thách (25–30 Thẻ)</h3>
+          <p style="font-size: 0.93rem;">Gồm <strong>7 dạng thử thách</strong> kiến thức và phản xạ nhanh trong 5–15 giây để giành điểm thưởng hoặc tránh phạt.</p>
+        </div>
+        <div class="panel-card">
+          <h3 style="color: var(--crimson); font-size: 1.25rem; margin-bottom: 0.45rem;">5. Thẻ Nhân Vật (13 Thẻ)</h3>
+          <p style="font-size: 0.93rem;">Gồm <strong>13 nhân vật lịch sử</strong> thời Lý – Trần kèm kỹ năng nội tại riêng biệt.</p>
+        </div>
+        <div class="panel-card">
+          <h3 style="color: var(--crimson); font-size: 1.25rem; margin-bottom: 0.45rem;">6. Điểm Đại Việt &amp; Dấu Ấn</h3>
+          <p style="font-size: 0.93rem;">Khoảng <strong>100 điểm dấu Điểm Đại Việt</strong> và <strong>24 điểm dấu Dấu Ấn Lịch Sử</strong> gồm 4 loại đánh dấu thành tựu.</p>
+        </div>
+      </div>
+
+      <div class="board-showcase">
+        <div style="max-width: 780px; margin: 0 auto;">
+          <span class="tile-badge tile-dau-an">Trung Tâm Bàn Cờ 32 Ô</span>
+          <h3 style="font-size: 1.85rem; color: var(--gold); margin-bottom: 0.8rem;">Bản Đồ Đại Việt &amp; Hoa Văn Đông Sơn</h3>
+          <p style="font-size: 0.98rem; color: var(--ivory);">
+            Bàn cờ thiết kế dạng hình vuông 32 ô đi theo chiều kim đồng hồ. Ở trung tâm là bản đồ Đại Việt cách điệu kết hợp <strong>Mặt Trời Đông Sơn 16 tia</strong>, <strong>Chim Lạc</strong>, <strong>Hươu Sao</strong> và hình ảnh <strong>Thăng Long – Bạch Đằng</strong> mang đậm bản sắc văn hiến dân tộc.
+          </p>
+        </div>
+      </div>
+
+      <div class="section-header">
+        <div class="section-eyebrow">Lộ Trình 32 Ô Chức Năng</div>
+        <h2 class="section-title">Các Loại Ô Trên Bàn Cờ</h2>
+        <div class="divider-ornament"></div>
+      </div>
+
+      <div class="grid-3">
+        <div class="panel-card">
+          <span class="tile-badge tile-lat-keo">Ô Lật Kèo – Màu Xanh Ngọc</span>
+          <p style="font-size: 0.93rem;">Rút 1 <strong>Thẻ Lật Kèo</strong> giữ bí mật trên tay (tối đa 2 thẻ/người) để kích hoạt hóa giải Biến Cố hoặc đảo ngược thế trận.</p>
+        </div>
+        <div class="panel-card">
+          <span class="tile-badge tile-nhan-vat">Ô Nhân Vật – Màu Vàng Đồng</span>
+          <p style="font-size: 0.93rem;">Rút thẻ nhân vật, nhận kỹ năng nội tại hỗ trợ xuyên suốt ván hoặc kích hoạt một lần (giữ tối đa 2 thẻ).</p>
+        </div>
+        <div class="panel-card">
+          <span class="tile-badge tile-bien-co">Ô Biến Cố – Màu Cam</span>
+          <p style="font-size: 0.93rem;">Rút 1 <strong>Thẻ Biến Cố</strong> và chịu hiệu ứng trừ điểm / bất lợi ngay lập tức (trừ khi dùng Thẻ Lật Kèo hoặc kỹ năng Nhân Vật để hóa giải).</p>
+        </div>
+        <div class="panel-card">
+          <span class="tile-badge tile-thu-thach">Ô Thử Thách – Màu Đỏ</span>
+          <p style="font-size: 0.93rem;">Thực hiện thử thách kiến thức hoặc tương tác nhanh trong 5–15 giây để nhận điểm thưởng hoặc tránh bị trừ điểm.</p>
+        </div>
+        <div class="panel-card">
+          <span class="tile-badge tile-nghi-chan">Ô Nghỉ Chân – Màu Xanh Rêu</span>
+          <p style="font-size: 0.93rem;">Trạm nghỉ an toàn: không bị phạt, không phải làm thử thách và nhận thêm 1 Điểm Đại Việt khích lệ.</p>
+        </div>
+        <div class="panel-card">
+          <span class="tile-badge tile-khoi-hanh">Ô Khởi Hành – Màu Vàng Ngà</span>
+          <p style="font-size: 0.93rem;">Điểm xuất phát. Khi đi qua hoặc dừng tại đây nhận 2 Điểm Đại Việt (mỗi vòng chỉ nhận một lần).</p>
+        </div>
+        <div class="panel-card">
+          <span class="tile-badge tile-dau-an">Ô Dấu Ấn – Thành Tựu Lịch Sử</span>
+          <p style="font-size: 0.93rem;">Hoàn thành thử thách tại ô để thu thập một trong 4 loại Dấu Ấn Lịch Sử (+30 điểm/loại).</p>
+        </div>
+      </div>
+
+      <div class="section-header" style="margin-top: 4rem;">
+        <div class="section-eyebrow">Bộ Sưu Tập Thành Tựu (+30 Điểm / Loại)</div>
+        <h2 class="section-title">Bốn Loại Dấu Ấn Lịch Sử</h2>
+        <div class="divider-ornament"></div>
+        <p class="section-lead">
+          Mỗi người chỉ cần thu thập một dấu của mỗi loại; không cần nâng cấp hay đổi dấu. Mỗi loại chỉ tính một lần khi chấm điểm (+30 điểm), thu thập đủ bộ 4 loại được thưởng thêm 30 điểm.
+        </p>
+      </div>
+
+      <div class="grid-4">
+        <div class="seal-card">
+          <div class="seal-icon">🏯</div>
+          <h3 style="color: var(--gold); font-size: 1.35rem; margin-bottom: 0.45rem;">Dấu Ấn Kiến Thiết</h3>
+          <p style="font-size: 0.85rem; color: var(--gold-light); margin-bottom: 0.5rem;">Biểu tượng: Tháp hoặc kinh thành</p>
+          <p style="font-size: 0.92rem;">Ý nghĩa: Những công trình và thành tựu xây dựng đất nước.</p>
+        </div>
+        <div class="seal-card">
+          <div class="seal-icon">🪷</div>
+          <h3 style="color: var(--gold); font-size: 1.35rem; margin-bottom: 0.45rem;">Dấu Ấn Văn Hiến</h3>
+          <p style="font-size: 0.85rem; color: var(--gold-light); margin-bottom: 0.5rem;">Biểu tượng: Sách hoặc hoa sen</p>
+          <p style="font-size: 0.92rem;">Ý nghĩa: Văn hóa, giáo dục và đời sống tinh thần.</p>
+        </div>
+        <div class="seal-card">
+          <div class="seal-icon">📜</div>
+          <h3 style="color: var(--gold); font-size: 1.35rem; margin-bottom: 0.45rem;">Dấu Ấn Trí Tuệ</h3>
+          <p style="font-size: 0.85rem; color: var(--gold-light); margin-bottom: 0.5rem;">Biểu tượng: Cuộn thư hoặc ngọn đuốc</p>
+          <p style="font-size: 0.92rem;">Ý nghĩa: Kiến thức, mưu lược và nhân tài.</p>
+        </div>
+        <div class="seal-card">
+          <div class="seal-icon">🛡️</div>
+          <h3 style="color: var(--gold); font-size: 1.35rem; margin-bottom: 0.45rem;">Dấu Ấn Bảo Vệ</h3>
+          <p style="font-size: 0.85rem; color: var(--gold-light); margin-bottom: 0.5rem;">Biểu tượng: Khiên hoặc rồng</p>
+          <p style="font-size: 0.92rem;">Ý nghĩa: Tinh thần đoàn kết và bảo vệ Đại Việt.</p>
+        </div>
+      </div>
+
+      <div class="page-footer-nav">
+        <button class="btn-outline-dark" onclick="navigateTo('page-home')">&larr; Quay lại: Phần 1 – Tổng Quan</button>
+        <button class="btn-gold" onclick="navigateTo('page-cards')">Tiếp theo: Phần 3 – Kho Thẻ Bài &rarr;</button>
+      </div>
+    </div>
+  </main>
+
+  <!-- =====================================================================
+       PHẦN 3: KHO THẺ BÀI (BIẾN CỐ, LẬT KÈO, THỬ THÁCH, NHÂN VẬT)
+       ===================================================================== -->
+  <main id="page-cards" class="page-section">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-eyebrow">Hệ Thống Thẻ Bài Đã Cập Nhật Đồng Bộ</div>
+        <h2 class="section-title">Kho Thẻ Bài Đại Việt Ký Sự</h2>
+        <div class="divider-ornament"></div>
+        <p class="section-lead">
+          Toàn bộ 4 nhóm thẻ bài được đồng bộ hóa: <strong>10 Thẻ Biến Cố</strong>, <strong>8 Thẻ Lật Kèo</strong> (nâng cấp từ Thẻ Sử Ký), <strong>7 Thẻ Thử Thách</strong> và <strong>13 Thẻ Nhân Vật</strong> kèm kỹ năng nội tại.
+        </p>
+      </div>
+
+      <div class="filter-tabs">
+        <button class="tab-btn active" onclick="switchCardCategory('cat-events', this)">1. Thẻ Biến Cố (10)</button>
+        <button class="tab-btn" onclick="switchCardCategory('cat-latkeo', this)">2. Thẻ Lật Kèo (8)</button>
+        <button class="tab-btn" onclick="switchCardCategory('cat-challenges', this)">3. Thẻ Thử Thách (7)</button>
+        <button class="tab-btn" onclick="switchCardCategory('cat-characters', this)">4. Thẻ Nhân Vật (13)</button>
+      </div>
+
+      <!-- 1. THẺ BIẾN CỐ (10 THẺ: 5 GỐC + 5 MỞ RỘNG) -->
+      <div id="cat-events" class="card-category-panel">
+        <div class="grid-3">
+          <div class="panel-card" style="border-top: 4px solid #EA580C;">
+            <span class="tile-badge tile-bien-co">Thẻ Biến Cố</span>
+            <h3 style="color: var(--crimson); font-size: 1.25rem;">1. Phản Bội</h3>
+            <p style="margin-top: 0.5rem;">Nhận điểm trừ thay cho một người chơi khác (hoặc chuyển điểm trừ của bản thân sang người khác tùy tình huống kích hoạt).</p>
+          </div>
+          <div class="panel-card" style="border-top: 4px solid #EA580C;">
+            <span class="tile-badge tile-bien-co">Thẻ Biến Cố</span>
+            <h3 style="color: var(--crimson); font-size: 1.25rem;">2. Băng Hà</h3>
+            <p style="margin-top: 0.5rem;">Mất <strong>1 lượt di chuyển</strong> kế tiếp để triều đình tổ chức quốc tang.</p>
+          </div>
+          <div class="panel-card" style="border-top: 4px solid #EA580C;">
+            <span class="tile-badge tile-bien-co">Thẻ Biến Cố</span>
+            <h3 style="color: var(--crimson); font-size: 1.25rem;">3. Phản Loạn</h3>
+            <p style="margin-top: 0.5rem;">Lập tức quay trở về <strong>ô xuất phát ban đầu</strong> (giữ nguyên điểm số hiện có).</p>
+          </div>
+          <div class="panel-card" style="border-top: 4px solid #EA580C;">
+            <span class="tile-badge tile-bien-co">Thẻ Biến Cố</span>
+            <h3 style="color: var(--crimson); font-size: 1.25rem;">4. Soán Ngôi</h3>
+            <p style="margin-top: 0.5rem;">Bắt buộc <strong>đổi toàn bộ điểm số hiện tại</strong> của bạn với người chơi đang có số điểm thấp nhất bàn.</p>
+          </div>
+          <div class="panel-card" style="border-top: 4px solid #EA580C;">
+            <span class="tile-badge tile-bien-co">Thẻ Biến Cố</span>
+            <h3 style="color: var(--crimson); font-size: 1.25rem;">5. Mất Mùa</h3>
+            <p style="margin-top: 0.5rem;">Mất toàn bộ hiệu lực/phần thưởng tại <strong>ô tiếp theo</strong> mà bạn di chuyển tới.</p>
+          </div>
+          <div class="panel-card" style="border-top: 4px solid #C2410C;">
+            <span class="tile-badge tile-thu-thach">Thẻ Biến Cố</span>
+            <h3 style="color: var(--crimson); font-size: 1.25rem;">6. Ứng Phó Thiên Tai</h3>
+            <p style="margin-top: 0.5rem;">Toàn bộ người chơi bị <strong>trừ 1 điểm</strong> (lũ lụt/hạn hán). Riêng người rút thẻ tung xúc xắc: số chẵn được miễn trừ, số lẻ bị trừ thêm 1 điểm.</p>
+          </div>
+          <div class="panel-card" style="border-top: 4px solid #C2410C;">
+            <span class="tile-badge tile-thu-thach">Thẻ Biến Cố</span>
+            <h3 style="color: var(--crimson); font-size: 1.25rem;">7. Chọn Người Kế Vị</h3>
+            <p style="margin-top: 0.5rem;">Chỉ định một người chơi khác nhận thay toàn bộ hình phạt (trừ điểm hoặc mất lượt) của bạn ở lượt kế tiếp. Nếu không chọn, tự chịu <strong>trừ 2 điểm</strong>.</p>
+          </div>
+          <div class="panel-card" style="border-top: 4px solid #C2410C;">
+            <span class="tile-badge tile-thu-thach">Thẻ Biến Cố</span>
+            <h3 style="color: var(--crimson); font-size: 1.25rem;">8. Phát Hiện Tham Quan</h3>
+            <p style="margin-top: 0.5rem;">Bị tịch thu gia sản: <strong>trừ ngay 2 điểm</strong>, đồng thời chuyển 1 điểm trong số đó cho người chơi đang đứng chót bảng.</p>
+          </div>
+          <div class="panel-card" style="border-top: 4px solid #C2410C;">
+            <span class="tile-badge tile-thu-thach">Thẻ Biến Cố</span>
+            <h3 style="color: var(--crimson); font-size: 1.25rem;">9. Khai Thiên Lập Địa</h3>
+            <p style="margin-top: 0.5rem;">Bỏ toàn bộ thẻ đặc quyền đang giữ trên tay để <strong>nhận ngay 2 điểm</strong>, nhưng phải lùi về vạch xuất phát.</p>
+          </div>
+          <div class="panel-card" style="border-top: 4px solid #C2410C;">
+            <span class="tile-badge tile-thu-thach">Thẻ Biến Cố</span>
+            <h3 style="color: var(--crimson); font-size: 1.25rem;">10. Tô Thuế</h3>
+            <p style="margin-top: 0.5rem;">Nộp thuế cho triều đình: trừ số điểm tương ứng với số ô bạn vừa di chuyển ở lượt này (<strong>tối đa trừ 3 điểm</strong>).</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. THẺ LẬT KÈO (8 THẺ NÂNG CẤP TỪ THẺ SỬ KÝ) -->
+      <div id="cat-latkeo" class="card-category-panel" style="display: none;">
+        <p style="text-align: center; color: var(--ink-muted); max-width: 760px; margin: 0 auto 1.8rem; font-size: 0.95rem;">
+          <strong>Thẻ Sử Ký</strong> cũ được chuyển đổi hoàn toàn thành nhóm <strong>Thẻ Lật Kèo</strong> — bộ công cụ chiến thuật giữ trên tay (tối đa 2 thẻ/người), cho phép kích hoạt bất ngờ để hóa giải bất lợi, cướp lợi thế hoặc đảo ngược cục diện vào phút chót:
+        </p>
+        <div class="grid-3">
+          <div class="panel-card" style="border-top: 4px solid #1E5631;">
+            <span class="tile-badge tile-lat-keo">Phòng Thủ / Miễn Nhiễm</span>
+            <h3 style="color: #1E5631; font-size: 1.25rem;">1. Chiếu Cần Vương</h3>
+            <p style="margin-top: 0.5rem;">Kích hoạt ngay khi rút phải thẻ Biến Cố bất lợi: <strong>vô hiệu hóa hoàn toàn</strong> hiệu ứng của thẻ Biến Cố đó và đẩy xuống đáy chồng bài.</p>
+          </div>
+          <div class="panel-card" style="border-top: 4px solid #1E5631;">
+            <span class="tile-badge tile-lat-keo">Phản Đòn / Chuyển Hướng</span>
+            <h3 style="color: #1E5631; font-size: 1.25rem;">2. Vườn Không Nhà Trống</h3>
+            <p style="margin-top: 0.5rem;">Khi bị người khác nhắm làm mục tiêu của thẻ <em>Phản Bội, Soán Ngôi</em> hoặc <em>Chọn Người Kế Vị</em>, bạn chuyển ngược toàn bộ hiệu ứng đó sang một người chơi thứ ba.</p>
+          </div>
+          <div class="panel-card" style="border-top: 4px solid #1E5631;">
+            <span class="tile-badge tile-lat-keo">Bứt Tốc / Nhân Đôi</span>
+            <h3 style="color: #1E5631; font-size: 1.25rem;">3. Hào Khí Đông A</h3>
+            <p style="margin-top: 0.5rem;">Kích hoạt trước khi tung xúc xắc: <strong>nhân đôi số bước di chuyển</strong> trong lượt này. Nếu vượt qua một người chơi khác trên đường đi, lấy của họ 1 điểm.</p>
+          </div>
+          <div class="panel-card" style="border-top: 4px solid #1E5631;">
+            <span class="tile-badge tile-lat-keo">Đảo Ngược Bảng Điểm</span>
+            <h3 style="color: #1E5631; font-size: 1.25rem;">4. Bình Ngô Đại Cáo</h3>
+            <p style="margin-top: 0.5rem;">Chọn một người chơi bất kỳ đang dẫn đầu: <strong>chia đôi phần chênh lệch điểm</strong> giữa hai người và cộng vào điểm của bạn (làm tròn xuống).</p>
+          </div>
+          <div class="panel-card" style="border-top: 4px solid #1E5631;">
+            <span class="tile-badge tile-lat-keo">Tương Tác Tập Thể</span>
+            <h3 style="color: #1E5631; font-size: 1.25rem;">5. Hội Nghị Diên Hồng</h3>
+            <p style="margin-top: 0.5rem;">Kêu gọi cả bàn biểu quyết (Giơ tay <em>"Đánh"</em> hoặc <em>"Hòa"</em>). Nếu đa số chọn "Đánh", tất cả cùng tiến 3 ô và nhận 1 điểm; nếu đa số chọn "Hòa", chỉ mình bạn nhận 3 điểm.</p>
+          </div>
+          <div class="panel-card" style="border-top: 4px solid #1E5631;">
+            <span class="tile-badge tile-lat-keo">Đặt Bẫy Chiến Thuật</span>
+            <h3 style="color: #1E5631; font-size: 1.25rem;">6. Cọc Bạch Đằng</h3>
+            <p style="margin-top: 0.5rem;">Đặt úp thẻ này tại ô bạn đang đứng. Người chơi tiếp theo đi ngang qua hoặc dừng lại tại ô này sẽ lập tức dừng bước, <strong>mất 2 điểm và chuyển 1 điểm cho bạn</strong>.</p>
+          </div>
+          <div class="panel-card" style="border-top: 4px solid #1E5631;">
+            <span class="tile-badge tile-lat-keo">Thao Túng Bài</span>
+            <h3 style="color: #1E5631; font-size: 1.25rem;">7. Sách Lược Binh Thư</h3>
+            <p style="margin-top: 0.5rem;">Xem trước <strong>3 thẻ trên cùng</strong> của chồng bài Biến Cố hoặc Thử Thách, chọn 1 thẻ đặt lại lên đỉnh và đẩy 2 thẻ còn lại xuống đáy chồng bài.</p>
+          </div>
+          <div class="panel-card" style="border-top: 4px solid #1E5631;">
+            <span class="tile-badge tile-lat-keo">Hồi Phục / Cứu Nguy</span>
+            <h3 style="color: #1E5631; font-size: 1.25rem;">8. Lệnh Xá Tội</h3>
+            <p style="margin-top: 0.5rem;">Kích hoạt ngay lập tức để xóa bỏ trạng thái <em>Mất Lượt (Băng Hà)</em> hoặc <em>Mất Hiệu Lực (Mất Mùa)</em>, đồng thời được thưởng thêm <strong>1 lượt tung xúc xắc phụ</strong>.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. THẺ THỬ THÁCH (7 DẠNG THẺ) -->
+      <div id="cat-challenges" class="card-category-panel" style="display: none;">
+        <div class="grid-3">
+          <div class="panel-card" style="border-top: 4px solid #B91C1C;">
+            <span class="tile-badge tile-thu-thach">Thẻ Thử Thách</span>
+            <h3 style="color: var(--crimson); font-size: 1.25rem;">1. Thử Thách Đúng / Sai</h3>
+            <p style="margin-top: 0.5rem;">Trả lời nhanh một nhận định lịch sử Việt Nam là Đúng hay Sai trong vòng <strong>5 giây</strong>. Đúng +1 điểm, sai -1 điểm.</p>
+          </div>
+          <div class="panel-card" style="border-top: 4px solid #B91C1C;">
+            <span class="tile-badge tile-thu-thach">Thẻ Thử Thách</span>
+            <h3 style="color: var(--crimson); font-size: 1.25rem;">2. 7 Di Sản Văn Hóa (15s)</h3>
+            <p style="margin-top: 0.5rem;">Kể tên chính xác <strong>7 di sản văn hóa</strong> (vật thể hoặc phi vật thể) của Việt Nam trong vòng <strong>15 giây</strong>.</p>
+          </div>
+          <div class="panel-card" style="border-top: 4px solid #B91C1C;">
+            <span class="tile-badge tile-thu-thach">Thẻ Thử Thách</span>
+            <h3 style="color: var(--crimson); font-size: 1.25rem;">3. 3 Trận Đánh Thời Lý - Trần</h3>
+            <p style="margin-top: 0.5rem;">Kể tên <strong>3 trận đánh tiêu biểu</strong> thời Lý hoặc thời Trần trong vòng <strong>15 giây</strong> (ví dụ: Như Nguyệt, Bạch Đằng, Đông Bộ Đầu, Chương Dương, Hàm Tử...).</p>
+          </div>
+          <div class="panel-card" style="border-top: 4px solid #991B1B;">
+            <span class="tile-badge tile-nhan-vat">Thẻ Thử Thách</span>
+            <h3 style="color: var(--crimson); font-size: 1.25rem;">4. Nhìn Hình Đoán Nhân Vật / Di Tích</h3>
+            <p style="margin-top: 0.5rem;">Dùng hành động hoặc tối đa 3 từ khóa gợi ý (không nhắc tên) trong <strong>15 giây</strong> để cả bàn đoán; đoán đúng cả hai cùng nhận +1 điểm.</p>
+          </div>
+          <div class="panel-card" style="border-top: 4px solid #991B1B;">
+            <span class="tile-badge tile-nhan-vat">Thẻ Thử Thách</span>
+            <h3 style="color: var(--crimson); font-size: 1.25rem;">5. Sắp Xếp Dòng Thời Gian</h3>
+            <p style="margin-top: 0.5rem;">Sắp xếp đúng thứ tự thời gian của <strong>4 triều đại</strong> hoặc <strong>3 sự kiện lịch sử</strong> trong <strong>15 giây</strong>.</p>
+          </div>
+          <div class="panel-card" style="border-top: 4px solid #991B1B;">
+            <span class="tile-badge tile-nhan-vat">Thẻ Thử Thách</span>
+            <h3 style="color: var(--crimson); font-size: 1.25rem;">6. Vua Nào Việc Nấy</h3>
+            <p style="margin-top: 0.5rem;">Nối đúng tên vị vua với công lao hoặc niên hiệu tương ứng (ví dụ: <em>Lý Công Uẩn – Dời đô về Thăng Long</em>).</p>
+          </div>
+          <div class="panel-card" style="border-top: 4px solid #991B1B;">
+            <span class="tile-badge tile-nhan-vat">Thẻ Thử Thách</span>
+            <h3 style="color: var(--crimson); font-size: 1.25rem;">7. Giải Mã Câu Nói Nổi Tiếng</h3>
+            <p style="margin-top: 0.5rem;">Hoàn thành chính xác vế còn thiếu của một câu nói lịch sử kinh điển trong <strong>10 giây</strong> (ví dụ: <em>"Đầu thần chưa rơi xuống đất..."</em>).</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. THẺ NHÂN VẬT (13 NHÂN VẬT LỊCH SỬ LÝ – TRẦN ĐẦY ĐỦ NIÊN ĐẠI) -->
+      <div id="cat-characters" class="card-category-panel" style="display: none;">
+        <div class="grid-4">
+          <div class="char-card">
+            <div class="char-header">
+              <div class="char-role">Tiền Lê – Đầu Nhà Lý • 938 – 1025</div>
+              <h3>1. Sư Vạn Hạnh</h3>
+            </div>
+            <div class="char-body">
+              <p class="char-bio"><strong>Vai trò:</strong> Thiền sư, Quốc sư cố vấn khai sáng nhà Lý, phò tá Lý Công Uẩn lên ngôi.</p>
+              <div class="ability-box">
+                <strong>Tiên Tri:</strong> Đầu mỗi lượt, được quyền xem trước 1 thẻ trên đỉnh chồng bài Biến Cố và quyết định giữ nguyên hoặc đẩy xuống đáy.
+              </div>
+            </div>
+          </div>
+
+          <div class="char-card">
+            <div class="char-header">
+              <div class="char-role">Đầu Nhà Trần • 1218 – 1277</div>
+              <h3>2. Trần Thái Tông</h3>
+            </div>
+            <div class="char-body">
+              <p class="char-bio"><strong>Vai trò:</strong> Vị vua sáng lập nhà Trần, lãnh đạo kháng chiến chống Nguyên – Mông lần thứ nhất.</p>
+              <div class="ability-box">
+                <strong>Nhường Ngôi Khai Sáng:</strong> Miễn nhiễm 1 lần trong ván với hiệu ứng của thẻ <em>Soán Ngôi</em> hoặc <em>Phản Loạn</em>.
+              </div>
+            </div>
+          </div>
+
+          <div class="char-card">
+            <div class="char-header">
+              <div class="char-role">Nhà Trần • 1272 – 1346</div>
+              <h3>3. Mạc Đĩnh Chi</h3>
+            </div>
+            <div class="char-body">
+              <p class="char-bio"><strong>Vai trò:</strong> Lưỡng quốc Trạng nguyên, nhà ngoại giao kiệt xuất thời Trần.</p>
+              <div class="ability-box">
+                <strong>Đối Đáp Thần Tốc:</strong> Được cộng thêm <strong>5 giây</strong> vào thời gian giới hạn cho mọi Thẻ Thử Thách tính giờ (ví dụ thẻ 15s thành 20s).
+              </div>
+            </div>
+          </div>
+
+          <div class="char-card">
+            <div class="char-header">
+              <div class="char-role">Nhà Trần • ? – 1285</div>
+              <h3>4. Trần Bình Trọng</h3>
+            </div>
+            <div class="char-body">
+              <p class="char-bio"><strong>Vai trò:</strong> Danh tướng nhà Trần trong kháng chiến chống Nguyên – Mông, nổi tiếng với câu nói "Ta thà làm quỷ nước Nam...".</p>
+              <div class="ability-box">
+                <strong>Khí Tiết Bất Khuất:</strong> Miễn nhiễm hoàn toàn với việc bị nhận điểm trừ lây từ thẻ <em>Phản Bội</em> hoặc <em>Chọn Người Kế Vị</em> của người chơi khác.
+              </div>
+            </div>
+          </div>
+
+          <div class="char-card">
+            <div class="char-header">
+              <div class="char-role">Cuối Lý – Đầu Trần • 1218 – 1278</div>
+              <h3>5. Lý Chiêu Hoàng</h3>
+            </div>
+            <div class="char-body">
+              <p class="char-bio"><strong>Vai trò:</strong> Vị vua cuối cùng của nhà Lý và là nữ hoàng duy nhất trong lịch sử phong kiến Việt Nam.</p>
+              <div class="ability-box">
+                <strong>Chuyển Giao Vương Triều:</strong> Khi rút phải thẻ <em>Soán Ngôi</em>, thay vì buộc phải đổi với người thấp điểm nhất, bạn được tự do chọn bất kỳ người chơi nào để đổi điểm.
+              </div>
+            </div>
+          </div>
+
+          <div class="char-card">
+            <div class="char-header">
+              <div class="char-role">Nhà Lý • 974 – 1028</div>
+              <h3>6. Lý Công Uẩn</h3>
+            </div>
+            <div class="char-body">
+              <p class="char-bio"><strong>Vai trò:</strong> Vua Lý Thái Tổ – người sáng lập nhà Lý và ban Chiếu dời đô về Thăng Long (1010).</p>
+              <div class="ability-box">
+                <strong>Năng lực:</strong> Một lần nhận thêm <strong>20 Điểm Đại Việt</strong> khi đi qua ô Khởi Hành.
+              </div>
+            </div>
+          </div>
+
+          <div class="char-card">
+            <div class="char-header">
+              <div class="char-role">Nhà Lý • 1019 – 1105</div>
+              <h3>7. Lý Thường Kiệt</h3>
+            </div>
+            <div class="char-body">
+              <p class="char-bio"><strong>Vai trò:</strong> Danh tướng kiệt xuất thời Lý, chỉ huy phòng tuyến sông Như Nguyệt đánh bại quân Tống.</p>
+              <div class="ability-box">
+                <strong>Năng lực:</strong> Một lần được cộng <strong>10 điểm</strong> nếu hoàn thành thử thách về quân sự.
+              </div>
+            </div>
+          </div>
+
+          <div class="char-card">
+            <div class="char-header">
+              <div class="char-role">Nhà Lý • 1044 – 1117</div>
+              <h3>8. Ỷ Lan</h3>
+            </div>
+            <div class="char-body">
+              <p class="char-bio"><strong>Vai trò:</strong> Nguyên phi, Hoàng thái hậu thời Lý, hai lần nhiếp chính giúp vua trị nước an dân.</p>
+              <div class="ability-box">
+                <strong>Năng lực:</strong> Một lần <strong>đổi thẻ Thử Thách</strong> nếu chưa tự tin trả lời.
+              </div>
+            </div>
+          </div>
+
+          <div class="char-card">
+            <div class="char-header">
+              <div class="char-role">Nhà Lý • 1106 – 1179</div>
+              <h3>9. Tô Hiến Thành</h3>
+            </div>
+            <div class="char-body">
+              <p class="char-bio"><strong>Vai trò:</strong> Phụ chính đại thần nổi tiếng liêm chính, hết lòng phò tá vua nhỏ tuổi thời Lý.</p>
+              <div class="ability-box">
+                <strong>Năng lực:</strong> Một lần <strong>xin gợi ý</strong> từ quản trò trong thử thách kiến thức.
+              </div>
+            </div>
+          </div>
+
+          <div class="char-card">
+            <div class="char-header">
+              <div class="char-role">Nhà Trần • 1228 – 1300</div>
+              <h3>10. Trần Hưng Đạo</h3>
+            </div>
+            <div class="char-body">
+              <p class="char-bio"><strong>Vai trò:</strong> Hưng Đạo Đại Vương – Quốc công Tiết chế thống lĩnh quân dân nhà Trần ba lần đánh thắng quân Nguyên – Mông.</p>
+              <div class="ability-box">
+                <strong>Năng lực:</strong> Một lần <strong>nhân đôi điểm</strong> thưởng khi hoàn thành thử thách Chiến trận.
+              </div>
+            </div>
+          </div>
+
+          <div class="char-card">
+            <div class="char-header">
+              <div class="char-role">Nhà Trần • 1258 – 1308</div>
+              <h3>11. Trần Nhân Tông</h3>
+            </div>
+            <div class="char-body">
+              <p class="char-bio"><strong>Vai trò:</strong> Vua thời Trần, lãnh đạo kháng chiến chống Nguyên – Mông lần 2 và lần 3, sau xuất gia sáng lập Thiền phái Trúc Lâm.</p>
+              <div class="ability-box">
+                <strong>Năng lực:</strong> Một lần <strong>bỏ qua hiệu ứng bất lợi</strong> của thẻ Biến Cố.
+              </div>
+            </div>
+          </div>
+
+          <div class="char-card">
+            <div class="char-header">
+              <div class="char-role">Nhà Trần • 1241 – 1294</div>
+              <h3>12. Trần Quang Khải</h3>
+            </div>
+            <div class="char-body">
+              <p class="char-bio"><strong>Vai trò:</strong> Thượng tướng Thái sư thời Trần, danh tướng lập đại công tại chiến thắng Chương Dương – Hàm Tử.</p>
+              <div class="ability-box">
+                <strong>Năng lực:</strong> Một lần nhận thêm <strong>10 điểm</strong> sau khi hoàn thành thử thách.
+              </div>
+            </div>
+          </div>
+
+          <div class="char-card">
+            <div class="char-header">
+              <div class="char-role">Nhà Trần • 1267 – 1285</div>
+              <h3>13. Trần Quốc Toản</h3>
+            </div>
+            <div class="char-body">
+              <p class="char-bio"><strong>Vai trò:</strong> Hoài Văn Hầu – thiếu niên anh hùng thời Trần bóp nát quả cam, tự lập đội quân đánh giặc Nguyên.</p>
+              <div class="ability-box">
+                <strong>Năng lực:</strong> Một lần được <strong>tung lại xúc xắc</strong>.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="page-footer-nav">
+        <button class="btn-outline-dark" onclick="navigateTo('page-board')">&larr; Quay lại: Phần 2 – Bàn Cờ &amp; Dấu Ấn</button>
+        <button class="btn-gold" onclick="navigateTo('page-rules')">Tiếp theo: Phần 4 – Luật Chơi, Tính Điểm &amp; Hướng Dẫn Nhanh &rarr;</button>
+      </div>
+    </div>
+  </main>
+
+  <!-- =====================================================================
+       PHẦN 4 (ĐÃ GỘP PHẦN 5 VÀO PHẦN 4): LUẬT CHƠI, TÍNH ĐIỂM & HƯỚNG DẪN SIÊU NHANH
+       ===================================================================== -->
+  <main id="page-rules" class="page-section">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-eyebrow">Phần 4 • Luật Chơi Chi Tiết, Bảng Tính Điểm &amp; Phụ Lục Nhanh</div>
+        <h2 class="section-title">Luật Chơi, Tính Điểm &amp; Hướng Dẫn Siêu Nhanh</h2>
+        <div class="divider-ornament"></div>
+      </div>
+
+      <!-- 4.1 Trình tự 1 lượt & Ví dụ thực tế -->
+      <div class="grid-2">
+        <div>
+          <h3 style="font-size: 1.45rem; color: var(--crimson); margin-bottom: 1.15rem;">A. Trình Tự Một Lượt (5 Bước)</h3>
+          <div class="step-row">
+            <div class="step-circle">1</div>
+            <div>
+              <strong>Bước 1 – Chuẩn bị &amp; Tung xúc xắc:</strong> Có thể kích hoạt thẻ Lật Kèo trước lượt (như <em>Hào Khí Đông A</em> hoặc nội tại <em>Sư Vạn Hạnh</em>), sau đó tung 1 hoặc 2 xúc xắc.
+            </div>
+          </div>
+          <div class="step-row">
+            <div class="step-circle">2</div>
+            <div>
+              <strong>Bước 2 – Di chuyển:</strong> Di chuyển quân cờ theo chiều kim đồng hồ đúng số ô (kiểm tra bẫy <em>Cọc Bạch Đằng</em> nếu đi ngang qua).
+            </div>
+          </div>
+          <div class="step-row">
+            <div class="step-circle">3</div>
+            <div>
+              <strong>Bước 3 – Thực hiện ô:</strong> Làm theo hướng dẫn của ô dừng chân: rút <strong>Thẻ Biến Cố</strong>, nhận <strong>Thẻ Lật Kèo</strong>, thực hiện <strong>Thẻ Thử Thách</strong> hoặc thu thập <strong>Dấu Ấn</strong>.
+            </div>
+          </div>
+          <div class="step-row">
+            <div class="step-circle">4</div>
+            <div>
+              <strong>Bước 4 – Kích hoạt Lật Kèo / Nhân Vật:</strong> Dùng Thẻ Lật Kèo trên tay (như <em>Chiếu Cần Vương, Vườn Không Nhà Trống, Lệnh Xá Tội</em>) hoặc kỹ năng Nhân Vật để hóa giải bất lợi hoặc phản đòn.
+            </div>
+          </div>
+          <div class="step-row">
+            <div class="step-circle">5</div>
+            <div>
+              <strong>Bước 5 – Kết thúc lượt:</strong> Cập nhật Điểm Đại Việt, giữ tối đa 2 Thẻ Lật Kèo trên tay và chuyển lượt cho người kế tiếp.
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <h3 style="font-size: 1.45rem; color: var(--crimson); margin-bottom: 1.15rem;">B. Ví Dụ Tình Huống Lật Kèo</h3>
+          <div class="panel-card" style="border-left: 4px solid var(--crimson); margin-bottom: 1.25rem;">
+            <p style="font-size: 0.94rem;">
+              Bạn <strong>An</strong> đang dẫn đầu bảng với 25 điểm thì vô tình đi vào ô Biến Cố và rút phải thẻ <strong>Soán Ngôi</strong> (buộc đổi điểm với người thấp điểm nhất).
+            </p>
+            <p style="font-size: 0.94rem;">
+              May mắn thay, trên tay An đang giữ thẻ Lật Kèo <strong>Vườn Không Nhà Trống</strong> (hoặc đang sở hữu nhân vật <strong>Trần Thái Tông</strong>). An kích hoạt ngay thẻ để chuyển hiệu ứng <em>Soán Ngôi</em> sang người chơi thứ ba (hoặc miễn nhiễm hoàn toàn), bảo toàn ngôi đầu bảng một cách ngoạn mục!
+            </p>
+          </div>
+
+          <div class="panel-card" style="border-left: 4px solid #1E5631;">
+            <h4 style="color: #1E5631; font-size: 1.15rem; margin-bottom: 0.45rem;">Quy Tắc Cân Bằng Bộ Thẻ Tiêu Chuẩn</h4>
+            <ul style="padding-left: 1.2rem; font-size: 0.9rem; color: var(--ink-muted);">
+              <li><strong>20 Thẻ Biến Cố:</strong> 10 loại × 2 thẻ/loại.</li>
+              <li><strong>16 Thẻ Lật Kèo:</strong> 8 loại × 2 thẻ/loại (mỗi người giữ tối đa 2 thẻ trên tay).</li>
+              <li><strong>25–30 Thẻ Thử Thách:</strong> Phối hợp 7 dạng câu hỏi &amp; tương tác 5–15 giây.</li>
+              <li><strong>8–13 Thẻ Nhân Vật:</strong> Chọn 1 nhân vật đầu ván hoặc rút thêm tại ô Nhân Vật.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4.2 BẢNG TÍNH ĐIỂM TỔNG KẾT -->
+      <div class="calculator-box">
+        <div style="text-align: center;">
+          <span class="badge-pill" style="margin-bottom: 0.7rem;">C. Công Cụ Tính Điểm Tổng Kết Cuối Ván</span>
+          <h3 style="font-size: 1.85rem; color: var(--gold);">Bảng Tính Điểm Chung Cuộc</h3>
+          <p style="font-size: 0.92rem; color: var(--gold-light); margin-top: 0.35rem;">
+            Kết thúc sau 30–50 phút hoặc khi tất cả người chơi đã đi đủ 2 vòng bàn cờ. Nếu hòa điểm, người có nhiều Dấu Ấn khác nhau hơn thắng.
+          </p>
+        </div>
+
+        <div class="calc-grid">
+          <div class="calc-input-group">
+            <label for="inpPoints">Tổng Điểm Đại Việt đã thu thập</label>
+            <input type="number" id="inpPoints" min="0" max="1000" value="60" oninput="calculateScore()" />
+          </div>
+          <div class="calc-input-group">
+            <label for="inpSeals">Số Dấu Ấn Lịch Sử khác nhau (0–4 loại)</label>
+            <select id="inpSeals" onchange="calculateScore()">
+              <option value="0">0 loại Dấu Ấn (0 điểm)</option>
+              <option value="1">1 loại Dấu Ấn (+30 điểm)</option>
+              <option value="2">2 loại Dấu Ấn (+60 điểm)</option>
+              <option value="3" selected>3 loại Dấu Ấn (+90 điểm)</option>
+              <option value="4">Đủ bộ 4 loại (+120đ + 30đ thưởng = +150 điểm)</option>
+            </select>
+          </div>
+          <div class="calc-input-group">
+            <label for="inpChars">Số thẻ Nhân Vật đang sở hữu (tối đa 20đ)</label>
+            <select id="inpChars" onchange="calculateScore()">
+              <option value="0">0 thẻ (0 điểm)</option>
+              <option value="1">1 thẻ (+10 điểm)</option>
+              <option value="2" selected>2 thẻ (+20 điểm)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="total-score-display">
+          <div style="font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--gold-light);">Tổng Điểm Chung Cuộc</div>
+          <div id="totalScoreOutput" style="font-family: 'Playfair Display', serif; font-size: 2.85rem; font-weight: 800; color: var(--gold); line-height: 1.2;">170 Điểm</div>
+          <div id="scoreBreakdown" style="font-size: 0.9rem; color: var(--ivory); margin-top: 0.35rem;">(60 Điểm Đại Việt + 90 điểm Dấu Ấn + 20 điểm Thẻ Nhân Vật)</div>
+        </div>
+      </div>
+
+      <!-- 4.3 PHỤ LỤC LUẬT CHƠI SIÊU NHANH (ĐÃ GỘP TỪ PHẦN 5 VÀO PHẦN 4) -->
+      <div class="quick-guide-box">
+        <div style="text-align: center; border-bottom: 1px solid rgba(212, 175, 55, 0.5); padding-bottom: 1rem; margin-bottom: 1.35rem;">
+          <span style="font-size: 0.8rem; letter-spacing: 0.14em; color: var(--gold-light); text-transform: uppercase;">D. Phụ Lục Tóm Tắt – In Kèm Bộ Trò Chơi</span>
+          <h3 style="font-size: 1.75rem; color: var(--gold); margin-top: 0.25rem;">Luật Chơi Siêu Nhanh (6 Bước)</h3>
+        </div>
+        <div class="grid-2" style="gap: 1.2rem;">
+          <div style="background: rgba(255,255,255,0.06); padding: 1rem 1.2rem; border-radius: 10px; border-left: 3px solid var(--gold);">
+            <strong>Bước 1 – Khởi đầu:</strong> Đặt quân cờ tại ô Khởi Hành. Mỗi người nhận 1 Thẻ Nhân Vật và 1 Thẻ Lật Kèo bí mật trên tay.
+          </div>
+          <div style="background: rgba(255,255,255,0.06); padding: 1rem 1.2rem; border-radius: 10px; border-left: 3px solid var(--gold);">
+            <strong>Bước 2 – Tung xúc xắc:</strong> Đến lượt thì tung xúc xắc và di chuyển quân cờ theo chiều kim đồng hồ đúng số ô.
+          </div>
+          <div style="background: rgba(255,255,255,0.06); padding: 1rem 1.2rem; border-radius: 10px; border-left: 3px solid var(--gold);">
+            <strong>Bước 3 – Thực hiện ô:</strong> Dừng ô nào làm nhiệm vụ ô đó: rút <em>Thẻ Biến Cố</em>, nhận <em>Thẻ Lật Kèo</em> hoặc vượt <em>Thử Thách</em>.
+          </div>
+          <div style="background: rgba(255,255,255,0.06); padding: 1rem 1.2rem; border-radius: 10px; border-left: 3px solid var(--gold);">
+            <strong>Bước 4 – Lật kèo chiến thuật:</strong> Kích hoạt <em>Thẻ Lật Kèo</em> hoặc kỹ năng <em>Nhân Vật</em> đúng thời điểm để né phạt, đặt bẫy hoặc đảo ngược điểm số.
+          </div>
+          <div style="background: rgba(255,255,255,0.06); padding: 1rem 1.2rem; border-radius: 10px; border-left: 3px solid var(--gold);">
+            <strong>Bước 5 – Tích lũy Dấu Ấn:</strong> Hoàn thành thử thách tại các ô Dấu Ấn để thu thập đủ 4 loại Dấu Ấn Lịch Sử.
+          </div>
+          <div style="background: rgba(255,255,255,0.06); padding: 1rem 1.2rem; border-radius: 10px; border-left: 3px solid var(--gold);">
+            <strong>Bước 6 – Phân định thắng thua:</strong> Hết giờ hoặc đủ 2 vòng thì cộng tổng điểm. Người có tổng điểm cao nhất giành chiến thắng!
+          </div>
+        </div>
+      </div>
+
+      <div class="page-footer-nav">
+        <button class="btn-outline-dark" onclick="navigateTo('page-cards')">&larr; Quay lại: Phần 3 – Kho Thẻ Bài</button>
+        <button class="btn-gold" onclick="navigateTo('page-home')">Về Lại Phần 1 – Trang Đầu ↺</button>
+      </div>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div style="font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--gold); font-weight: 800;">
+      ĐẠI VIỆT KÝ SỰ – CHUYỆN XƯA LÝ-TRẦN
+    </div>
+    <p style="font-size: 0.94rem; margin-top: 0.35rem; color: var(--gold-light);">
+      “Mỗi bước đi – Một dấu son lịch sử.”
+    </p>
+  </footer>
+
+  <!-- JAVASCRIPT FOR MULTI-PAGE ROUTING & INTERACTIVE BOARD GAME ENGINE -->
+  <script>
+    function navigateTo(pageId) {
+      document.querySelectorAll('.page-section').forEach(sec => sec.classList.remove('active'));
+      const target = document.getElementById(pageId);
+      if (target) target.classList.add('active');
+
+      document.querySelectorAll('.nav-btn').forEach(btn => {
+        btn.classList.remove('active');
+        if (btn.getAttribute('data-target') === pageId) btn.classList.add('active');
+      });
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function switchCardCategory(categoryId, btnElement) {
+      document.querySelectorAll('.card-category-panel').forEach(panel => panel.style.display = 'none');
+      document.getElementById(categoryId).style.display = 'block';
+      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+      btnElement.classList.add('active');
+    }
+
+    function calculateScore() {
+      const pts = Math.max(0, parseInt(document.getElementById('inpPoints').value) || 0);
+      const seals = parseInt(document.getElementById('inpSeals').value) || 0;
+      const chars = parseInt(document.getElementById('inpChars').value) || 0;
+
+      const sealPoints = (seals * 30) + (seals === 4 ? 30 : 0);
+      const charPoints = Math.min(chars * 10, 20);
+      const total = pts + sealPoints + charPoints;
+
+      document.getElementById('totalScoreOutput').textContent = `${total} Điểm`;
+      document.getElementById('scoreBreakdown').textContent = 
+        `(${pts} Điểm Đại Việt + ${sealPoints} điểm Dấu Ấn + ${charPoints} điểm Thẻ Nhân Vật)`;
+    }
+
+    /* =========================================================================
+       ENGINE BOARD GAME TRỰC TUYẾN (32 Ô, THẺ LẬT KÈO, BIẾN CỐ, THỬ THÁCH, NHÂN VẬT)
+       ========================================================================= */
+    let gameAudioCtx = null;
+    let isSoundOn = true;
+
+    function playToneSound(freqStart, freqEnd, duration, type = 'triangle', volume = 0.2) {
+      if (!isSoundOn) return;
+      try {
+        if (!gameAudioCtx) gameAudioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        if (gameAudioCtx.state === 'suspended') gameAudioCtx.resume();
+        const osc = gameAudioCtx.createOscillator();
+        const gain = gameAudioCtx.createGain();
+        osc.type = type;
+        osc.frequency.setValueAtTime(freqStart, gameAudioCtx.currentTime);
+        if (freqEnd) osc.frequency.exponentialRampToValueAtTime(freqEnd, gameAudioCtx.currentTime + duration);
+        gain.gain.setValueAtTime(volume, gameAudioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, gameAudioCtx.currentTime + duration);
+        osc.connect(gain);
+        gain.connect(gameAudioCtx.destination);
+        osc.start();
+        osc.stop(gameAudioCtx.currentTime + duration + 0.02);
+      } catch (e) {}
+    }
+
+    function playSuccessChime() {
+      [523.25, 659.25, 783.99, 1046.5].forEach((f, i) => {
+        setTimeout(() => playToneSound(f, null, 0.35, 'sine', 0.15), i * 75);
+      });
+    }
+
+    function toggleGameSound() {
+      isSoundOn = !isSoundOn;
+      document.getElementById('soundToggleBtn').textContent = isSoundOn ? '🔊 Âm Thanh: Bật' : '🔇 Âm Thanh: Tắt';
+    }
+
+    const PLAYER_TOKENS = [
+      { icon: '🐉', label: 'Rồng Thăng Long', bg: '#8B1E1E' },
+      { icon: '🪷', label: 'Hoa Sen Lý-Trần', bg: '#4A5D23' },
+      { icon: '🥁', label: 'Trống Đồng', bg: '#9A7B16' },
+      { icon: '🛡️', label: 'Khiên Bạch Đằng', bg: '#1E3A8A' },
+      { icon: '📜', label: 'Chiếu Dời Đô', bg: '#6B3E26' },
+      { icon: '🏯', label: 'Khuê Văn Các', bg: '#B91C1C' }
+    ];
+
+    const SEAL_CATALOG = {
+      kienthiet: { id: 'kienthiet', name: 'Kiến Thiết', icon: '🏯' },
+      vanhien: { id: 'vanhien', name: 'Văn Hiến', icon: '🪷' },
+      tritue: { id: 'tritue', name: 'Trí Tuệ', icon: '📜' },
+      baove: { id: 'baove', name: 'Bảo Vệ', icon: '🛡️' }
+    };
+
+    // Bàn cờ 32 ô (Thay ô Sử Ký thành ô Lật Kèo)
+    const BOARD_32_TILES = [
+      { idx: 0, type: 'khoi-hanh', title: 'Khởi Hành', sub: 'Kinh Đô', icon: '🥁', seal: null },
+      { idx: 1, type: 'nhan-vat', title: 'Nhân Vật', sub: 'Danh Nhân', icon: '👑', seal: null },
+      { idx: 2, type: 'bien-co', title: 'Biến Cố', sub: 'Thời Cuộc', icon: '⚡', seal: null },
+      { idx: 3, type: 'dau-an', title: 'Dấu Ấn', sub: 'Kiến Thiết', icon: '🏯', seal: 'kienthiet' },
+      { idx: 4, type: 'lat-keo', title: 'Lật Kèo', sub: 'Mưu Lược', icon: '🃏', seal: null },
+      { idx: 5, type: 'nhan-vat', title: 'Nhân Vật', sub: 'Anh Hùng', icon: '👑', seal: null },
+      { idx: 6, type: 'bien-co', title: 'Biến Cố', sub: 'Vận Hội', icon: '⚡', seal: null },
+      { idx: 7, type: 'thu-thach', title: 'Thử Thách', sub: 'Ứng Đối', icon: '🎭', seal: 'tritue' },
+      { idx: 8, type: 'nghi-chan', title: 'Nghỉ Chân', sub: 'Thăng Long', icon: '🪷', seal: null },
+
+      { idx: 9, type: 'nhan-vat', title: 'Nhân Vật', sub: 'Hiền Tài', icon: '👑', seal: null },
+      { idx: 10, type: 'bien-co', title: 'Biến Cố', sub: 'Tin Báo', icon: '⚡', seal: null },
+      { idx: 11, type: 'dau-an', title: 'Dấu Ấn', sub: 'Văn Hiến', icon: '🪷', seal: 'vanhien' },
+      { idx: 12, type: 'lat-keo', title: 'Lật Kèo', sub: 'Cơ Biến', icon: '🃏', seal: null },
+      { idx: 13, type: 'nhan-vat', title: 'Nhân Vật', sub: 'Tướng Lĩnh', icon: '👑', seal: null },
+      { idx: 14, type: 'bien-co', title: 'Biến Cố', sub: 'Chiếu Chỉ', icon: '⚡', seal: null },
+      { idx: 15, type: 'thu-thach', title: 'Thử Thách', sub: 'Khí Phách', icon: '🎭', seal: 'kienthiet' },
+      { idx: 16, type: 'nghi-chan', title: 'Nghỉ Chân', sub: 'Hồ Gươm', icon: '🪷', seal: null },
+
+      { idx: 17, type: 'thu-thach', title: 'Thử Thách', sub: 'Diên Hồng', icon: '🎭', seal: 'baove' },
+      { idx: 18, type: 'bien-co', title: 'Biến Cố', sub: 'Binh Biến', icon: '⚡', seal: null },
+      { idx: 19, type: 'dau-an', title: 'Dấu Ấn', sub: 'Trí Tuệ', icon: '📜', seal: 'tritue' },
+      { idx: 20, type: 'lat-keo', title: 'Lật Kèo', sub: 'Đông A', icon: '🃏', seal: null },
+      { idx: 21, type: 'thu-thach', title: 'Thử Thách', sub: 'Hùng Biện', icon: '🎭', seal: 'tritue' },
+      { idx: 22, type: 'bien-co', title: 'Biến Cố', sub: 'Thiên Tai', icon: '⚡', seal: null },
+      { idx: 23, type: 'nhan-vat', title: 'Nhân Vật', sub: 'Minh Quân', icon: '👑', seal: null },
+      { idx: 24, type: 'nghi-chan', title: 'Nghỉ Chân', sub: 'Yên Tử', icon: '🪷', seal: null },
+
+      { idx: 25, type: 'thu-thach', title: 'Thử Thách', sub: 'Sử Thi', icon: '🎭', seal: 'vanhien' },
+      { idx: 26, type: 'bien-co', title: 'Biến Cố', sub: 'Tô Thuế', icon: '⚡', seal: null },
+      { idx: 27, type: 'dau-an', title: 'Dấu Ấn', sub: 'Bảo Vệ', icon: '🛡️', seal: 'baove' },
+      { idx: 28, type: 'lat-keo', title: 'Lật Kèo', sub: 'Bạch Đằng', icon: '🃏', seal: null },
+      { idx: 29, type: 'thu-thach', title: 'Thử Thách', sub: 'Khải Hoàn', icon: '🎭', seal: 'kienthiet' },
+      { idx: 30, type: 'bien-co', title: 'Biến Cố', sub: 'Tham Quan', icon: '⚡', seal: null },
+      { idx: 31, type: 'nhan-vat', title: 'Nhân Vật', sub: 'Khai Quốc', icon: '👑', seal: null }
+    ];
+
+    // 10 Thẻ Biến Cố từ Word
+    const GAME_BIEN_CO = [
+      { id: 'phan_boi', title: 'Phản Bội', desc: 'Nhận điểm trừ thay cho một người chơi khác (hoặc chuyển 2 điểm trừ của bản thân sang người khác).' },
+      { id: 'bang_ha', title: 'Băng Hà', desc: 'Mất 1 lượt di chuyển kế tiếp để triều đình tổ chức quốc tang.' },
+      { id: 'phan_loan', title: 'Phản Loạn', desc: 'Lập tức quay trở về ô xuất phát ban đầu (giữ nguyên điểm số hiện có).' },
+      { id: 'soan_ngoi', title: 'Soán Ngôi', desc: 'Bắt buộc đổi toàn bộ điểm số hiện tại của bạn với người chơi đang có số điểm thấp nhất bàn.' },
+      { id: 'mat_mua', title: 'Mất Mùa', desc: 'Mất toàn bộ hiệu lực/phần thưởng tại ô tiếp theo mà bạn di chuyển tới.' },
+      { id: 'thien_tai', title: 'Ứng Phó Thiên Tai', desc: 'Toàn bộ người chơi bị trừ 1 điểm. Riêng bạn tung xúc xắc: số chẵn miễn trừ, số lẻ trừ thêm 1 điểm.' },
+      { id: 'ke_vi', title: 'Chọn Người Kế Vị', desc: 'Chỉ định một người chơi khác nhận thay hình phạt của bạn ở lượt kế tiếp. Nếu không chọn, tự chịu trừ 2 điểm.' },
+      { id: 'tham_quan', title: 'Phát Hiện Tham Quan', desc: 'Bị tịch thu gia sản: trừ ngay 2 điểm, đồng thời chuyển 1 điểm trong số đó cho người chơi đứng chót bảng.' },
+      { id: 'khai_thien', title: 'Khai Thiên Lập Địa', desc: 'Bỏ toàn bộ Thẻ Lật Kèo đang giữ trên tay để nhận ngay 2 điểm, nhưng phải lùi về vạch xuất phát.' },
+      { id: 'to_thue', title: 'Tô Thuế', desc: 'Nộp thuế cho triều đình: trừ số điểm tương ứng với số ô bạn vừa di chuyển ở lượt này (tối đa trừ 3 điểm).' }
+    ];
+
+    // 8 Thẻ Lật Kèo từ Word
+    const GAME_LAT_KEO = [
+      { id: 'chieu_can_vuong', title: 'Chiếu Cần Vương', type: 'Phòng thủ', desc: 'Kích hoạt ngay khi rút phải thẻ Biến Cố bất lợi: vô hiệu hóa hoàn toàn hiệu ứng của thẻ Biến Cố đó.' },
+      { id: 'vuon_khong', title: 'Vườn Không Nhà Trống', type: 'Phản đòn', desc: 'Khi bị nhắm bởi thẻ Phản Bội, Soán Ngôi hoặc Chọn Người Kế Vị, chuyển ngược hiệu ứng sang người chơi thứ ba.' },
+      { id: 'hao_khi_dong_a', title: 'Hào Khí Đông A', type: 'Bứt tốc (x2)', desc: 'Kích hoạt trước khi tung xúc xắc: nhân đôi số bước di chuyển lượt này. Vượt qua người chơi khác lấy của họ 1 điểm.' },
+      { id: 'binh_ngo', title: 'Bình Ngô Đại Cáo', type: 'Đảo ngược điểm', desc: 'Chọn người chơi dẫn đầu: chia đôi phần chênh lệch điểm giữa hai người và cộng vào điểm của bạn.' },
+      { id: 'dien_hong', title: 'Hội Nghị Diên Hồng', type: 'Biểu quyết', desc: 'Biểu quyết Đánh/Hòa: Đa số Đánh cả bàn tiến 3 ô & +1 điểm; đa số Hòa chỉ mình bạn nhận +3 điểm.' },
+      { id: 'coc_bach_dang', title: 'Cọc Bạch Đằng', type: 'Đặt bẫy tại ô', desc: 'Đặt bẫy tại ô đang đứng. Người chơi tiếp theo đi qua/dừng tại đây mất 2 điểm và chuyển 1 điểm cho bạn.' },
+      { id: 'binh_thu', title: 'Sách Lược Binh Thư', type: 'Thao túng bài', desc: 'Xem trước 3 thẻ trên cùng chồng bài Biến Cố/Thử Thách và sắp xếp lại thứ tự.' },
+      { id: 'lenh_xa_toi', title: 'Lệnh Xá Tội', type: 'Hồi phục', desc: 'Xóa bỏ ngay trạng thái Mất Lượt (Băng Hà) hoặc Mất Mùa và nhận thêm 1 lượt tung xúc xắc phụ.' }
+    ];
+
+    // 7 Dạng Thẻ Thử Thách từ Word
+    const GAME_THU_THACH = [
+      { title: 'Thử Thách Đúng / Sai (5s)', time: 5, pts: 2, prompt: 'Nhận định: "Chiếu dời đô được vua Lý Công Uẩn ban hành vào năm 1010." — Đúng hay Sai? (Đúng +2đ, Sai -1đ)' },
+      { title: '7 Di Sản Văn Hóa (15s)', time: 15, pts: 3, prompt: 'Kể tên chính xác 7 di sản văn hóa (vật thể hoặc phi vật thể) của Việt Nam trong vòng 15 giây!' },
+      { title: '3 Trận Đánh Thời Lý - Trần (15s)', time: 15, pts: 3, prompt: 'Kể tên 3 trận đánh tiêu biểu thời Lý hoặc thời Trần trong vòng 15 giây (VD: Như Nguyệt, Bạch Đằng, Chương Dương...).' },
+      { title: 'Nhìn Hình Đoán Nhân Vật / Di Tích (15s)', time: 15, pts: 2, prompt: 'Dùng hành động hoặc tối đa 3 từ khóa gợi ý (không nhắc tên) để cả bàn đoán nhân vật: "Trần Quốc Toản".' },
+      { title: 'Sắp Xếp Dòng Thời Gian (15s)', time: 15, pts: 2, prompt: 'Sắp xếp đúng thứ tự thời gian: [Nhà Ngô] – [Nhà Đinh] – [Nhà Tiền Lê] – [Nhà Lý].' },
+      { title: 'Vua Nào Việc Nấy (15s)', time: 15, pts: 2, prompt: 'Nối đúng vị vua với công lao: Lý Công Uẩn (Dời đô), Lý Thánh Tông (Đặt quốc hiệu Đại Việt), Trần Nhân Tông (Thiền phái Trúc Lâm).' },
+      { title: 'Giải Mã Câu Nói Nổi Tiếng (10s)', time: 10, pts: 2, prompt: 'Hoàn thành câu nói bất hủ của Trần Thủ Độ: "Đầu thần chưa rơi xuống đất, xin bệ hạ..."' }
+    ];
+
+    // 13 Thẻ Nhân Vật (5 bổ sung + 8 gốc, đầy đủ năm lịch sử)
+    const GAME_CHARACTERS = [
+      { id: 'svh', name: 'Sư Vạn Hạnh (938 – 1025)', era: 'Tiền Lê – Đầu Nhà Lý (938 – 1025)', bio: 'Thiền sư, Quốc sư cố vấn khai sáng nhà Lý, phò tá Lý Công Uẩn lên ngôi.', power: 'tien_tri', powerDesc: 'Tiên Tri: Đầu mỗi lượt xem trước 1 thẻ Biến Cố trên đỉnh chồng bài và quyết định giữ hoặc đẩy xuống đáy.' },
+      { id: 'ttt', name: 'Trần Thái Tông (1218 – 1277)', era: 'Đầu Nhà Trần (1218 – 1277)', bio: 'Vị vua sáng lập nhà Trần, lãnh đạo kháng chiến chống Nguyên – Mông lần thứ nhất.', power: 'nhuong_ngoi', powerDesc: 'Nhường Ngôi Khai Sáng: Miễn nhiễm 1 lần trong ván với hiệu ứng của thẻ Soán Ngôi hoặc Phản Loạn.' },
+      { id: 'mdc', name: 'Mạc Đĩnh Chi (1272 – 1346)', era: 'Nhà Trần (1272 – 1346)', bio: 'Lưỡng quốc Trạng nguyên, nhà ngoại giao kiệt xuất thời Trần.', power: 'doi_dap', powerDesc: 'Đối Đáp Thần Tốc: Được cộng thêm 5 giây vào thời gian giới hạn cho mọi Thẻ Thử Thách tính giờ.' },
+      { id: 'tbt', name: 'Trần Bình Trọng (? – 1285)', era: 'Nhà Trần (? – 1285)', bio: 'Danh tướng nhà Trần trong kháng chiến chống Nguyên – Mông, nổi tiếng với câu nói "Ta thà làm quỷ nước Nam...".', power: 'khi_tiet', powerDesc: 'Khí Tiết Bất Khuất: Miễn nhiễm hoàn toàn với điểm trừ lây từ thẻ Phản Bội hoặc Chọn Người Kế Vị.' },
+      { id: 'lch', name: 'Lý Chiêu Hoàng (1218 – 1278)', era: 'Cuối Lý – Đầu Trần (1218 – 1278)', bio: 'Vị vua cuối cùng của nhà Lý và là nữ hoàng duy nhất trong lịch sử Việt Nam.', power: 'chuyen_giao', powerDesc: 'Chuyển Giao Vương Triều: Khi rút thẻ Soán Ngôi, được tự do chọn bất kỳ người chơi nào để đổi điểm.' },
+      { id: 'lcu', name: 'Lý Công Uẩn (974 – 1028)', era: 'Nhà Lý (974 – 1028)', bio: 'Vua Lý Thái Tổ – người sáng lập nhà Lý, ban Chiếu dời đô về Thăng Long (1010).', power: 'pass_start', powerDesc: 'Một lần nhận thêm 20 Điểm Đại Việt khi đi qua ô Khởi Hành.' },
+      { id: 'ltk', name: 'Lý Thường Kiệt (1019 – 1105)', era: 'Nhà Lý (1019 – 1105)', bio: 'Danh tướng kiệt xuất thời Lý, chỉ huy phòng tuyến sông Như Nguyệt đánh bại quân Tống.', power: 'mil_bonus', powerDesc: 'Một lần cộng 10 điểm khi hoàn thành thử thách quân sự.' },
+      { id: 'yl', name: 'Ỷ Lan (1044 – 1117)', era: 'Nhà Lý (1044 – 1117)', bio: 'Nguyên phi, Hoàng thái hậu thời Lý, hai lần nhiếp chính giúp vua trị nước an dân.', power: 'swap_q', powerDesc: 'Một lần đổi thẻ Thử Thách nếu chưa tự tin trả lời.' },
+      { id: 'tht', name: 'Tô Hiến Thành (1106 – 1179)', era: 'Nhà Lý (1106 – 1179)', bio: 'Phụ chính đại thần nổi tiếng liêm chính, hết lòng phò tá vua nhỏ tuổi thời Lý.', power: 'hint_q', powerDesc: 'Một lần xin gợi ý từ quản trò trong thử thách kiến thức.' },
+      { id: 'thd', name: 'Trần Hưng Đạo (1228 – 1300)', era: 'Nhà Trần (1228 – 1300)', bio: 'Hưng Đạo Đại Vương – Quốc công Tiết chế thống lĩnh quân dân nhà Trần ba lần đánh thắng Nguyên – Mông.', power: 'double_q', powerDesc: 'Một lần nhân đôi điểm thưởng khi hoàn thành thử thách Chiến trận.' },
+      { id: 'tnt', name: 'Trần Nhân Tông (1258 – 1308)', era: 'Nhà Trần (1258 – 1308)', bio: 'Vua thời Trần, lãnh đạo kháng chiến chống Nguyên – Mông lần 2 & 3, sáng lập Thiền phái Trúc Lâm.', power: 'block_ev', powerDesc: 'Một lần bỏ qua hiệu ứng bất lợi của thẻ Biến Cố.' },
+      { id: 'tqk', name: 'Trần Quang Khải (1241 – 1294)', era: 'Nhà Trần (1241 – 1294)', bio: 'Thượng tướng Thái sư thời Trần, lập đại công tại chiến thắng Chương Dương – Hàm Tử.', power: 'chal_bonus', powerDesc: 'Một lần nhận thêm 10 điểm sau khi hoàn thành thử thách.' },
+      { id: 'tqt', name: 'Trần Quốc Toản (1267 – 1285)', era: 'Nhà Trần (1267 – 1285)', bio: 'Hoài Văn Hầu – thiếu niên anh hùng thời Trần bóp nát quả cam, lập đội quân đánh giặc Nguyên.', power: 'reroll_dice', powerDesc: 'Một lần được tung lại xúc xắc.' }
+    ];
+
+    let boardGame = {
+      players: [],
+      turnIdx: 0,
+      diceCount: 1,
+      maxLaps: 2,
+      busy: false,
+      timer: null,
+      traps: {} // { tileIdx: ownerPlayerId }
+    };
+
+    function getTileGridPos(idx) {
+      if (idx <= 8) return { r: 1, c: idx + 1 };
+      if (idx <= 16) return { r: idx - 7, c: 9 };
+      if (idx <= 24) return { r: 9, c: 9 - (idx - 16) };
+      return { r: 9 - (idx - 24), c: 1 };
+    }
+
+    function openSetupGameModal() {
+      renderSetupPlayerFields();
+      document.getElementById('setupGameModal').classList.add('open');
+    }
+
+    function closeSetupGameModal() {
+      document.getElementById('setupGameModal').classList.remove('open');
+    }
+
+    function renderSetupPlayerFields() {
+      const count = parseInt(document.getElementById('setupCountSelect').value) || 3;
+      const box = document.getElementById('setupPlayerFieldsContainer');
+      const names = ['Minh Anh', 'Gia Bảo', 'Khánh Linh', 'Hoàng Nam', 'Thảo Vy', 'Đức Huy'];
+      box.innerHTML = '';
+      for (let i = 0; i < count; i++) {
+        const tk = PLAYER_TOKENS[i];
+        box.innerHTML += `
+          <div style="display:flex; align-items:center; gap:0.55rem; background:var(--ivory); padding:0.55rem 0.75rem; border-radius:8px; border:1px solid var(--gold);">
+            <span style="width:30px; height:30px; border-radius:50%; background:${tk.bg}; color:#FFF; display:flex; align-items:center; justify-content:center; font-size:1rem;">${tk.icon}</span>
+            <input id="setupPName_${i}" type="text" value="${names[i]}" maxlength="16" style="width:100%; border:none; border-bottom:1px solid var(--crimson); background:transparent; font-weight:700; color:var(--ink); padding:0.2rem;" />
+          </div>
+        `;
+      }
+    }
+
+    function confirmStartNewGame() {
+      const count = parseInt(document.getElementById('setupCountSelect').value) || 3;
+      const maxLaps = parseInt(document.getElementById('setupLapsSelect').value) || 2;
+
+      const shuffledChars = [...GAME_CHARACTERS].sort(() => Math.random() - 0.5);
+      const players = [];
+      for (let i = 0; i < count; i++) {
+        const inp = document.getElementById(`setupPName_${i}`);
+        const randLK = GAME_LAT_KEO[Math.floor(Math.random() * GAME_LAT_KEO.length)];
+        players.push({
+          id: i,
+          name: (inp && inp.value.trim()) ? inp.value.trim() : `Người chơi ${i + 1}`,
+          token: PLAYER_TOKENS[i],
+          pos: 0,
+          lap: 1,
+          pts: 10,
+          seals: [],
+          latKeo: [{ ...randLK }],
+          chars: [{ ...shuffledChars[i % shuffledChars.length], used: false }],
+          skipNextTurn: false,
+          noRewardNextTile: false,
+          doubleMoveActive: false,
+          lastSteps: 0
+        });
+      }
+
+      boardGame = { players, turnIdx: 0, diceCount: 1, maxLaps, busy: false, timer: null, traps: {} };
+      setGameDiceCount(1);
+      closeSetupGameModal();
+      playSuccessChime();
+
+      document.getElementById('gameModeBadge').textContent = `Tiêu chuẩn • ${maxLaps === 99 ? 'Tự do' : `Mục tiêu: ${maxLaps} Vòng`}`;
+      document.getElementById('gameLogBanner').innerHTML = `Ván mới bắt đầu! Mời <strong>${players[0].token.icon} ${players[0].name}</strong> tung xúc xắc.`;
+      renderPlayableBoard();
+      renderPlayableSidebar();
+    }
+
+    function setGameDiceCount(n) {
+      boardGame.diceCount = n;
+      const d2 = document.getElementById('gameDice2');
+      const b1 = document.getElementById('dice1Btn');
+      const b2 = document.getElementById('dice2Btn');
+      if (n === 1) {
+        d2.style.display = 'none';
+        b1.style.background = 'var(--gold)'; b1.style.color = 'var(--crimson-dark)';
+        b2.style.background = 'transparent'; b2.style.color = 'var(--gold-light)';
+      } else {
+        d2.style.display = 'flex';
+        b2.style.background = 'var(--gold)'; b2.style.color = 'var(--crimson-dark)';
+        b1.style.background = 'transparent'; b1.style.color = 'var(--gold-light)';
+      }
+    }
+
+    function renderPlayableBoard() {
+      const grid = document.getElementById('interactiveBoardGrid');
+      if (!grid) return;
+      grid.innerHTML = '';
+      const curP = boardGame.players[boardGame.turnIdx];
+
+      BOARD_32_TILES.forEach(t => {
+        const pos = getTileGridPos(t.idx);
+        const div = document.createElement('div');
+        div.style.gridRow = pos.r;
+        div.style.gridColumn = pos.c;
+        const isHere = curP && curP.pos === t.idx;
+        const hasTrap = boardGame.traps[t.idx] !== undefined;
+        div.className = `game-tile g-tile-${t.type} ${isHere ? 'current-focus' : ''}`;
+        div.onclick = () => {
+          document.getElementById('gameLogBanner').innerHTML = `📍 <strong>Ô ${t.idx + 1} (${t.title} – ${t.sub})</strong>${hasTrap ? ' ⚠️ Có bẫy Cọc Bạch Đằng!' : ''}`;
+        };
+
+        const herePlayers = boardGame.players.filter(p => p.pos === t.idx);
+        const tokensMarkup = herePlayers.map(p => `<span class="token-dot" style="background:${p.token.bg}" title="${p.name}">${p.token.icon}</span>`).join('');
+
+        div.innerHTML = `
+          <div style="width:100%; display:flex; justify-content:space-between; font-size:0.65rem; opacity:0.85; padding:0 2px;">
+            <span>${t.idx + 1}</span><span>${hasTrap ? '🪵' : t.icon}</span>
+          </div>
+          <div style="line-height:1.15;">
+            <div style="font-size:0.68rem; font-weight:700; text-transform:uppercase;">${t.title}</div>
+            <div style="font-size:0.6rem; opacity:0.9;">${t.sub}</div>
+          </div>
+          <div style="display:flex; flex-wrap:wrap; justify-content:center; gap:2px; min-height:22px;">
+            ${tokensMarkup}
+          </div>
+        `;
+        grid.appendChild(div);
+      });
+
+      const center = document.createElement('div');
+      center.className = 'board-center-map';
+      grid.appendChild(center);
+    }
+
+    function renderPlayableSidebar() {
+      const curP = boardGame.players[boardGame.turnIdx];
+      if (!curP) return;
+
+      document.getElementById('turnPlayerAvatar').textContent = curP.token.icon;
+      document.getElementById('turnPlayerAvatar').style.background = curP.token.bg;
+      document.getElementById('turnPlayerName').textContent = curP.name;
+      document.getElementById('turnPlayerLap').textContent = boardGame.maxLaps === 99 ? `Vòng ${curP.lap}` : `Vòng ${curP.lap} / ${boardGame.maxLaps}`;
+      document.getElementById('rollDiceActionBtn').disabled = boardGame.busy;
+
+      // Các nút Thẻ Lật Kèo có thể kích hoạt trước/trong lượt
+      const preBox = document.getElementById('preRollActions');
+      preBox.innerHTML = '';
+      if (!boardGame.busy && curP.latKeo.length > 0) {
+        curP.latKeo.forEach((lk, lkIdx) => {
+          if (['hao_khi_dong_a', 'binh_ngo', 'dien_hong', 'coc_bach_dang', 'lenh_xa_toi'].includes(lk.id)) {
+            preBox.innerHTML += `
+              <button onclick="activateProactiveLatKeo(${lkIdx})" style="padding:0.45rem 0.75rem; border-radius:7px; border:1px solid var(--gold); background:rgba(30, 86, 49, 0.9); color:#FAF6EB; font-size:0.8rem; font-weight:700; cursor:pointer; text-align:left;">
+                🃏 Kích hoạt Lật Kèo: ${lk.title} (${lk.type})
+              </button>
+            `;
+          }
+        });
+      }
+
+      const list = document.getElementById('playerScoreboardList');
+      list.innerHTML = '';
+
+      boardGame.players.forEach((p, idx) => {
+        const isTurn = idx === boardGame.turnIdx;
+        const sealsHtml = Object.values(SEAL_CATALOG).map(s => {
+          const has = p.seals.includes(s.id);
+          return `<span style="padding:2px 6px; border-radius:5px; font-size:0.72rem; font-weight:700; border:1px solid ${has ? 'var(--crimson)' : '#CCC'}; background:${has ? 'var(--gold-light)' : '#F3EFE6'}; color:${has ? 'var(--crimson-dark)' : '#999'};">${s.icon} ${s.name}</span>`;
+        }).join('');
+
+        const lkHtml = p.latKeo.length === 0
+          ? `<span style="font-size:0.74rem; color:var(--ink-muted); font-style:italic;">Chưa có Thẻ Lật Kèo</span>`
+          : p.latKeo.map(lk => `<span style="display:inline-block; padding:2px 7px; border-radius:5px; background:#1E5631; color:#FAF6EB; font-size:0.73rem; font-weight:600; margin:2px 4px 2px 0;">🃏 ${lk.title}</span>`).join('');
+
+        const charsHtml = p.chars.map(c => `
+          <div style="background:var(--ivory-dark); padding:0.35rem 0.55rem; border-radius:6px; font-size:0.76rem; margin-top:0.3rem;">
+            <strong>👑 ${c.name}:</strong> <span style="color:var(--ink-muted);">${c.powerDesc}</span>
+          </div>
+        `).join('');
+
+        list.innerHTML += `
+          <div style="border:2px solid ${isTurn ? 'var(--crimson)' : 'rgba(212,175,55,0.45)'}; background:${isTurn ? '#FFF9EB' : '#FFFDF8'}; border-radius:10px; padding:0.85rem;">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <div style="display:flex; align-items:center; gap:0.55rem;">
+                <span style="width:28px; height:28px; border-radius:50%; background:${p.token.bg}; color:#FFF; display:flex; align-items:center; justify-content:center; font-size:0.95rem;">${p.token.icon}</span>
+                <div>
+                  <div style="font-weight:700; font-size:0.94rem; color:var(--ink);">${p.name} ${isTurn ? '⭐' : ''} ${p.skipNextTurn ? '💤(Mất lượt)' : ''}</div>
+                  <div style="font-size:0.74rem; color:var(--ink-muted);">Ô ${p.pos + 1}/32 • Vòng ${p.lap}</div>
+                </div>
+              </div>
+              <div style="text-align:right;">
+                <div style="font-family:'Playfair Display',serif; font-size:1.25rem; font-weight:800; color:var(--crimson);">${p.pts} đ</div>
+                <div style="font-size:0.68rem; color:var(--ink-muted);">Điểm Đại Việt</div>
+              </div>
+            </div>
+            <div style="display:flex; flex-wrap:wrap; gap:4px; margin-top:0.5rem;">${sealsHtml}</div>
+            <div style="margin-top:0.45rem;">${lkHtml}</div>
+            <div>${charsHtml}</div>
+          </div>
+        `;
+      });
+    }
+
+    function activateProactiveLatKeo(lkIdx) {
+      const p = boardGame.players[boardGame.turnIdx];
+      const card = p.latKeo[lkIdx];
+      if (!card) return;
+      p.latKeo.splice(lkIdx, 1);
+      playSuccessChime();
+
+      if (card.id === 'hao_khi_dong_a') {
+        p.doubleMoveActive = true;
+        document.getElementById('gameLogBanner').innerHTML = `🔥 <strong>${p.name}</strong> kích hoạt <strong>Hào Khí Đông A</strong>: Bước di chuyển lượt này sẽ được nhân đôi!`;
+      } else if (card.id === 'binh_ngo') {
+        const maxPts = Math.max(...boardGame.players.map(x => x.pts));
+        const gain = Math.max(1, Math.floor((maxPts - p.pts) / 2));
+        p.pts += gain;
+        document.getElementById('gameLogBanner').innerHTML = `📜 <strong>${p.name}</strong> kích hoạt <strong>Bình Ngô Đại Cáo</strong>, nhận thêm <strong>+${gain} Điểm Đại Việt</strong>!`;
+      } else if (card.id === 'dien_hong') {
+        p.pts += 3;
+        document.getElementById('gameLogBanner').innerHTML = `🗣️ <strong>${p.name}</strong> triệu tập <strong>Hội Nghị Diên Hồng</strong> và nhận <strong>+3 Điểm Đại Việt</strong>!`;
+      } else if (card.id === 'coc_bach_dang') {
+        boardGame.traps[p.pos] = p.id;
+        document.getElementById('gameLogBanner').innerHTML = `🪵 <strong>${p.name}</strong> đặt bẫy <strong>Cọc Bạch Đằng</strong> tại Ô ${p.pos + 1}!`;
+      } else if (card.id === 'lenh_xa_toi') {
+        p.skipNextTurn = false;
+        p.noRewardNextTile = false;
+        p.pts += 2;
+        document.getElementById('gameLogBanner').innerHTML = `✨ <strong>${p.name}</strong> dùng <strong>Lệnh Xá Tội</strong>: Xóa bỏ mọi trạng thái bất lợi và nhận +2 điểm!`;
+      }
+      renderPlayableBoard();
+      renderPlayableSidebar();
+    }
+
+    function rollGameDice() {
+      if (boardGame.busy) return;
+      const p = boardGame.players[boardGame.turnIdx];
+
+      if (p.skipNextTurn) {
+        p.skipNextTurn = false;
+        document.getElementById('gameLogBanner').innerHTML = `💤 <strong>${p.name}</strong> đang chịu hiệu ứng <em>Băng Hà</em> nên mất lượt này!`;
+        setTimeout(() => {
+          boardGame.turnIdx = (boardGame.turnIdx + 1) % boardGame.players.length;
+          renderPlayableBoard();
+          renderPlayableSidebar();
+        }, 1200);
+        return;
+      }
+
+      boardGame.busy = true;
+      document.getElementById('rollDiceActionBtn').disabled = true;
+
+      const d1 = document.getElementById('gameDice1');
+      const d2 = document.getElementById('gameDice2');
+      d1.classList.add('dice-animating');
+      d2.classList.add('dice-animating');
+
+      const faces = ['⚀', '⚁', '⚂', '⚃', '⚄', '⚅'];
+      let step = 0;
+      const anim = setInterval(() => {
+        playToneSound(340 + Math.random() * 140, null, 0.05, 'square', 0.07);
+        d1.textContent = faces[Math.floor(Math.random() * 6)];
+        d2.textContent = faces[Math.floor(Math.random() * 6)];
+        step++;
+        if (step >= 9) {
+          clearInterval(anim);
+          d1.classList.remove('dice-animating');
+          d2.classList.remove('dice-animating');
+
+          const v1 = Math.floor(Math.random() * 6) + 1;
+          const v2 = boardGame.diceCount === 2 ? Math.floor(Math.random() * 6) + 1 : 0;
+          d1.textContent = faces[v1 - 1];
+          if (boardGame.diceCount === 2) d2.textContent = faces[v2 - 1];
+
+          let total = v1 + v2;
+          if (p.doubleMoveActive) {
+            total *= 2;
+            p.doubleMoveActive = false;
+          }
+          p.lastSteps = total;
+
+          document.getElementById('gameLogBanner').innerHTML = `${p.token.icon} <strong>${p.name}</strong> di chuyển <strong>${total} bước</strong>...`;
+          stepMovePlayer(p, total, () => handleLandingTile(p));
+        }
+      }, 65);
+    }
+
+    function stepMovePlayer(player, steps, doneCb) {
+      let rem = Math.abs(steps);
+      const dir = steps >= 0 ? 1 : -1;
+      if (rem === 0) { doneCb(); return; }
+
+      const iv = setInterval(() => {
+        const prev = player.pos;
+        player.pos = (player.pos + dir + 32) % 32;
+        playToneSound(160, 75, 0.16, 'triangle', 0.16);
+
+        if (dir === 1 && prev === 31 && player.pos === 0) {
+          player.lap += 1;
+          let bonus = 2;
+          const lcu = player.chars.find(c => c.power === 'pass_start' && !c.used);
+          if (lcu) { lcu.used = true; bonus += 20; }
+          player.pts += bonus;
+        }
+
+        // Kiểm tra bẫy Cọc Bạch Đằng
+        const trapOwnerId = boardGame.traps[player.pos];
+        if (trapOwnerId !== undefined && trapOwnerId !== player.id) {
+          clearInterval(iv);
+          delete boardGame.traps[player.pos];
+          const owner = boardGame.players.find(x => x.id === trapOwnerId);
+          player.pts = Math.max(0, player.pts - 2);
+          if (owner) owner.pts += 1;
+          renderPlayableBoard();
+          renderPlayableSidebar();
+          showSimpleTurnModal('Sập Bẫy Cọc Bạch Đằng!', '🪵', `Bạn vướng bẫy của <strong>${owner ? owner.name : 'đối thủ'}</strong>! Dừng bước ngay tại chỗ, mất <strong>2 điểm</strong> và chuyển <strong>1 điểm</strong> cho chủ bẫy.`);
+          return;
+        }
+
+        renderPlayableBoard();
+        renderPlayableSidebar();
+        rem--;
+        if (rem <= 0) {
+          clearInterval(iv);
+          setTimeout(doneCb, 220);
+        }
+      }, 200);
+    }
+
+    function handleLandingTile(player) {
+      const tile = BOARD_32_TILES[player.pos];
+
+      if (player.noRewardNextTile) {
+        player.noRewardNextTile = false;
+        showSimpleTurnModal('Hiệu Ứng Mất Mùa', '🌾', `Do ảnh hưởng của thẻ <strong>Mất Mùa</strong> từ lượt trước, bạn mất toàn bộ hiệu lực/phần thưởng tại ô <strong>${tile.title}</strong> này.`);
+        return;
+      }
+
+      if (tile.type === 'khoi-hanh') {
+        playSuccessChime();
+        player.pts += 2;
+        showSimpleTurnModal('Ô Khởi Hành', '🥁', 'Dừng chân tại Kinh Thành Thăng Long! Bạn nhận <strong>+2 Điểm Đại Việt</strong>.');
+      } else if (tile.type === 'nghi-chan') {
+        playSuccessChime();
+        player.pts += 1;
+        showSimpleTurnModal(`Ô Nghỉ Chân – ${tile.sub}`, '🪷', 'Trạm dừng nghỉ an toàn, nhận <strong>+1 Điểm Đại Việt</strong> khích lệ.');
+      } else if (tile.type === 'lat-keo') {
+        openDrawLatKeoModal(player);
+      } else if (tile.type === 'bien-co') {
+        openBienCoModal(player);
+      } else if (tile.type === 'thu-thach' || tile.type === 'dau-an') {
+        openThuThachModal(player, tile);
+      } else if (tile.type === 'nhan-vat') {
+        openNhanVatModal(player);
+      }
+    }
+
+    function showSimpleTurnModal(title, icon, descHtml) {
+      const box = document.getElementById('activeCardModalContent');
+      box.innerHTML = `
+        <div style="text-align:center;">
+          <div style="font-size:3rem; margin-bottom:0.5rem;">${icon}</div>
+          <h3 style="font-size:1.5rem; color:var(--crimson); margin-bottom:0.65rem;">${title}</h3>
+          <p style="font-size:0.96rem; margin-bottom:1.35rem;">${descHtml}</p>
+          <button class="btn-gold" style="width:100%;" onclick="finishTurnAndCloseModal()">Tiếp Tục Hành Trình &rarr;</button>
+        </div>
+      `;
+      document.getElementById('activeCardModal').classList.add('open');
+    }
+
+    function openDrawLatKeoModal(player) {
+      playSuccessChime();
+      const card = GAME_LAT_KEO[Math.floor(Math.random() * GAME_LAT_KEO.length)];
+      if (player.latKeo.length < 2) {
+        player.latKeo.push({ ...card });
+      } else {
+        player.latKeo[0] = { ...card };
+      }
+      showSimpleTurnModal(`Nhận Thẻ Lật Kèo: ${card.title}`, '🃏', `<span class="tile-badge tile-lat-keo">${card.type}</span><br/>${card.desc}<br/><small style="color:var(--ink-muted);">(Đã lưu vào hành trang trên tay – tối đa 2 thẻ)</small>`);
+    }
+
+    function openBienCoModal(player) {
+      playToneSound(140, 65, 0.35);
+      const ev = GAME_BIEN_CO[Math.floor(Math.random() * GAME_BIEN_CO.length)];
+      const hasShield = player.latKeo.findIndex(x => x.id === 'chieu_can_vuong');
+      const hasCounter = player.latKeo.findIndex(x => x.id === 'vuon_khong');
+
+      const box = document.getElementById('activeCardModalContent');
+      box.innerHTML = `
+        <div style="text-align:center;">
+          <span class="tile-badge tile-bien-co">Thẻ Biến Cố</span>
+          <h3 style="font-size:1.6rem; color:var(--crimson); margin:0.45rem 0;">${ev.title}</h3>
+          <p style="font-size:0.96rem; background:var(--ivory); padding:1rem; border-radius:10px; border:1px solid var(--gold); margin:0.9rem 0 1.2rem;">${ev.desc}</p>
+          ${hasShield !== -1 ? `<button class="btn-outline-dark" style="width:100%; margin-bottom:0.55rem;" onclick="neutralizeBienCoWithLatKeo(${hasShield})">🛡️ Dùng Chiếu Cần Vương: Vô hiệu hóa Biến Cố</button>` : ''}
+          ${hasCounter !== -1 && ['phan_boi', 'soan_ngoi', 'ke_vi'].includes(ev.id) ? `<button class="btn-outline-dark" style="width:100%; margin-bottom:0.55rem;" onclick="neutralizeBienCoWithLatKeo(${hasCounter})">🔄 Dùng Vườn Không Nhà Trống: Chuyển hướng cho người khác</button>` : ''}
+          <button class="btn-gold" style="width:100%;" onclick="executeBienCoEffect('${ev.id}')">Chấp Nhận Hiệu Ứng &rarr;</button>
+        </div>
+      `;
+      document.getElementById('activeCardModal').classList.add('open');
+    }
+
+    function neutralizeBienCoWithLatKeo(lkIdx) {
+      const p = boardGame.players[boardGame.turnIdx];
+      const used = p.latKeo.splice(lkIdx, 1)[0];
+      playSuccessChime();
+      document.getElementById('gameLogBanner').innerHTML = `🛡️ <strong>${p.name}</strong> kích hoạt <strong>${used.title}</strong> hóa giải thành công thẻ Biến Cố!`;
+      finishTurnAndCloseModal();
+    }
+
+    function executeBienCoEffect(evId) {
+      const p = boardGame.players[boardGame.turnIdx];
+      if (evId === 'phan_boi') {
+        if (!p.chars.some(c => c.power === 'khi_tiet')) p.pts = Math.max(0, p.pts - 2);
+      } else if (evId === 'bang_ha') {
+        p.skipNextTurn = true;
+      } else if (evId === 'phan_loan') {
+        const ttt = p.chars.find(c => c.power === 'nhuong_ngoi' && !c.used);
+        if (ttt) ttt.used = true;
+        else p.pos = 0;
+      } else if (evId === 'soan_ngoi') {
+        const ttt = p.chars.find(c => c.power === 'nhuong_ngoi' && !c.used);
+        if (ttt) {
+          ttt.used = true;
+        } else {
+          const sorted = [...boardGame.players].sort((a, b) => a.pts - b.pts);
+          const target = p.chars.some(c => c.power === 'chuyen_giao') ? sorted[sorted.length - 1] : sorted[0];
+          if (target && target.id !== p.id) {
+            const tmp = p.pts;
+            p.pts = target.pts;
+            target.pts = tmp;
+          }
+        }
+      } else if (evId === 'mat_mua') {
+        p.noRewardNextTile = true;
+      } else if (evId === 'thien_tai') {
+        boardGame.players.forEach(x => x.pts = Math.max(0, x.pts - 1));
+        const roll = Math.floor(Math.random() * 6) + 1;
+        if (roll % 2 === 1) p.pts = Math.max(0, p.pts - 1);
+      } else if (evId === 'ke_vi') {
+        p.pts = Math.max(0, p.pts - 2);
+      } else if (evId === 'tham_quan') {
+        p.pts = Math.max(0, p.pts - 2);
+        const lowest = [...boardGame.players].sort((a, b) => a.pts - b.pts)[0];
+        if (lowest) lowest.pts += 1;
+      } else if (evId === 'khai_thien') {
+        p.latKeo = [];
+        p.pts += 2;
+        p.pos = 0;
+      } else if (evId === 'to_thue') {
+        const tax = Math.min(3, Math.max(1, p.lastSteps));
+        p.pts = Math.max(0, p.pts - tax);
+      }
+      finishTurnAndCloseModal();
+    }
+
+    function openThuThachModal(player, tile) {
+      const ch = GAME_THU_THACH[Math.floor(Math.random() * GAME_THU_THACH.length)];
+      const bonusTime = player.chars.some(c => c.power === 'doi_dap') ? 5 : 0;
+      const totalSec = ch.time + bonusTime;
+      const sealObj = tile.seal ? SEAL_CATALOG[tile.seal] : null;
+
+      const box = document.getElementById('activeCardModalContent');
+      box.innerHTML = `
+        <div>
+          <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1.5px solid rgba(212,175,55,0.45); padding-bottom:0.75rem; margin-bottom:1rem;">
+            <span class="tile-badge tile-thu-thach" style="margin:0;">Thẻ Thử Thách (+${ch.pts}đ)</span>
+            <span id="chTimerSpan" style="font-weight:800; color:var(--crimson);">⏱️ ${totalSec}s ${bonusTime ? '(+5s Mạc Đĩnh Chi)' : ''}</span>
+          </div>
+          <h3 style="font-size:1.4rem; color:var(--crimson); margin-bottom:0.65rem;">${ch.title}</h3>
+          ${sealObj ? `<div style="margin-bottom:0.75rem;"><span class="tile-badge tile-dau-an" style="margin:0;">${sealObj.icon} Cơ hội nhận Dấu Ấn ${sealObj.name}</span></div>` : ''}
+          <p style="font-size:0.95rem; background:var(--ivory); padding:1rem; border-radius:10px; border:1px solid var(--gold); margin-bottom:1.25rem;">${ch.prompt}</p>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.75rem;">
+            <button class="btn-gold" onclick="resolveThuThach(true, ${ch.pts}, '${tile.seal || ''}')">✅ Hoàn Thành (+${ch.pts}đ)</button>
+            <button class="btn-outline-dark" onclick="resolveThuThach(false, 0, '')">Chưa Hoàn Thành</button>
+          </div>
+        </div>
+      `;
+      document.getElementById('activeCardModal').classList.add('open');
+      startModalCountdown(totalSec, 'chTimerSpan');
+    }
+
+    function resolveThuThach(ok, pts, sealKey) {
+      clearInterval(boardGame.timer);
+      const p = boardGame.players[boardGame.turnIdx];
+      if (ok) {
+        playSuccessChime();
+        p.pts += pts;
+        if (sealKey && !p.seals.includes(sealKey)) p.seals.push(sealKey);
+        document.getElementById('gameLogBanner').innerHTML = `🎭 <strong>${p.name}</strong> vượt qua thử thách và nhận <strong>+${pts} Điểm Đại Việt</strong>!`;
+      } else {
+        document.getElementById('gameLogBanner').innerHTML = `🎭 <strong>${p.name}</strong> chưa hoàn thành thử thách.`;
+      }
+      finishTurnAndCloseModal();
+    }
+
+    function openNhanVatModal(player) {
+      playSuccessChime();
+      const card = GAME_CHARACTERS[Math.floor(Math.random() * GAME_CHARACTERS.length)];
+      if (player.chars.length < 2) {
+        player.chars.push({ ...card, used: false });
+      } else {
+        player.chars[0] = { ...card, used: false };
+      }
+      showSimpleTurnModal(`Chiêu Mộ Nhân Vật: ${card.name}`, '👑', `<span class="tile-badge tile-nhan-vat">${card.era}</span><br/><strong>${card.powerDesc}</strong>`);
+    }
+
+    function startModalCountdown(sec, spanId) {
+      clearInterval(boardGame.timer);
+      let left = sec;
+      boardGame.timer = setInterval(() => {
+        left--;
+        const el = document.getElementById(spanId);
+        if (el) el.textContent = `⏱️ ${left}s`;
+        if (left <= 0) clearInterval(boardGame.timer);
+      }, 1000);
+    }
+
+    function finishTurnAndCloseModal() {
+      clearInterval(boardGame.timer);
+      document.getElementById('activeCardModal').classList.remove('open');
+      boardGame.busy = false;
+      renderPlayableBoard();
+      renderPlayableSidebar();
+
+      if (boardGame.maxLaps !== 99 && boardGame.players.every(p => p.lap > boardGame.maxLaps)) {
+        openEndGameSummary();
+        return;
+      }
+
+      boardGame.turnIdx = (boardGame.turnIdx + 1) % boardGame.players.length;
+      const nextP = boardGame.players[boardGame.turnIdx];
+      renderPlayableBoard();
+      renderPlayableSidebar();
+      document.getElementById('gameLogBanner').innerHTML = `Đến lượt của <strong>${nextP.token.icon} ${nextP.name}</strong>! Mời tung xúc xắc.`;
+    }
+
+    function openEndGameSummary() {
+      playSuccessChime();
+      const ranked = boardGame.players.map(p => {
+        const sCount = p.seals.length;
+        const sPts = sCount * 30 + (sCount === 4 ? 30 : 0);
+        const cPts = Math.min(p.chars.length * 10, 20);
+        return { ...p, sPts, cPts, total: p.pts + sPts + cPts };
+      }).sort((a, b) => b.total !== a.total ? b.total - a.total : b.seals.length - a.seals.length);
+
+      document.getElementById('endGameRankingBody').innerHTML = ranked.map((p, i) => `
+        <div style="display:flex; justify-content:space-between; align-items:center; padding:0.85rem 1rem; border-radius:10px; border:2px solid ${i === 0 ? 'var(--crimson)' : 'var(--gold)'}; background:${i === 0 ? '#FFF8E6' : 'var(--ivory)'};">
+          <div>
+            <div style="font-weight:800; font-size:1.05rem; color:var(--crimson);">#${i + 1} ${p.token.icon} ${p.name} ${i === 0 ? '👑' : ''}</div>
+            <div style="font-size:0.8rem; color:var(--ink-muted);">
+              ${p.pts} Điểm Đại Việt + ${p.sPts}đ Dấu Ấn (${p.seals.length}/4) + ${p.cPts}đ Thẻ Nhân Vật
+            </div>
+          </div>
+          <div style="font-family:'Playfair Display',serif; font-size:1.6rem; font-weight:800; color:var(--crimson);">${p.total}đ</div>
+        </div>
+      `).join('');
+
+      document.getElementById('endGameModal').classList.add('open');
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      calculateScore();
+      renderSetupPlayerFields();
+      boardGame.players = [
+        { id: 0, name: 'Minh Anh', token: PLAYER_TOKENS[0], pos: 0, lap: 1, pts: 10, seals: [], latKeo: [{ ...GAME_LAT_KEO[0] }], chars: [{ ...GAME_CHARACTERS[0], used: false }], skipNextTurn: false, noRewardNextTile: false, doubleMoveActive: false, lastSteps: 0 },
+        { id: 1, name: 'Gia Bảo', token: PLAYER_TOKENS[1], pos: 0, lap: 1, pts: 10, seals: [], latKeo: [{ ...GAME_LAT_KEO[1] }], chars: [{ ...GAME_CHARACTERS[1], used: false }], skipNextTurn: false, noRewardNextTile: false, doubleMoveActive: false, lastSteps: 0 },
+        { id: 2, name: 'Khánh Linh', token: PLAYER_TOKENS[2], pos: 0, lap: 1, pts: 10, seals: [], latKeo: [{ ...GAME_LAT_KEO[2] }], chars: [{ ...GAME_CHARACTERS[2], used: false }], skipNextTurn: false, noRewardNextTile: false, doubleMoveActive: false, lastSteps: 0 }
+      ];
+      renderPlayableBoard();
+      renderPlayableSidebar();
+    });
+  </script>
+</body>
+</html>
