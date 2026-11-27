@@ -69,7 +69,7 @@
     }
 
     .nav-container {
-      max-width: 1240px;
+      max-width: 1280px;
       margin: 0 auto;
       padding: 0.9rem 1.5rem;
       display: flex;
@@ -130,8 +130,8 @@
       background: transparent;
       border: 1px solid transparent;
       color: var(--ivory);
-      padding: 0.55rem 1rem;
-      font-size: 0.88rem;
+      padding: 0.55rem 0.9rem;
+      font-size: 0.86rem;
       font-weight: 500;
       border-radius: 6px;
       cursor: pointer;
@@ -257,9 +257,14 @@
       transition: transform 0.25s ease, box-shadow 0.25s ease;
     }
 
-    .btn-gold:hover {
+    .btn-gold:hover:not(:disabled) {
       transform: translateY(-2px);
       box-shadow: 0 12px 30px rgba(212, 175, 55, 0.45);
+    }
+
+    .btn-gold:disabled {
+      opacity: 0.65;
+      cursor: not-allowed;
     }
 
     .btn-outline {
@@ -418,7 +423,6 @@
       margin-bottom: 0.75rem;
     }
 
-    /* Màu thẻ & ô cập nhật theo chuẩn mới: Thẻ Lật Kèo thay cho Thẻ Sử Ký */
     .tile-lat-keo { background: #1E5631; color: #FAF6EB; }
     .tile-nhan-vat { background: #B8860B; color: #FFFDF8; }
     .tile-bien-co { background: #EA580C; color: #FFF7ED; }
@@ -703,12 +707,35 @@
     .g-tile-nghi-chan { background: #4A5D23; color: #FAF6EB; }
     .g-tile-khoi-hanh { background: #FAF6EB; color: #450B0B; border: 1.5px solid #8B1E1E; }
 
+    /* Trung tâm bàn cờ tích hợp cụm Xúc Xắc */
     .board-center-map {
       grid-row: 2 / 9;
       grid-column: 2 / 9;
       border-radius: 12px;
-      background: var(--ivory);
-      border: 1.5px dashed rgba(139, 30, 30, 0.25);
+      background: radial-gradient(circle at center, #FFFDF8 0%, var(--ivory) 65%, var(--ivory-dark) 100%);
+      border: 2px solid rgba(139, 30, 30, 0.35);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 0.75rem;
+      text-align: center;
+      position: relative;
+      box-shadow: inset 0 0 28px rgba(139, 30, 30, 0.1);
+    }
+
+    .center-dice-hub {
+      background: linear-gradient(155deg, rgba(69, 11, 11, 0.96), rgba(139, 30, 30, 0.95));
+      border: 2px solid var(--gold);
+      border-radius: 16px;
+      padding: 0.95rem 1.15rem;
+      box-shadow: 0 12px 28px rgba(35, 24, 21, 0.35);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.6rem;
+      max-width: 92%;
+      z-index: 3;
     }
 
     .token-dot {
@@ -724,18 +751,24 @@
     }
 
     .dice-face {
-      width: 54px;
-      height: 54px;
+      width: 58px;
+      height: 58px;
       border-radius: 12px;
       background: #FFFDF8;
       color: var(--crimson);
-      border: 2px solid var(--gold);
+      border: 2.5px solid var(--gold);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 2.3rem;
-      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.35);
+      font-size: 2.5rem;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
       user-select: none;
+      cursor: pointer;
+      transition: transform 0.15s ease;
+    }
+
+    .dice-face:hover {
+      transform: scale(1.06);
     }
 
     @keyframes shakeDice {
@@ -773,6 +806,42 @@
       animation: fadeSlideIn 0.3s ease;
     }
 
+    /* ================= FEEDBACK FORM STYLES ================= */
+    .feedback-form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      margin-bottom: 1.1rem;
+    }
+
+    .feedback-form-group label {
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: var(--crimson-dark);
+    }
+
+    .feedback-form-group input,
+    .feedback-form-group select,
+    .feedback-form-group textarea {
+      width: 100%;
+      padding: 0.75rem 0.95rem;
+      border-radius: 8px;
+      border: 1.5px solid rgba(139, 30, 30, 0.35);
+      background: #FFFDF8;
+      font-family: inherit;
+      font-size: 0.95rem;
+      color: var(--ink);
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .feedback-form-group input:focus,
+    .feedback-form-group select:focus,
+    .feedback-form-group textarea:focus {
+      outline: none;
+      border-color: var(--crimson);
+      box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.25);
+    }
+
     .page-footer-nav {
       display: flex;
       justify-content: space-between;
@@ -801,7 +870,7 @@
 </head>
 <body>
 
-  <!-- TOP NAVIGATION (4 PHẦN CHÍNH + CHƠI TRỰC TIẾP) -->
+  <!-- TOP NAVIGATION (5 PHẦN CHÍNH + CHƠI TRỰC TIẾP) -->
   <header>
     <div class="nav-container">
       <a class="brand" onclick="navigateTo('page-home')">
@@ -817,7 +886,8 @@
         <button class="nav-btn" data-target="page-play" onclick="navigateTo('page-play')" style="border-color: var(--gold); color: var(--gold);">🎲 Chơi Trực Tiếp</button>
         <button class="nav-btn" data-target="page-board" onclick="navigateTo('page-board')">2. Bàn Cờ &amp; Dấu Ấn</button>
         <button class="nav-btn" data-target="page-cards" onclick="navigateTo('page-cards')">3. Kho Thẻ Bài</button>
-        <button class="nav-btn" data-target="page-rules" onclick="navigateTo('page-rules')">4. Luật Chơi, Tính Điểm &amp; Hướng Dẫn Nhanh</button>
+        <button class="nav-btn" data-target="page-rules" onclick="navigateTo('page-rules')">4. Luật Chơi &amp; Tính Điểm</button>
+        <button class="nav-btn" data-target="page-feedback" onclick="navigateTo('page-feedback')">5. Liên Hệ &amp; Góp Ý</button>
       </nav>
     </div>
   </header>
@@ -830,7 +900,6 @@
       <div class="hero-pattern"></div>
       <div class="hero-grid">
         <div>
-          <span class="badge-pill">Phiên Bản Board Game Lịch Sử • Chiến Thuật Lật Kèo &amp; Tương Tác</span>
           <h1 class="hero-title">ĐẠI VIỆT KÝ SỰ</h1>
           <p class="hero-subtitle">CHUYỆN XƯA LÝ-TRẦN</p>
           <p class="hero-desc">
@@ -904,7 +973,7 @@
       </div>
 
       <div class="page-footer-nav">
-        <span style="color: var(--ink-muted); font-size: 0.9rem;">Phần 1 / 4 — Tổng Quan &amp; Câu Chuyện</span>
+        <span style="color: var(--ink-muted); font-size: 0.9rem;">Phần 1 / 5 — Tổng Quan &amp; Câu Chuyện</span>
         <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
           <button class="btn-outline-dark" onclick="navigateTo('page-play')">🎲 Vào Bàn Cờ Trực Tuyến</button>
           <button class="btn-gold" onclick="navigateTo('page-board')">Tiếp theo: Bàn Cờ &amp; Dấu Ấn &rarr;</button>
@@ -914,7 +983,7 @@
   </main>
 
   <!-- =====================================================================
-       TRANG CHƠI TRỰC TIẾP: BÀN CỜ TƯƠNG TÁC 32 Ô (PLAYABLE WEB GAME)
+       TRANG CHƠI TRỰC TIẾP: BÀN CỜ TƯƠNG TÁC 32 Ô (XÚC XẮC NẰM GIỮA BÀN CỜ)
        ===================================================================== -->
   <main id="page-play" class="page-section">
     <div class="container" style="padding-top: 2.2rem;">
@@ -931,7 +1000,7 @@
       </div>
 
       <div class="play-arena">
-        <!-- Cột trái: Bàn cờ vuông 32 ô -->
+        <!-- Cột trái: Bàn cờ vuông 32 ô (Xúc xắc nằm chính giữa bàn cờ) -->
         <div>
           <div id="interactiveBoardGrid" class="board-grid-32"></div>
           <div style="display: flex; flex-wrap: wrap; gap: 0.65rem; justify-content: center; margin-top: 1rem; font-size: 0.78rem; font-weight: 600;">
@@ -945,17 +1014,14 @@
           </div>
         </div>
 
-        <!-- Cột phải: Bảng điều khiển xúc xắc & Hành trang người chơi -->
+        <!-- Cột phải: Bảng thông tin lượt, Nhật ký & Hành trang người chơi -->
         <div style="display: flex; flex-direction: column; gap: 1.25rem;">
           <div style="background: linear-gradient(155deg, var(--crimson-dark), var(--crimson)); color: var(--ivory); border: 2px solid var(--gold); border-radius: 14px; padding: 1.35rem; box-shadow: var(--shadow-cinematic);">
             <div style="display: flex; justify-content: space-between; align-items: center; gap: 0.5rem; margin-bottom: 0.9rem; flex-wrap: wrap;">
               <span id="gameModeBadge" style="font-size: 0.76rem; padding: 0.25rem 0.7rem; border-radius: 999px; background: rgba(0,0,0,0.35); border: 1px solid var(--gold); color: var(--gold-light); font-weight: 600;">
                 Tiêu chuẩn • Mục tiêu: 2 Vòng
               </span>
-              <div style="display: flex; gap: 0.35rem;">
-                <button id="dice1Btn" onclick="setGameDiceCount(1)" style="padding: 0.25rem 0.6rem; border-radius: 6px; font-size: 0.75rem; font-weight: 700; border: 1px solid var(--gold); background: var(--gold); color: var(--crimson-dark); cursor: pointer;">1 Xúc xắc</button>
-                <button id="dice2Btn" onclick="setGameDiceCount(2)" style="padding: 0.25rem 0.6rem; border-radius: 6px; font-size: 0.75rem; font-weight: 700; border: 1px solid var(--gold); background: transparent; color: var(--gold-light); cursor: pointer;">2 Xúc xắc</button>
-              </div>
+              <span style="font-size: 0.76rem; color: var(--gold-light);">🎲 Tung xúc xắc ở giữa bàn cờ</span>
             </div>
 
             <div style="display: flex; justify-content: space-between; align-items: center; gap: 1rem; background: rgba(0,0,0,0.28); padding: 0.9rem; border-radius: 10px; border: 1px solid rgba(212,175,55,0.4);">
@@ -967,10 +1033,9 @@
                   <div id="turnPlayerLap" style="font-size: 0.8rem; opacity: 0.9;">Vòng 1 / 2</div>
                 </div>
               </div>
-
-              <div style="display: flex; align-items: center; gap: 0.45rem;">
-                <div id="gameDice1" class="dice-face">⚀</div>
-                <div id="gameDice2" class="dice-face" style="display: none;">⚀</div>
+              <div style="text-align: right;">
+                <div style="font-size: 0.74rem; color: var(--gold-light);">Vị trí hiện tại</div>
+                <div id="turnPlayerTileLabel" style="font-weight: 700; font-size: 0.95rem; color: #FFF;">Ô 1 • Khởi Hành</div>
               </div>
             </div>
 
@@ -979,10 +1044,6 @@
             </div>
 
             <div id="preRollActions" style="display: flex; flex-direction: column; gap: 0.5rem; margin-top: 0.85rem;"></div>
-
-            <button id="rollDiceActionBtn" class="btn-gold" onclick="rollGameDice()" style="width: 100%; margin-top: 0.85rem; font-size: 1.02rem; padding: 0.85rem;">
-              🎲 Tung Xúc Xắc Di Chuyển
-            </button>
           </div>
 
           <!-- Danh Sách Người Chơi, Thẻ Lật Kèo & Nhân Vật -->
@@ -1208,7 +1269,7 @@
         <button class="tab-btn" onclick="switchCardCategory('cat-characters', this)">4. Thẻ Nhân Vật (13)</button>
       </div>
 
-      <!-- 1. THẺ BIẾN CỐ (10 THẺ: 5 GỐC + 5 MỞ RỘNG) -->
+      <!-- 1. THẺ BIẾN CỐ -->
       <div id="cat-events" class="card-category-panel">
         <div class="grid-3">
           <div class="panel-card" style="border-top: 4px solid #EA580C;">
@@ -1264,7 +1325,7 @@
         </div>
       </div>
 
-      <!-- 2. THẺ LẬT KÈO (8 THẺ NÂNG CẤP TỪ THẺ SỬ KÝ) -->
+      <!-- 2. THẺ LẬT KÈO -->
       <div id="cat-latkeo" class="card-category-panel" style="display: none;">
         <p style="text-align: center; color: var(--ink-muted); max-width: 760px; margin: 0 auto 1.8rem; font-size: 0.95rem;">
           <strong>Thẻ Sử Ký</strong> cũ được chuyển đổi hoàn toàn thành nhóm <strong>Thẻ Lật Kèo</strong> — bộ công cụ chiến thuật giữ trên tay (tối đa 2 thẻ/người), cho phép kích hoạt bất ngờ để hóa giải bất lợi, cướp lợi thế hoặc đảo ngược cục diện vào phút chót:
@@ -1313,7 +1374,7 @@
         </div>
       </div>
 
-      <!-- 3. THẺ THỬ THÁCH (7 DẠNG THẺ) -->
+      <!-- 3. THẺ THỬ THÁCH -->
       <div id="cat-challenges" class="card-category-panel" style="display: none;">
         <div class="grid-3">
           <div class="panel-card" style="border-top: 4px solid #B91C1C;">
@@ -1354,7 +1415,7 @@
         </div>
       </div>
 
-      <!-- 4. THẺ NHÂN VẬT (13 NHÂN VẬT LỊCH SỬ LÝ – TRẦN ĐẦY ĐỦ NIÊN ĐẠI) -->
+      <!-- 4. THẺ NHÂN VẬT -->
       <div id="cat-characters" class="card-category-panel" style="display: none;">
         <div class="grid-4">
           <div class="char-card">
@@ -1530,13 +1591,13 @@
 
       <div class="page-footer-nav">
         <button class="btn-outline-dark" onclick="navigateTo('page-board')">&larr; Quay lại: Phần 2 – Bàn Cờ &amp; Dấu Ấn</button>
-        <button class="btn-gold" onclick="navigateTo('page-rules')">Tiếp theo: Phần 4 – Luật Chơi, Tính Điểm &amp; Hướng Dẫn Nhanh &rarr;</button>
+        <button class="btn-gold" onclick="navigateTo('page-rules')">Tiếp theo: Phần 4 – Luật Chơi &amp; Tính Điểm &rarr;</button>
       </div>
     </div>
   </main>
 
   <!-- =====================================================================
-       PHẦN 4 (ĐÃ GỘP PHẦN 5 VÀO PHẦN 4): LUẬT CHƠI, TÍNH ĐIỂM & HƯỚNG DẪN SIÊU NHANH
+       PHẦN 4: LUẬT CHƠI, TÍNH ĐIỂM & HƯỚNG DẪN SIÊU NHANH
        ===================================================================== -->
   <main id="page-rules" class="page-section">
     <div class="container">
@@ -1546,7 +1607,6 @@
         <div class="divider-ornament"></div>
       </div>
 
-      <!-- 4.1 Trình tự 1 lượt & Ví dụ thực tế -->
       <div class="grid-2">
         <div>
           <h3 style="font-size: 1.45rem; color: var(--crimson); margin-bottom: 1.15rem;">A. Trình Tự Một Lượt (5 Bước)</h3>
@@ -1605,7 +1665,6 @@
         </div>
       </div>
 
-      <!-- 4.2 BẢNG TÍNH ĐIỂM TỔNG KẾT -->
       <div class="calculator-box">
         <div style="text-align: center;">
           <span class="badge-pill" style="margin-bottom: 0.7rem;">C. Công Cụ Tính Điểm Tổng Kết Cuối Ván</span>
@@ -1647,7 +1706,6 @@
         </div>
       </div>
 
-      <!-- 4.3 PHỤ LỤC LUẬT CHƠI SIÊU NHANH (ĐÃ GỘP TỪ PHẦN 5 VÀO PHẦN 4) -->
       <div class="quick-guide-box">
         <div style="text-align: center; border-bottom: 1px solid rgba(212, 175, 55, 0.5); padding-bottom: 1rem; margin-bottom: 1.35rem;">
           <span style="font-size: 0.8rem; letter-spacing: 0.14em; color: var(--gold-light); text-transform: uppercase;">D. Phụ Lục Tóm Tắt – In Kèm Bộ Trò Chơi</span>
@@ -1677,6 +1735,119 @@
 
       <div class="page-footer-nav">
         <button class="btn-outline-dark" onclick="navigateTo('page-cards')">&larr; Quay lại: Phần 3 – Kho Thẻ Bài</button>
+        <button class="btn-gold" onclick="navigateTo('page-feedback')">Tiếp theo: Phần 5 – Liên Hệ &amp; Góp Ý &rarr;</button>
+      </div>
+    </div>
+  </main>
+
+  <!-- =====================================================================
+       PHẦN 5: LIÊN HỆ & BẢNG GÓP Ý (BẢO MẬT ADMIN CHO GOOGLE DOCS)
+       ===================================================================== -->
+  <main id="page-feedback" class="page-section">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-eyebrow">Phần 5 • Đồng Hành Phát Triển Trò Chơi</div>
+        <h2 class="section-title">Liên Hệ &amp; Góp Ý Cải Tiến</h2>
+        <div class="divider-ornament"></div>
+        <p class="section-lead">
+          Mọi đóng góp của bạn về luật chơi, độ cân bằng của Thẻ Lật Kèo, Thẻ Biến Cố hay giao diện bàn cờ đều được nhóm phát triển trân trọng ghi nhận để hoàn thiện trò chơi.
+        </p>
+      </div>
+
+      <div class="grid-2">
+        <!-- Cột trái: Biểu mẫu gửi góp ý dành cho người chơi thông thường -->
+        <div class="panel-card" style="border-top: 4px solid var(--crimson);">
+          <h3 style="color: var(--crimson); font-size: 1.45rem; margin-bottom: 0.5rem;">Bảng Góp Ý Nhanh</h3>
+          <p style="font-size: 0.9rem; color: var(--ink-muted); margin-bottom: 1.25rem;">
+            Hãy chia sẻ cảm nhận sau ván chơi của bạn. Hệ thống sẽ lưu trực tiếp phản hồi gửi tới Ban Quản Trị.
+          </p>
+
+          <form id="feedbackForm" onsubmit="submitPlayerFeedback(event)">
+            <div class="feedback-form-group">
+              <label for="fbName">Tên người góp ý / Biệt danh</label>
+              <input type="text" id="fbName" placeholder="Ví dụ: Minh Anh" required />
+            </div>
+
+            <div class="feedback-form-group">
+              <label for="fbCategory">Hạng mục góp ý</label>
+              <select id="fbCategory">
+                <option value="Cân bằng Thẻ Lật Kèo & Biến Cố">Cân bằng Thẻ Lật Kèo &amp; Biến Cố</option>
+                <option value="Nội dung Thẻ Thử Thách & Nhân Vật">Nội dung Thẻ Thử Thách &amp; Nhân Vật</option>
+                <option value="Giao diện Bàn Cờ & Trải nghiệm Web">Giao diện Bàn Cờ &amp; Trải nghiệm Web</option>
+                <option value="Luật chơi & Cách tính điểm">Luật chơi &amp; Cách tính điểm</option>
+                <option value="Đề xuất ý tưởng mới">Đề xuất ý tưởng mới</option>
+              </select>
+            </div>
+
+            <div class="feedback-form-group">
+              <label for="fbRating">Mức độ hài lòng trải nghiệm</label>
+              <select id="fbRating">
+                <option value="5/5 ⭐ - Rất cuốn hút & kịch tính">5/5 ⭐ - Rất cuốn hút &amp; kịch tính</option>
+                <option value="4/5 ⭐ - Hay, cần tinh chỉnh nhẹ">4/5 ⭐ - Hay, cần tinh chỉnh nhẹ</option>
+                <option value="3/5 ⭐ - Ổn, có nhiều điểm cần cải thiện">3/5 ⭐ - Ổn, có nhiều điểm cần cải thiện</option>
+                <option value="2/5 ⭐ - Luật còn hơi khó hiểu">2/5 ⭐ - Luật còn hơi khó hiểu</option>
+                <option value="1/5 ⭐ - Cần điều chỉnh nhiều">1/5 ⭐ - Cần điều chỉnh nhiều</option>
+              </select>
+            </div>
+
+            <div class="feedback-form-group">
+              <label for="fbMessage">Nội dung góp ý chi tiết</label>
+              <textarea id="fbMessage" rows="4" placeholder="Chia sẻ cảm nhận sau ván chơi hoặc đề xuất chỉnh sửa thẻ bài..." required></textarea>
+            </div>
+
+            <button type="submit" id="fbSubmitBtn" class="btn-gold" style="width: 100%;">📩 Gửi Góp Ý Cho Nhóm Phát Triển</button>
+          </form>
+
+          <div id="feedbackThankYouBox" style="display: none; margin-top: 1.15rem; padding: 1rem; border-radius: 10px; background: var(--ivory-dark); border-left: 4px solid #1E5631; font-size: 0.9rem;">
+            <strong id="feedbackThankYouTitle" style="color: #1E5631;">✅ Cảm ơn bạn! Góp ý đã được gửi thẳng vào Sổ Tổng Hợp Google Docs.</strong>
+            <p id="feedbackThankYouDetail" style="margin-top: 0.35rem; color: var(--ink); font-size: 0.85rem;"></p>
+          </div>
+        </div>
+
+        <!-- Cột phải: Thông tin dự án & Liên Hệ Nhà Phát Triển -->
+        <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+          <div class="panel-card" style="border-left: 4px solid #1E5631;">
+            <h4 style="color: #1E5631; font-size: 1.25rem; margin-bottom: 0.6rem;">Nhóm Phát Triển Đại Việt Ký Sự</h4>
+            <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.65rem; font-size: 0.92rem;">
+              <li><strong>Dự án:</strong> Board Game Lịch Sử – Chuyện Xưa Lý-Trần</li>
+              <li><strong>Phiên bản hiện tại:</strong> Bàn cờ 32 ô • Hệ thống 4 nhóm thẻ đồng bộ</li>
+              <li><strong>Tiếp nhận phản hồi:</strong> Mọi ý kiến đóng góp của bạn được gửi trực tiếp về hệ thống tổng hợp của nhóm phát triển để cải tiến bộ trò chơi ngày càng hoàn thiện hơn.</li>
+            </ul>
+          </div>
+
+          <div style="background: linear-gradient(155deg, var(--crimson-dark), var(--crimson)); color: var(--ivory); border: 2px solid var(--gold); border-radius: 14px; padding: 1.75rem; box-shadow: var(--shadow-cinematic);">
+            <span class="tile-badge tile-dau-an" style="margin-bottom: 0.65rem;">Thông Tin Liên Hệ Chính Thức</span>
+            <h3 style="font-size: 1.45rem; color: var(--gold); margin-bottom: 0.9rem;">Liên Hệ Nhà Phát Triển</h3>
+
+            <div style="display: flex; flex-direction: column; gap: 1rem; font-size: 0.94rem;">
+              <div style="background: rgba(0, 0, 0, 0.28); border: 1px solid rgba(212, 175, 55, 0.45); border-radius: 10px; padding: 1rem;">
+                <div style="font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--gold-light); margin-bottom: 0.45rem;">📞 Đường Dây Nóng (Hotline)</div>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(175px, 1fr)); gap: 0.65rem;">
+                  <a href="tel:0707489214" style="display: flex; align-items: center; justify-content: center; gap: 0.45rem; padding: 0.55rem 0.75rem; border-radius: 8px; background: rgba(212, 175, 55, 0.14); border: 1px solid rgba(212, 175, 55, 0.45); font-family: 'Be Vietnam Pro', sans-serif; font-variant-numeric: tabular-nums; letter-spacing: 0.04em; font-size: 1.15rem; font-weight: 700; color: var(--gold); text-decoration: none;">
+                    <span>☎️</span> <span>0707 489 214</span>
+                  </a>
+                  <a href="tel:0868412411" style="display: flex; align-items: center; justify-content: center; gap: 0.45rem; padding: 0.55rem 0.75rem; border-radius: 8px; background: rgba(212, 175, 55, 0.14); border: 1px solid rgba(212, 175, 55, 0.45); font-family: 'Be Vietnam Pro', sans-serif; font-variant-numeric: tabular-nums; letter-spacing: 0.04em; font-size: 1.15rem; font-weight: 700; color: var(--gold); text-decoration: none;">
+                    <span>☎️</span> <span>0868 412 411</span>
+                  </a>
+                </div>
+                <div style="font-size: 0.82rem; color: var(--ivory); opacity: 0.88; margin-top: 0.45rem;">
+                  Bấm trực tiếp vào số điện thoại để gọi hỗ trợ hoặc trao đổi cùng nhóm phát triển.
+                </div>
+              </div>
+
+              <div style="background: rgba(0, 0, 0, 0.28); border: 1px solid rgba(212, 175, 55, 0.45); border-radius: 10px; padding: 1rem;">
+                <div style="font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--gold-light); margin-bottom: 0.35rem;">📍 Địa Chỉ Nhà Phát Triển</div>
+                <p style="font-size: 0.94rem; line-height: 1.65; color: var(--ivory); margin: 0;">
+                  <strong>Phòng B3.9</strong>, Cơ sở chính của <strong>Trường THPT Chuyên Trần Đại Nghĩa</strong>, Lô P2, Khu tái định cư 38,4 ha, phường An Khánh, TP. Hồ Chí Minh.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="page-footer-nav">
+        <button class="btn-outline-dark" onclick="navigateTo('page-rules')">&larr; Quay lại: Phần 4 – Luật Chơi &amp; Tính Điểm</button>
         <button class="btn-gold" onclick="navigateTo('page-home')">Về Lại Phần 1 – Trang Đầu ↺</button>
       </div>
     </div>
@@ -1685,15 +1856,27 @@
   <!-- FOOTER -->
   <footer>
     <div style="font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--gold); font-weight: 800;">
-      ĐẠI VIỆT KÝ SỰ – CHUYỆN XƯA LÝ-TRẦN
+      ĐẠI VIỆT KÝ SỰ
     </div>
     <p style="font-size: 0.94rem; margin-top: 0.35rem; color: var(--gold-light);">
       “Mỗi bước đi – Một dấu son lịch sử.”
     </p>
+    <div style="max-width: 820px; margin: 1rem auto 0; padding-top: 0.9rem; border-top: 1px solid rgba(212, 175, 55, 0.35); font-size: 0.86rem; color: var(--ivory); opacity: 0.92; line-height: 1.75;">
+      <div style="font-variant-numeric: tabular-nums; letter-spacing: 0.03em;">
+        <strong>Hotline:</strong>
+        <a href="tel:0707489214" style="color: var(--gold); text-decoration: none; font-weight: 700;">0707 489 214</a>
+        &nbsp;|&nbsp;
+        <a href="tel:0868412411" style="color: var(--gold); text-decoration: none; font-weight: 700;">0868 412 411</a>
+      </div>
+      <div><strong>Địa chỉ nhà phát triển:</strong> Phòng B3.9, Cơ sở chính của Trường THPT Chuyên Trần Đại Nghĩa, Lô P2, Khu tái định cư 38,4 ha, phường An Khánh, TP. Hồ Chí Minh</div>
+    </div>
   </footer>
 
   <!-- JAVASCRIPT FOR MULTI-PAGE ROUTING & INTERACTIVE BOARD GAME ENGINE -->
   <script>
+    const FEEDBACK_STORAGE_KEY = "daiviet_kysu_feedbacks_v1";
+    const FEEDBACK_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzXpi-UyHY4DHCeQLvNlN8NvXjqq3jdORkz4lcsP0tUBi0oei_AsyA9M0nu6fHln1YA/exec";
+
     function navigateTo(pageId) {
       document.querySelectorAll('.page-section').forEach(sec => sec.classList.remove('active'));
       const target = document.getElementById(pageId);
@@ -1727,167 +1910,239 @@
         `(${pts} Điểm Đại Việt + ${sealPoints} điểm Dấu Ấn + ${charPoints} điểm Thẻ Nhân Vật)`;
     }
 
-    /* =========================================================================
-       ENGINE BOARD GAME TRỰC TUYẾN (32 Ô, THẺ LẬT KÈO, BIẾN CỐ, THỬ THÁCH, NHÂN VẬT)
-       ========================================================================= */
-    let gameAudioCtx = null;
-    let isSoundOn = true;
-
-    function playToneSound(freqStart, freqEnd, duration, type = 'triangle', volume = 0.2) {
-      if (!isSoundOn) return;
+    function copyTextFallback(text) {
+      const textarea = document.createElement('textarea');
+      textarea.value = text;
+      textarea.style.position = 'fixed';
+      textarea.style.opacity = '0';
+      document.body.appendChild(textarea);
+      textarea.select();
       try {
-        if (!gameAudioCtx) gameAudioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        if (gameAudioCtx.state === 'suspended') gameAudioCtx.resume();
-        const osc = gameAudioCtx.createOscillator();
-        const gain = gameAudioCtx.createGain();
+        document.execCommand('copy');
+      } catch (e) {}
+      document.body.removeChild(textarea);
+    }
+
+    function getStoredFeedbacks() {
+      try {
+        const raw = localStorage.getItem(FEEDBACK_STORAGE_KEY);
+        return raw ? JSON.parse(raw) : [];
+      } catch (e) {
+        return [];
+      }
+    }
+
+    function saveStoredFeedbacks(list) {
+      try {
+        localStorage.setItem(FEEDBACK_STORAGE_KEY, JSON.stringify(list));
+      } catch (e) {}
+    }
+
+    async function submitPlayerFeedback(e) {
+      e.preventDefault();
+      const submitBtn = document.getElementById('fbSubmitBtn');
+      const thankBox = document.getElementById('feedbackThankYouBox');
+      const thankTitle = document.getElementById('feedbackThankYouTitle');
+      const thankDetail = document.getElementById('feedbackThankYouDetail');
+
+      const name = document.getElementById('fbName').value.trim();
+      const cat = document.getElementById('fbCategory').value;
+      const rating = document.getElementById('fbRating').value;
+      const msg = document.getElementById('fbMessage').value.trim();
+      const now = new Date();
+      const dateStr = `${now.toLocaleDateString('vi-VN')} ${now.toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' })}`;
+
+      const entry = {
+        id: Date.now(),
+        date: dateStr,
+        name,
+        category: cat,
+        rating,
+        message: msg
+      };
+
+      // Lưu dự phòng vào localStorage để Admin xem và quản lý
+      const list = getStoredFeedbacks();
+      list.unshift(entry);
+      saveStoredFeedbacks(list);
+
+      // Trạng thái đang gửi thẳng lên Google Apps Script -> Google Docs
+      const originalBtnText = submitBtn ? submitBtn.innerHTML : '📩 Gửi Góp Ý Cho Nhóm Phát Triển';
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '⏳ Đang gửi góp ý thẳng vào Google Docs...';
+      }
+
+      try {
+        await fetch(FEEDBACK_WEB_APP_URL, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: {
+            'Content-Type': 'text/plain;charset=utf-8'
+          },
+          body: JSON.stringify({
+            name,
+            category: cat,
+            rating,
+            message: msg
+          })
+        });
+
+        document.getElementById('feedbackForm').reset();
+        thankTitle.style.color = '#1E5631';
+        thankTitle.textContent = '✅ Cảm ơn bạn! Góp ý đã được gửi thẳng vào Google Docs thành công.';
+        thankDetail.textContent = `Người gửi: ${name} • Hạng mục: ${cat} (${rating}).`;
+        thankBox.style.display = 'block';
+      } catch (err) {
+        document.getElementById('feedbackForm').reset();
+        thankTitle.style.color = '#B45309';
+        thankTitle.textContent = '⚠️ Đã lưu góp ý cục bộ (không thể kết nối mạng tới Google Docs).';
+        thankDetail.textContent = `Người gửi: ${name} • Hạng mục: ${cat} (${rating}).`;
+        thankBox.style.display = 'block';
+      } finally {
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = originalBtnText;
+        }
+      }
+    }
+
+    /* ================= SOUND ENGINE ================= */
+    let soundEnabled = true;
+    let audioCtx = null;
+
+    function toggleGameSound() {
+      soundEnabled = !soundEnabled;
+      const btn = document.getElementById('soundToggleBtn');
+      if (btn) btn.textContent = soundEnabled ? '🔊 Âm Thanh: Bật' : '🔇 Âm Thanh: Tắt';
+    }
+
+    function playToneSound(freqStart, freqEnd, duration, type = 'sine', gainVal = 0.12) {
+      if (!soundEnabled) return;
+      try {
+        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
         osc.type = type;
-        osc.frequency.setValueAtTime(freqStart, gameAudioCtx.currentTime);
-        if (freqEnd) osc.frequency.exponentialRampToValueAtTime(freqEnd, gameAudioCtx.currentTime + duration);
-        gain.gain.setValueAtTime(volume, gameAudioCtx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.001, gameAudioCtx.currentTime + duration);
+        osc.frequency.setValueAtTime(freqStart, audioCtx.currentTime);
+        if (freqEnd) osc.frequency.exponentialRampToValueAtTime(freqEnd, audioCtx.currentTime + duration);
+        gain.gain.setValueAtTime(gainVal, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
         osc.connect(gain);
-        gain.connect(gameAudioCtx.destination);
+        gain.connect(audioCtx.destination);
         osc.start();
-        osc.stop(gameAudioCtx.currentTime + duration + 0.02);
+        osc.stop(audioCtx.currentTime + duration);
       } catch (e) {}
     }
 
     function playSuccessChime() {
-      [523.25, 659.25, 783.99, 1046.5].forEach((f, i) => {
-        setTimeout(() => playToneSound(f, null, 0.35, 'sine', 0.15), i * 75);
-      });
+      playToneSound(523.25, 659.25, 0.18, 'triangle', 0.14);
+      setTimeout(() => playToneSound(659.25, 783.99, 0.22, 'triangle', 0.14), 110);
     }
 
-    function toggleGameSound() {
-      isSoundOn = !isSoundOn;
-      document.getElementById('soundToggleBtn').textContent = isSoundOn ? '🔊 Âm Thanh: Bật' : '🔇 Âm Thanh: Tắt';
-    }
-
+    /* ================= BOARD GAME DATA & STATE ================= */
     const PLAYER_TOKENS = [
-      { icon: '🐉', label: 'Rồng Thăng Long', bg: '#8B1E1E' },
-      { icon: '🪷', label: 'Hoa Sen Lý-Trần', bg: '#4A5D23' },
-      { icon: '🥁', label: 'Trống Đồng', bg: '#9A7B16' },
-      { icon: '🛡️', label: 'Khiên Bạch Đằng', bg: '#1E3A8A' },
-      { icon: '📜', label: 'Chiếu Dời Đô', bg: '#6B3E26' },
-      { icon: '🏯', label: 'Khuê Văn Các', bg: '#B91C1C' }
+      { icon: '🐉', bg: '#991B1B' },
+      { icon: '🪷', bg: '#B45309' },
+      { icon: '⚔️', bg: '#1E5631' },
+      { icon: '📜', bg: '#1D4ED8' },
+      { icon: '🏯', bg: '#6D28D9' },
+      { icon: '🛡️', bg: '#0F766E' }
     ];
 
     const SEAL_CATALOG = {
-      kienthiet: { id: 'kienthiet', name: 'Kiến Thiết', icon: '🏯' },
-      vanhien: { id: 'vanhien', name: 'Văn Hiến', icon: '🪷' },
-      tritue: { id: 'tritue', name: 'Trí Tuệ', icon: '📜' },
-      baove: { id: 'baove', name: 'Bảo Vệ', icon: '🛡️' }
+      kien_thiet: { id: 'kien_thiet', name: 'Kiến Thiết', icon: '🏯' },
+      van_hien: { id: 'van_hien', name: 'Văn Hiến', icon: '🪷' },
+      tri_tue: { id: 'tri_tue', name: 'Trí Tuệ', icon: '📜' },
+      bao_ve: { id: 'bao_ve', name: 'Bảo Vệ', icon: '🛡️' }
     };
 
-    // Bàn cờ 32 ô (Thay ô Sử Ký thành ô Lật Kèo)
     const BOARD_32_TILES = [
-      { idx: 0, type: 'khoi-hanh', title: 'Khởi Hành', sub: 'Kinh Đô', icon: '🥁', seal: null },
-      { idx: 1, type: 'nhan-vat', title: 'Nhân Vật', sub: 'Danh Nhân', icon: '👑', seal: null },
-      { idx: 2, type: 'bien-co', title: 'Biến Cố', sub: 'Thời Cuộc', icon: '⚡', seal: null },
-      { idx: 3, type: 'dau-an', title: 'Dấu Ấn', sub: 'Kiến Thiết', icon: '🏯', seal: 'kienthiet' },
-      { idx: 4, type: 'lat-keo', title: 'Lật Kèo', sub: 'Mưu Lược', icon: '🃏', seal: null },
-      { idx: 5, type: 'nhan-vat', title: 'Nhân Vật', sub: 'Anh Hùng', icon: '👑', seal: null },
-      { idx: 6, type: 'bien-co', title: 'Biến Cố', sub: 'Vận Hội', icon: '⚡', seal: null },
-      { idx: 7, type: 'thu-thach', title: 'Thử Thách', sub: 'Ứng Đối', icon: '🎭', seal: 'tritue' },
-      { idx: 8, type: 'nghi-chan', title: 'Nghỉ Chân', sub: 'Thăng Long', icon: '🪷', seal: null },
-
-      { idx: 9, type: 'nhan-vat', title: 'Nhân Vật', sub: 'Hiền Tài', icon: '👑', seal: null },
-      { idx: 10, type: 'bien-co', title: 'Biến Cố', sub: 'Tin Báo', icon: '⚡', seal: null },
-      { idx: 11, type: 'dau-an', title: 'Dấu Ấn', sub: 'Văn Hiến', icon: '🪷', seal: 'vanhien' },
-      { idx: 12, type: 'lat-keo', title: 'Lật Kèo', sub: 'Cơ Biến', icon: '🃏', seal: null },
-      { idx: 13, type: 'nhan-vat', title: 'Nhân Vật', sub: 'Tướng Lĩnh', icon: '👑', seal: null },
-      { idx: 14, type: 'bien-co', title: 'Biến Cố', sub: 'Chiếu Chỉ', icon: '⚡', seal: null },
-      { idx: 15, type: 'thu-thach', title: 'Thử Thách', sub: 'Khí Phách', icon: '🎭', seal: 'kienthiet' },
-      { idx: 16, type: 'nghi-chan', title: 'Nghỉ Chân', sub: 'Hồ Gươm', icon: '🪷', seal: null },
-
-      { idx: 17, type: 'thu-thach', title: 'Thử Thách', sub: 'Diên Hồng', icon: '🎭', seal: 'baove' },
-      { idx: 18, type: 'bien-co', title: 'Biến Cố', sub: 'Binh Biến', icon: '⚡', seal: null },
-      { idx: 19, type: 'dau-an', title: 'Dấu Ấn', sub: 'Trí Tuệ', icon: '📜', seal: 'tritue' },
-      { idx: 20, type: 'lat-keo', title: 'Lật Kèo', sub: 'Đông A', icon: '🃏', seal: null },
-      { idx: 21, type: 'thu-thach', title: 'Thử Thách', sub: 'Hùng Biện', icon: '🎭', seal: 'tritue' },
-      { idx: 22, type: 'bien-co', title: 'Biến Cố', sub: 'Thiên Tai', icon: '⚡', seal: null },
-      { idx: 23, type: 'nhan-vat', title: 'Nhân Vật', sub: 'Minh Quân', icon: '👑', seal: null },
-      { idx: 24, type: 'nghi-chan', title: 'Nghỉ Chân', sub: 'Yên Tử', icon: '🪷', seal: null },
-
-      { idx: 25, type: 'thu-thach', title: 'Thử Thách', sub: 'Sử Thi', icon: '🎭', seal: 'vanhien' },
-      { idx: 26, type: 'bien-co', title: 'Biến Cố', sub: 'Tô Thuế', icon: '⚡', seal: null },
-      { idx: 27, type: 'dau-an', title: 'Dấu Ấn', sub: 'Bảo Vệ', icon: '🛡️', seal: 'baove' },
-      { idx: 28, type: 'lat-keo', title: 'Lật Kèo', sub: 'Bạch Đằng', icon: '🃏', seal: null },
-      { idx: 29, type: 'thu-thach', title: 'Thử Thách', sub: 'Khải Hoàn', icon: '🎭', seal: 'kienthiet' },
-      { idx: 30, type: 'bien-co', title: 'Biến Cố', sub: 'Tham Quan', icon: '⚡', seal: null },
-      { idx: 31, type: 'nhan-vat', title: 'Nhân Vật', sub: 'Khai Quốc', icon: '👑', seal: null }
+      { idx: 0, type: 'khoi-hanh', title: 'Khởi Hành', sub: 'Thăng Long', icon: '🥁' },
+      { idx: 1, type: 'lat-keo', title: 'Lật Kèo', sub: 'Mưu Lược', icon: '🃏' },
+      { idx: 2, type: 'thu-thach', title: 'Thử Thách', sub: 'Nhà Lý', icon: '❓' },
+      { idx: 3, type: 'bien-co', title: 'Biến Cố', sub: 'Triều Đình', icon: '⚡' },
+      { idx: 4, type: 'dau-an', title: 'Dấu Ấn', sub: 'Kiến Thiết', icon: '🏯', seal: 'kien_thiet' },
+      { idx: 5, type: 'nhan-vat', title: 'Nhân Vật', sub: 'Hiền Tài', icon: '👑' },
+      { idx: 6, type: 'thu-thach', title: 'Thử Thách', sub: 'Sử Việt', icon: '❓' },
+      { idx: 7, type: 'nghi-chan', title: 'Nghỉ Chân', sub: 'Chùa Một Cột', icon: '🪷' },
+      { idx: 8, type: 'dau-an', title: 'Dấu Ấn', sub: 'Văn Hiến', icon: '🪷', seal: 'van_hien' },
+      { idx: 9, type: 'bien-co', title: 'Biến Cố', sub: 'Thiên Tai', icon: '⚡' },
+      { idx: 10, type: 'lat-keo', title: 'Lật Kèo', sub: 'Binh Thư', icon: '🃏' },
+      { idx: 11, type: 'thu-thach', title: 'Thử Thách', sub: 'Quốc Tử Giám', icon: '❓' },
+      { idx: 12, type: 'nhan-vat', title: 'Nhân Vật', sub: 'Danh Tướng', icon: '👑' },
+      { idx: 13, type: 'bien-co', title: 'Biến Cố', sub: 'Biên Cương', icon: '⚡' },
+      { idx: 14, type: 'thu-thach', title: 'Thử Thách', sub: 'Di Sản', icon: '❓' },
+      { idx: 15, type: 'nghi-chan', title: 'Nghỉ Chân', sub: 'Văn Miếu', icon: '🪷' },
+      { idx: 16, type: 'dau-an', title: 'Dấu Ấn', sub: 'Trí Tuệ', icon: '📜', seal: 'tri_tue' },
+      { idx: 17, type: 'lat-keo', title: 'Lật Kèo', sub: 'Diên Hồng', icon: '🃏' },
+      { idx: 18, type: 'thu-thach', title: 'Thử Thách', sub: 'Nhà Trần', icon: '❓' },
+      { idx: 19, type: 'bien-co', title: 'Biến Cố', sub: 'Biến Động', icon: '⚡' },
+      { idx: 20, type: 'nhan-vat', title: 'Nhân Vật', sub: 'Quốc Sư', icon: '👑' },
+      { idx: 21, type: 'thu-thach', title: 'Thử Thách', sub: 'Chiến Trận', icon: '❓' },
+      { idx: 22, type: 'lat-keo', title: 'Lật Kèo', sub: 'Đông A', icon: '🃏' },
+      { idx: 23, type: 'nghi-chan', title: 'Nghỉ Chân', sub: 'Yên Tử', icon: '🪷' },
+      { idx: 24, type: 'dau-an', title: 'Dấu Ấn', sub: 'Bảo Vệ', icon: '🛡️', seal: 'bao_ve' },
+      { idx: 25, type: 'bien-co', title: 'Biến Cố', sub: 'Họa Ngoại Xâm', icon: '⚡' },
+      { idx: 26, type: 'thu-thach', title: 'Thử Thách', sub: 'Bạch Đằng', icon: '❓' },
+      { idx: 27, type: 'nhan-vat', title: 'Nhân Vật', sub: 'Anh Hùng', icon: '👑' },
+      { idx: 28, type: 'lat-keo', title: 'Lật Kèo', sub: 'Cần Vương', icon: '🃏' },
+      { idx: 29, type: 'bien-co', title: 'Biến Cố', sub: 'Tô Thuế', icon: '⚡' },
+      { idx: 30, type: 'thu-thach', title: 'Thử Thách', sub: 'Hào Khí', icon: '❓' },
+      { idx: 31, type: 'nghi-chan', title: 'Nghỉ Chân', sub: 'Bến Chương Dương', icon: '🪷' }
     ];
-
-    // 10 Thẻ Biến Cố từ Word
-    const GAME_BIEN_CO = [
-      { id: 'phan_boi', title: 'Phản Bội', desc: 'Nhận điểm trừ thay cho một người chơi khác (hoặc chuyển 2 điểm trừ của bản thân sang người khác).' },
-      { id: 'bang_ha', title: 'Băng Hà', desc: 'Mất 1 lượt di chuyển kế tiếp để triều đình tổ chức quốc tang.' },
-      { id: 'phan_loan', title: 'Phản Loạn', desc: 'Lập tức quay trở về ô xuất phát ban đầu (giữ nguyên điểm số hiện có).' },
-      { id: 'soan_ngoi', title: 'Soán Ngôi', desc: 'Bắt buộc đổi toàn bộ điểm số hiện tại của bạn với người chơi đang có số điểm thấp nhất bàn.' },
-      { id: 'mat_mua', title: 'Mất Mùa', desc: 'Mất toàn bộ hiệu lực/phần thưởng tại ô tiếp theo mà bạn di chuyển tới.' },
-      { id: 'thien_tai', title: 'Ứng Phó Thiên Tai', desc: 'Toàn bộ người chơi bị trừ 1 điểm. Riêng bạn tung xúc xắc: số chẵn miễn trừ, số lẻ trừ thêm 1 điểm.' },
-      { id: 'ke_vi', title: 'Chọn Người Kế Vị', desc: 'Chỉ định một người chơi khác nhận thay hình phạt của bạn ở lượt kế tiếp. Nếu không chọn, tự chịu trừ 2 điểm.' },
-      { id: 'tham_quan', title: 'Phát Hiện Tham Quan', desc: 'Bị tịch thu gia sản: trừ ngay 2 điểm, đồng thời chuyển 1 điểm trong số đó cho người chơi đứng chót bảng.' },
-      { id: 'khai_thien', title: 'Khai Thiên Lập Địa', desc: 'Bỏ toàn bộ Thẻ Lật Kèo đang giữ trên tay để nhận ngay 2 điểm, nhưng phải lùi về vạch xuất phát.' },
-      { id: 'to_thue', title: 'Tô Thuế', desc: 'Nộp thuế cho triều đình: trừ số điểm tương ứng với số ô bạn vừa di chuyển ở lượt này (tối đa trừ 3 điểm).' }
-    ];
-
-    // 8 Thẻ Lật Kèo từ Word
-    const GAME_LAT_KEO = [
-      { id: 'chieu_can_vuong', title: 'Chiếu Cần Vương', type: 'Phòng thủ', desc: 'Kích hoạt ngay khi rút phải thẻ Biến Cố bất lợi: vô hiệu hóa hoàn toàn hiệu ứng của thẻ Biến Cố đó.' },
-      { id: 'vuon_khong', title: 'Vườn Không Nhà Trống', type: 'Phản đòn', desc: 'Khi bị nhắm bởi thẻ Phản Bội, Soán Ngôi hoặc Chọn Người Kế Vị, chuyển ngược hiệu ứng sang người chơi thứ ba.' },
-      { id: 'hao_khi_dong_a', title: 'Hào Khí Đông A', type: 'Bứt tốc (x2)', desc: 'Kích hoạt trước khi tung xúc xắc: nhân đôi số bước di chuyển lượt này. Vượt qua người chơi khác lấy của họ 1 điểm.' },
-      { id: 'binh_ngo', title: 'Bình Ngô Đại Cáo', type: 'Đảo ngược điểm', desc: 'Chọn người chơi dẫn đầu: chia đôi phần chênh lệch điểm giữa hai người và cộng vào điểm của bạn.' },
-      { id: 'dien_hong', title: 'Hội Nghị Diên Hồng', type: 'Biểu quyết', desc: 'Biểu quyết Đánh/Hòa: Đa số Đánh cả bàn tiến 3 ô & +1 điểm; đa số Hòa chỉ mình bạn nhận +3 điểm.' },
-      { id: 'coc_bach_dang', title: 'Cọc Bạch Đằng', type: 'Đặt bẫy tại ô', desc: 'Đặt bẫy tại ô đang đứng. Người chơi tiếp theo đi qua/dừng tại đây mất 2 điểm và chuyển 1 điểm cho bạn.' },
-      { id: 'binh_thu', title: 'Sách Lược Binh Thư', type: 'Thao túng bài', desc: 'Xem trước 3 thẻ trên cùng chồng bài Biến Cố/Thử Thách và sắp xếp lại thứ tự.' },
-      { id: 'lenh_xa_toi', title: 'Lệnh Xá Tội', type: 'Hồi phục', desc: 'Xóa bỏ ngay trạng thái Mất Lượt (Băng Hà) hoặc Mất Mùa và nhận thêm 1 lượt tung xúc xắc phụ.' }
-    ];
-
-    // 7 Dạng Thẻ Thử Thách từ Word
-    const GAME_THU_THACH = [
-      { title: 'Thử Thách Đúng / Sai (5s)', time: 5, pts: 2, prompt: 'Nhận định: "Chiếu dời đô được vua Lý Công Uẩn ban hành vào năm 1010." — Đúng hay Sai? (Đúng +2đ, Sai -1đ)' },
-      { title: '7 Di Sản Văn Hóa (15s)', time: 15, pts: 3, prompt: 'Kể tên chính xác 7 di sản văn hóa (vật thể hoặc phi vật thể) của Việt Nam trong vòng 15 giây!' },
-      { title: '3 Trận Đánh Thời Lý - Trần (15s)', time: 15, pts: 3, prompt: 'Kể tên 3 trận đánh tiêu biểu thời Lý hoặc thời Trần trong vòng 15 giây (VD: Như Nguyệt, Bạch Đằng, Chương Dương...).' },
-      { title: 'Nhìn Hình Đoán Nhân Vật / Di Tích (15s)', time: 15, pts: 2, prompt: 'Dùng hành động hoặc tối đa 3 từ khóa gợi ý (không nhắc tên) để cả bàn đoán nhân vật: "Trần Quốc Toản".' },
-      { title: 'Sắp Xếp Dòng Thời Gian (15s)', time: 15, pts: 2, prompt: 'Sắp xếp đúng thứ tự thời gian: [Nhà Ngô] – [Nhà Đinh] – [Nhà Tiền Lê] – [Nhà Lý].' },
-      { title: 'Vua Nào Việc Nấy (15s)', time: 15, pts: 2, prompt: 'Nối đúng vị vua với công lao: Lý Công Uẩn (Dời đô), Lý Thánh Tông (Đặt quốc hiệu Đại Việt), Trần Nhân Tông (Thiền phái Trúc Lâm).' },
-      { title: 'Giải Mã Câu Nói Nổi Tiếng (10s)', time: 10, pts: 2, prompt: 'Hoàn thành câu nói bất hủ của Trần Thủ Độ: "Đầu thần chưa rơi xuống đất, xin bệ hạ..."' }
-    ];
-
-    // 13 Thẻ Nhân Vật (5 bổ sung + 8 gốc, đầy đủ năm lịch sử)
-    const GAME_CHARACTERS = [
-      { id: 'svh', name: 'Sư Vạn Hạnh (938 – 1025)', era: 'Tiền Lê – Đầu Nhà Lý (938 – 1025)', bio: 'Thiền sư, Quốc sư cố vấn khai sáng nhà Lý, phò tá Lý Công Uẩn lên ngôi.', power: 'tien_tri', powerDesc: 'Tiên Tri: Đầu mỗi lượt xem trước 1 thẻ Biến Cố trên đỉnh chồng bài và quyết định giữ hoặc đẩy xuống đáy.' },
-      { id: 'ttt', name: 'Trần Thái Tông (1218 – 1277)', era: 'Đầu Nhà Trần (1218 – 1277)', bio: 'Vị vua sáng lập nhà Trần, lãnh đạo kháng chiến chống Nguyên – Mông lần thứ nhất.', power: 'nhuong_ngoi', powerDesc: 'Nhường Ngôi Khai Sáng: Miễn nhiễm 1 lần trong ván với hiệu ứng của thẻ Soán Ngôi hoặc Phản Loạn.' },
-      { id: 'mdc', name: 'Mạc Đĩnh Chi (1272 – 1346)', era: 'Nhà Trần (1272 – 1346)', bio: 'Lưỡng quốc Trạng nguyên, nhà ngoại giao kiệt xuất thời Trần.', power: 'doi_dap', powerDesc: 'Đối Đáp Thần Tốc: Được cộng thêm 5 giây vào thời gian giới hạn cho mọi Thẻ Thử Thách tính giờ.' },
-      { id: 'tbt', name: 'Trần Bình Trọng (? – 1285)', era: 'Nhà Trần (? – 1285)', bio: 'Danh tướng nhà Trần trong kháng chiến chống Nguyên – Mông, nổi tiếng với câu nói "Ta thà làm quỷ nước Nam...".', power: 'khi_tiet', powerDesc: 'Khí Tiết Bất Khuất: Miễn nhiễm hoàn toàn với điểm trừ lây từ thẻ Phản Bội hoặc Chọn Người Kế Vị.' },
-      { id: 'lch', name: 'Lý Chiêu Hoàng (1218 – 1278)', era: 'Cuối Lý – Đầu Trần (1218 – 1278)', bio: 'Vị vua cuối cùng của nhà Lý và là nữ hoàng duy nhất trong lịch sử Việt Nam.', power: 'chuyen_giao', powerDesc: 'Chuyển Giao Vương Triều: Khi rút thẻ Soán Ngôi, được tự do chọn bất kỳ người chơi nào để đổi điểm.' },
-      { id: 'lcu', name: 'Lý Công Uẩn (974 – 1028)', era: 'Nhà Lý (974 – 1028)', bio: 'Vua Lý Thái Tổ – người sáng lập nhà Lý, ban Chiếu dời đô về Thăng Long (1010).', power: 'pass_start', powerDesc: 'Một lần nhận thêm 20 Điểm Đại Việt khi đi qua ô Khởi Hành.' },
-      { id: 'ltk', name: 'Lý Thường Kiệt (1019 – 1105)', era: 'Nhà Lý (1019 – 1105)', bio: 'Danh tướng kiệt xuất thời Lý, chỉ huy phòng tuyến sông Như Nguyệt đánh bại quân Tống.', power: 'mil_bonus', powerDesc: 'Một lần cộng 10 điểm khi hoàn thành thử thách quân sự.' },
-      { id: 'yl', name: 'Ỷ Lan (1044 – 1117)', era: 'Nhà Lý (1044 – 1117)', bio: 'Nguyên phi, Hoàng thái hậu thời Lý, hai lần nhiếp chính giúp vua trị nước an dân.', power: 'swap_q', powerDesc: 'Một lần đổi thẻ Thử Thách nếu chưa tự tin trả lời.' },
-      { id: 'tht', name: 'Tô Hiến Thành (1106 – 1179)', era: 'Nhà Lý (1106 – 1179)', bio: 'Phụ chính đại thần nổi tiếng liêm chính, hết lòng phò tá vua nhỏ tuổi thời Lý.', power: 'hint_q', powerDesc: 'Một lần xin gợi ý từ quản trò trong thử thách kiến thức.' },
-      { id: 'thd', name: 'Trần Hưng Đạo (1228 – 1300)', era: 'Nhà Trần (1228 – 1300)', bio: 'Hưng Đạo Đại Vương – Quốc công Tiết chế thống lĩnh quân dân nhà Trần ba lần đánh thắng Nguyên – Mông.', power: 'double_q', powerDesc: 'Một lần nhân đôi điểm thưởng khi hoàn thành thử thách Chiến trận.' },
-      { id: 'tnt', name: 'Trần Nhân Tông (1258 – 1308)', era: 'Nhà Trần (1258 – 1308)', bio: 'Vua thời Trần, lãnh đạo kháng chiến chống Nguyên – Mông lần 2 & 3, sáng lập Thiền phái Trúc Lâm.', power: 'block_ev', powerDesc: 'Một lần bỏ qua hiệu ứng bất lợi của thẻ Biến Cố.' },
-      { id: 'tqk', name: 'Trần Quang Khải (1241 – 1294)', era: 'Nhà Trần (1241 – 1294)', bio: 'Thượng tướng Thái sư thời Trần, lập đại công tại chiến thắng Chương Dương – Hàm Tử.', power: 'chal_bonus', powerDesc: 'Một lần nhận thêm 10 điểm sau khi hoàn thành thử thách.' },
-      { id: 'tqt', name: 'Trần Quốc Toản (1267 – 1285)', era: 'Nhà Trần (1267 – 1285)', bio: 'Hoài Văn Hầu – thiếu niên anh hùng thời Trần bóp nát quả cam, lập đội quân đánh giặc Nguyên.', power: 'reroll_dice', powerDesc: 'Một lần được tung lại xúc xắc.' }
-    ];
-
-    let boardGame = {
-      players: [],
-      turnIdx: 0,
-      diceCount: 1,
-      maxLaps: 2,
-      busy: false,
-      timer: null,
-      traps: {} // { tileIdx: ownerPlayerId }
-    };
 
     function getTileGridPos(idx) {
       if (idx <= 8) return { r: 1, c: idx + 1 };
-      if (idx <= 16) return { r: idx - 7, c: 9 };
+      if (idx <= 16) return { r: idx - 8 + 1, c: 9 };
       if (idx <= 24) return { r: 9, c: 9 - (idx - 16) };
       return { r: 9 - (idx - 24), c: 1 };
     }
+
+    const GAME_BIEN_CO = [
+      { id: 'phan_boi', title: '1. Phản Bội', desc: 'Nhận điểm trừ (-2 điểm) do nội bộ lục đục.' },
+      { id: 'bang_ha', title: '2. Băng Hà', desc: 'Mất 1 lượt di chuyển kế tiếp để tổ chức quốc tang.' },
+      { id: 'phan_loan', title: '3. Phản Loạn', desc: 'Lập tức quay trở về ô xuất phát ban đầu (giữ nguyên điểm).' },
+      { id: 'soan_ngoi', title: '4. Soán Ngôi', desc: 'Đổi toàn bộ điểm số hiện tại với người chơi có điểm thấp nhất bàn.' },
+      { id: 'mat_mua', title: '5. Mất Mùa', desc: 'Mất toàn bộ hiệu lực/phần thưởng tại ô tiếp theo bạn dừng chân.' },
+      { id: 'thien_tai', title: '6. Ứng Phó Thiên Tai', desc: 'Toàn bàn bị trừ 1 điểm. Tung xúc xắc: số lẻ trừ thêm 1 điểm!' },
+      { id: 'ke_vi', title: '7. Chọn Người Kế Vị', desc: 'Chịu phạt trừ 2 điểm khi triều chính chuyển giao.' },
+      { id: 'tham_quan', title: '8. Phát Hiện Tham Quan', desc: 'Trừ ngay 2 điểm và chuyển 1 điểm cho người đứng chót bảng.' },
+      { id: 'khai_thien', title: '9. Khai Thiên Lập Địa', desc: 'Bỏ toàn bộ thẻ Lật Kèo trên tay để nhận +2 điểm và lùi về vạch xuất phát.' },
+      { id: 'to_thue', title: '10. Tô Thuế', desc: 'Nộp thuế tương ứng số bước vừa đi (tối đa trừ 3 điểm).' }
+    ];
+
+    const GAME_LAT_KEO = [
+      { id: 'chieu_can_vuong', title: 'Chiếu Cần Vương', type: 'Phòng Thủ / Miễn Nhiễm', desc: 'Vô hiệu hóa hoàn toàn hiệu ứng của thẻ Biến Cố vừa rút.' },
+      { id: 'vuon_khong', title: 'Vườn Không Nhà Trống', type: 'Phản Đòn', desc: 'Chuyển hướng hiệu ứng thẻ Biến Cố nhắm vào bạn sang người khác.' },
+      { id: 'hao_khi_dong_a', title: 'Hào Khí Đông A', type: 'Bứt Tốc / Nhân Đôi', desc: 'Kích hoạt trước khi tung xúc xắc: nhân đôi số bước di chuyển lượt này.' },
+      { id: 'binh_ngo', title: 'Bình Ngô Đại Cáo', type: 'Đảo Ngược Bảng Điểm', desc: 'Chia đôi phần chênh lệch điểm với người dẫn đầu và cộng cho bạn.' },
+      { id: 'dien_hong', title: 'Hội Nghị Diên Hồng', type: 'Tương Tác Tập Thể', desc: 'Triệu tập hội nghị và nhận ngay +3 Điểm Đại Việt.' },
+      { id: 'coc_bach_dang', title: 'Cọc Bạch Đằng', type: 'Đặt Bẫy Chiến Thuật', desc: 'Đặt bẫy tại ô đang đứng; đối thủ đi qua sẽ dừng bước và mất 2 điểm.' },
+      { id: 'lenh_xa_toi', title: 'Lệnh Xá Tội', type: 'Hồi Phục / Cứu Nguy', desc: 'Xóa bỏ trạng thái Mất Lượt / Mất Mùa và nhận +2 Điểm Đại Việt.' }
+    ];
+
+    const GAME_THU_THACH = [
+      { title: 'Thử Thách Đúng / Sai', time: 5, pts: 2, prompt: 'Nhận định: "Vua Lý Thái Tổ ban Chiếu dời đô từ Hoa Lư ra thành Đại La (Thăng Long) vào năm 1010." — Đúng hay Sai?' },
+      { title: '7 Di Sản Văn Hóa (15s)', time: 15, pts: 3, prompt: 'Kể tên chính xác 7 di sản văn hóa (vật thể hoặc phi vật thể) của Việt Nam trong vòng 15 giây!' },
+      { title: '3 Trận Đánh Thời Lý - Trần', time: 15, pts: 3, prompt: 'Kể tên 3 trận đánh tiêu biểu thời Lý hoặc Trần (ví dụ: Như Nguyệt, Bạch Đằng, Đông Bộ Đầu, Chương Dương, Hàm Tử...).' },
+      { title: 'Sắp Xếp Dòng Thời Gian', time: 15, pts: 3, prompt: 'Sắp xếp đúng thứ tự thời gian: (1) Chiến thắng Bạch Đằng 1288, (2) Chiếu dời đô 1010, (3) Lập Quốc Tử Giám 1076.' },
+      { title: 'Vua Nào Việc Nấy', time: 10, pts: 2, prompt: 'Nêu tên vị vua nhà Trần đã ba lần lãnh đạo quân dân đánh thắng quân Nguyên – Mông hoặc sáng lập Thiền phái Trúc Lâm!' },
+      { title: 'Giải Mã Câu Nói Nổi Tiếng', time: 10, pts: 2, prompt: 'Hoàn thành câu nói bất hủ của Thái sư Trần Thủ Độ: "Đầu thần chưa rơi xuống đất, xin bệ hạ..."' }
+    ];
+
+    const GAME_CHARACTERS = [
+      { name: 'Sư Vạn Hạnh', era: 'Tiền Lê – Đầu Nhà Lý', power: 'tien_tri', powerDesc: 'Tiên Tri: Quốc sư cố vấn khai sáng nhà Lý.' },
+      { name: 'Trần Thái Tông', era: 'Đầu Nhà Trần', power: 'nhuong_ngoi', powerDesc: 'Nhường Ngôi Khai Sáng: Miễn nhiễm 1 lần với Soán Ngôi hoặc Phản Loạn.' },
+      { name: 'Mạc Đĩnh Chi', era: 'Nhà Trần', power: 'doi_dap', powerDesc: 'Đối Đáp Thần Tốc: Cộng thêm 5 giây cho mọi Thẻ Thử Thách.' },
+      { name: 'Trần Bình Trọng', era: 'Nhà Trần', power: 'khi_tiet', powerDesc: 'Khí Tiết Bất Khuất: Miễn nhiễm với Phản Bội.' },
+      { name: 'Lý Chiêu Hoàng', era: 'Cuối Lý – Đầu Trần', power: 'chuyen_giao', powerDesc: 'Chuyển Giao Vương Triều: Đổi điểm với người cao nhất khi gặp Soán Ngôi.' },
+      { name: 'Lý Công Uẩn', era: 'Nhà Lý', power: 'pass_start', powerDesc: 'Chiếu Dời Đô: Nhận thêm +20 Điểm Đại Việt 1 lần khi qua ô Khởi Hành.' },
+      { name: 'Trần Hưng Đạo', era: 'Nhà Trần', power: 'hung_dao', powerDesc: 'Hào Khí Đông A: Quốc công Tiết chế thống lĩnh ba quân.' }
+    ];
+
+    let boardGame = { players: [], turnIdx: 0, diceCount: 1, diceValues: [1, 1], maxLaps: 2, busy: false, timer: null, traps: {} };
 
     function openSetupGameModal() {
       renderSetupPlayerFields();
@@ -1900,15 +2155,15 @@
 
     function renderSetupPlayerFields() {
       const count = parseInt(document.getElementById('setupCountSelect').value) || 3;
-      const box = document.getElementById('setupPlayerFieldsContainer');
-      const names = ['Minh Anh', 'Gia Bảo', 'Khánh Linh', 'Hoàng Nam', 'Thảo Vy', 'Đức Huy'];
-      box.innerHTML = '';
+      const defaults = ['Minh Anh', 'Gia Bảo', 'Khánh Linh', 'Hoàng Nam', 'Thảo Vy', 'Đức Huy'];
+      const container = document.getElementById('setupPlayerFieldsContainer');
+      if (!container) return;
+      container.innerHTML = '';
       for (let i = 0; i < count; i++) {
-        const tk = PLAYER_TOKENS[i];
-        box.innerHTML += `
-          <div style="display:flex; align-items:center; gap:0.55rem; background:var(--ivory); padding:0.55rem 0.75rem; border-radius:8px; border:1px solid var(--gold);">
-            <span style="width:30px; height:30px; border-radius:50%; background:${tk.bg}; color:#FFF; display:flex; align-items:center; justify-content:center; font-size:1rem;">${tk.icon}</span>
-            <input id="setupPName_${i}" type="text" value="${names[i]}" maxlength="16" style="width:100%; border:none; border-bottom:1px solid var(--crimson); background:transparent; font-weight:700; color:var(--ink); padding:0.2rem;" />
+        container.innerHTML += `
+          <div class="calc-input-group" style="margin:0;">
+            <label style="color:var(--ink); font-weight:600;" for="setupPName_${i}">${PLAYER_TOKENS[i].icon} Người chơi ${i + 1}</label>
+            <input type="text" id="setupPName_${i}" value="${defaults[i]}" />
           </div>
         `;
       }
@@ -1940,31 +2195,20 @@
         });
       }
 
-      boardGame = { players, turnIdx: 0, diceCount: 1, maxLaps, busy: false, timer: null, traps: {} };
-      setGameDiceCount(1);
+      boardGame = { players, turnIdx: 0, diceCount: 1, diceValues: [1, 1], maxLaps, busy: false, timer: null, traps: {} };
       closeSetupGameModal();
       playSuccessChime();
 
       document.getElementById('gameModeBadge').textContent = `Tiêu chuẩn • ${maxLaps === 99 ? 'Tự do' : `Mục tiêu: ${maxLaps} Vòng`}`;
-      document.getElementById('gameLogBanner').innerHTML = `Ván mới bắt đầu! Mời <strong>${players[0].token.icon} ${players[0].name}</strong> tung xúc xắc.`;
+      document.getElementById('gameLogBanner').innerHTML = `Ván mới bắt đầu! Mời <strong>${players[0].token.icon} ${players[0].name}</strong> tung xúc xắc ở giữa bàn cờ.`;
       renderPlayableBoard();
       renderPlayableSidebar();
     }
 
     function setGameDiceCount(n) {
+      if (boardGame.busy) return;
       boardGame.diceCount = n;
-      const d2 = document.getElementById('gameDice2');
-      const b1 = document.getElementById('dice1Btn');
-      const b2 = document.getElementById('dice2Btn');
-      if (n === 1) {
-        d2.style.display = 'none';
-        b1.style.background = 'var(--gold)'; b1.style.color = 'var(--crimson-dark)';
-        b2.style.background = 'transparent'; b2.style.color = 'var(--gold-light)';
-      } else {
-        d2.style.display = 'flex';
-        b2.style.background = 'var(--gold)'; b2.style.color = 'var(--crimson-dark)';
-        b1.style.background = 'transparent'; b1.style.color = 'var(--gold-light)';
-      }
+      renderPlayableBoard();
     }
 
     function renderPlayableBoard() {
@@ -1972,6 +2216,7 @@
       if (!grid) return;
       grid.innerHTML = '';
       const curP = boardGame.players[boardGame.turnIdx];
+      const faces = ['⚀', '⚁', '⚂', '⚃', '⚄', '⚅'];
 
       BOARD_32_TILES.forEach(t => {
         const pos = getTileGridPos(t.idx);
@@ -1992,9 +2237,8 @@
           <div style="width:100%; display:flex; justify-content:space-between; font-size:0.65rem; opacity:0.85; padding:0 2px;">
             <span>${t.idx + 1}</span><span>${hasTrap ? '🪵' : t.icon}</span>
           </div>
-          <div style="line-height:1.15;">
-            <div style="font-size:0.68rem; font-weight:700; text-transform:uppercase;">${t.title}</div>
-            <div style="font-size:0.6rem; opacity:0.9;">${t.sub}</div>
+          <div style="line-height:1.2; padding: 0 2px;">
+            <div style="font-size:0.74rem; font-weight:700; text-transform:uppercase;">${t.title}</div>
           </div>
           <div style="display:flex; flex-wrap:wrap; justify-content:center; gap:2px; min-height:22px;">
             ${tokensMarkup}
@@ -2003,8 +2247,37 @@
         grid.appendChild(div);
       });
 
+      // Trung tâm bàn cờ: Chứa Xúc Xắc & Nút Tung Xúc Xắc ở chính giữa
       const center = document.createElement('div');
       center.className = 'board-center-map';
+      const f1 = faces[(boardGame.diceValues[0] || 1) - 1];
+      const f2 = faces[(boardGame.diceValues[1] || 1) - 1];
+      const is2Dice = boardGame.diceCount === 2;
+
+      center.innerHTML = `
+        <div style="font-family:'Playfair Display',serif; font-weight:800; font-size:clamp(0.95rem, 1.8vw, 1.35rem); color:var(--crimson); letter-spacing:0.06em; margin-bottom:0.15rem;">
+          ĐẠI VIỆT KÝ SỰ
+        </div>
+        <div style="font-size:0.72rem; color:var(--ink-muted); margin-bottom:0.65rem;">
+          ${curP ? `Lượt của <strong>${curP.token.icon} ${curP.name}</strong>` : 'Sẵn sàng xuất phát'}
+        </div>
+
+        <div class="center-dice-hub">
+          <div style="display:flex; gap:0.35rem;">
+            <button onclick="setGameDiceCount(1)" style="padding:0.22rem 0.6rem; border-radius:6px; font-size:0.72rem; font-weight:700; border:1px solid var(--gold); background:${!is2Dice ? 'var(--gold)' : 'transparent'}; color:${!is2Dice ? 'var(--crimson-dark)' : 'var(--gold-light)'}; cursor:pointer;">1 Xúc xắc</button>
+            <button onclick="setGameDiceCount(2)" style="padding:0.22rem 0.6rem; border-radius:6px; font-size:0.72rem; font-weight:700; border:1px solid var(--gold); background:${is2Dice ? 'var(--gold)' : 'transparent'}; color:${is2Dice ? 'var(--crimson-dark)' : 'var(--gold-light)'}; cursor:pointer;">2 Xúc xắc</button>
+          </div>
+
+          <div style="display:flex; align-items:center; justify-content:center; gap:0.65rem; margin:0.15rem 0;">
+            <div id="gameDice1" class="dice-face" onclick="rollGameDice()" title="Bấm để tung xúc xắc">${f1}</div>
+            <div id="gameDice2" class="dice-face" onclick="rollGameDice()" title="Bấm để tung xúc xắc" style="display:${is2Dice ? 'flex' : 'none'};">${f2}</div>
+          </div>
+
+          <button id="rollDiceActionBtn" class="btn-gold" onclick="rollGameDice()" ${boardGame.busy ? 'disabled' : ''} style="padding:0.6rem 1.25rem; font-size:0.88rem; width:100%;">
+            🎲 Tung Xúc Xắc
+          </button>
+        </div>
+      `;
       grid.appendChild(center);
     }
 
@@ -2012,13 +2285,16 @@
       const curP = boardGame.players[boardGame.turnIdx];
       if (!curP) return;
 
+      const curTile = BOARD_32_TILES[curP.pos];
       document.getElementById('turnPlayerAvatar').textContent = curP.token.icon;
       document.getElementById('turnPlayerAvatar').style.background = curP.token.bg;
       document.getElementById('turnPlayerName').textContent = curP.name;
       document.getElementById('turnPlayerLap').textContent = boardGame.maxLaps === 99 ? `Vòng ${curP.lap}` : `Vòng ${curP.lap} / ${boardGame.maxLaps}`;
-      document.getElementById('rollDiceActionBtn').disabled = boardGame.busy;
+      const tileLbl = document.getElementById('turnPlayerTileLabel');
+      if (tileLbl && curTile) {
+        tileLbl.textContent = `Ô ${curTile.idx + 1} • ${curTile.title}`;
+      }
 
-      // Các nút Thẻ Lật Kèo có thể kích hoạt trước/trong lượt
       const preBox = document.getElementById('preRollActions');
       preBox.innerHTML = '';
       if (!boardGame.busy && curP.latKeo.length > 0) {
@@ -2123,29 +2399,31 @@
       }
 
       boardGame.busy = true;
-      document.getElementById('rollDiceActionBtn').disabled = true;
+      const rollBtn = document.getElementById('rollDiceActionBtn');
+      if (rollBtn) rollBtn.disabled = true;
 
       const d1 = document.getElementById('gameDice1');
       const d2 = document.getElementById('gameDice2');
-      d1.classList.add('dice-animating');
-      d2.classList.add('dice-animating');
+      if (d1) d1.classList.add('dice-animating');
+      if (d2) d2.classList.add('dice-animating');
 
       const faces = ['⚀', '⚁', '⚂', '⚃', '⚄', '⚅'];
       let step = 0;
       const anim = setInterval(() => {
         playToneSound(340 + Math.random() * 140, null, 0.05, 'square', 0.07);
-        d1.textContent = faces[Math.floor(Math.random() * 6)];
-        d2.textContent = faces[Math.floor(Math.random() * 6)];
+        if (d1) d1.textContent = faces[Math.floor(Math.random() * 6)];
+        if (d2) d2.textContent = faces[Math.floor(Math.random() * 6)];
         step++;
         if (step >= 9) {
           clearInterval(anim);
-          d1.classList.remove('dice-animating');
-          d2.classList.remove('dice-animating');
+          if (d1) d1.classList.remove('dice-animating');
+          if (d2) d2.classList.remove('dice-animating');
 
           const v1 = Math.floor(Math.random() * 6) + 1;
           const v2 = boardGame.diceCount === 2 ? Math.floor(Math.random() * 6) + 1 : 0;
-          d1.textContent = faces[v1 - 1];
-          if (boardGame.diceCount === 2) d2.textContent = faces[v2 - 1];
+          boardGame.diceValues = [v1, v2 || 1];
+          if (d1) d1.textContent = faces[v1 - 1];
+          if (d2 && boardGame.diceCount === 2) d2.textContent = faces[v2 - 1];
 
           let total = v1 + v2;
           if (p.doubleMoveActive) {
@@ -2154,7 +2432,7 @@
           }
           p.lastSteps = total;
 
-          document.getElementById('gameLogBanner').innerHTML = `${p.token.icon} <strong>${p.name}</strong> di chuyển <strong>${total} bước</strong>...`;
+          document.getElementById('gameLogBanner').innerHTML = `${p.token.icon} <strong>${p.name}</strong> tung được <strong>${total} điểm</strong> và đang di chuyển...`;
           stepMovePlayer(p, total, () => handleLandingTile(p));
         }
       }, 65);
@@ -2178,7 +2456,6 @@
           player.pts += bonus;
         }
 
-        // Kiểm tra bẫy Cọc Bạch Đằng
         const trapOwnerId = boardGame.traps[player.pos];
         if (trapOwnerId !== undefined && trapOwnerId !== player.id) {
           clearInterval(iv);
@@ -2406,7 +2683,7 @@
       const nextP = boardGame.players[boardGame.turnIdx];
       renderPlayableBoard();
       renderPlayableSidebar();
-      document.getElementById('gameLogBanner').innerHTML = `Đến lượt của <strong>${nextP.token.icon} ${nextP.name}</strong>! Mời tung xúc xắc.`;
+      document.getElementById('gameLogBanner').innerHTML = `Đến lượt của <strong>${nextP.token.icon} ${nextP.name}</strong>! Mời tung xúc xắc ở giữa bàn cờ.`;
     }
 
     function openEndGameSummary() {
