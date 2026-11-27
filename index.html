@@ -2124,12 +2124,21 @@
     ];
 
     const GAME_THU_THACH = [
-      { title: 'Thử Thách Đúng / Sai', time: 5, pts: 2, prompt: 'Nhận định: "Vua Lý Thái Tổ ban Chiếu dời đô từ Hoa Lư ra thành Đại La (Thăng Long) vào năm 1010." — Đúng hay Sai?' },
-      { title: '7 Di Sản Văn Hóa (15s)', time: 15, pts: 3, prompt: 'Kể tên chính xác 7 di sản văn hóa (vật thể hoặc phi vật thể) của Việt Nam trong vòng 15 giây!' },
-      { title: '3 Trận Đánh Thời Lý - Trần', time: 15, pts: 3, prompt: 'Kể tên 3 trận đánh tiêu biểu thời Lý hoặc Trần (ví dụ: Như Nguyệt, Bạch Đằng, Đông Bộ Đầu, Chương Dương, Hàm Tử...).' },
-      { title: 'Sắp Xếp Dòng Thời Gian', time: 15, pts: 3, prompt: 'Sắp xếp đúng thứ tự thời gian: (1) Chiến thắng Bạch Đằng 1288, (2) Chiếu dời đô 1010, (3) Lập Quốc Tử Giám 1076.' },
-      { title: 'Vua Nào Việc Nấy', time: 10, pts: 2, prompt: 'Nêu tên vị vua nhà Trần đã ba lần lãnh đạo quân dân đánh thắng quân Nguyên – Mông hoặc sáng lập Thiền phái Trúc Lâm!' },
-      { title: 'Giải Mã Câu Nói Nổi Tiếng', time: 10, pts: 2, prompt: 'Hoàn thành câu nói bất hủ của Thái sư Trần Thủ Độ: "Đầu thần chưa rơi xuống đất, xin bệ hạ..."' }
+      // CẤP THẤP (+10đ)
+      { level: 'Thấp', levelColor: '#1E5631', title: 'Thử Thách Đúng / Sai (Cơ Bản)', time: 8, pts: 10, prompt: 'Nhận định: "Vua Lý Thái Tổ ban Chiếu dời đô từ Hoa Lư ra thành Đại La (Thăng Long) vào năm 1010." — Đúng hay Sai?' },
+      { level: 'Thấp', levelColor: '#1E5631', title: '3 Trận Đánh Thời Lý - Trần', time: 15, pts: 10, prompt: 'Kể tên 3 trận đánh tiêu biểu thời Lý hoặc thời Trần trong vòng 15 giây.' },
+      { level: 'Thấp', levelColor: '#1E5631', title: 'Giải Mã Câu Nói Kinh Điển', time: 10, pts: 10, prompt: 'Hoàn thành câu nói bất hủ của Thái sư Trần Thủ Độ: "Đầu thần chưa rơi xuống đất, xin bệ hạ..."' },
+
+      // CẤP VỪA (+20đ)
+      { level: 'Vừa', levelColor: '#B45309', title: '7 Di Sản Văn Hóa Việt Nam', time: 15, pts: 20, prompt: 'Kể tên chính xác 7 di sản văn hóa (vật thể hoặc phi vật thể) của Việt Nam được UNESCO ghi danh trong vòng 15 giây!' },
+      { level: 'Vừa', levelColor: '#B45309', title: 'Sắp Xếp Dòng Thời Gian Lý - Trần', time: 15, pts: 20, prompt: 'Sắp xếp đúng thứ tự thời gian từ sớm đến muộn: (1) Chiến thắng Bạch Đằng, (2) Chiếu dời đô, (3) Lập Quốc Tử Giám, (4) Hội nghị Diên Hồng.' },
+      { level: 'Vừa', levelColor: '#B45309', title: 'Vua Nào Việc Nấy', time: 12, pts: 20, prompt: 'Nêu tên vị vua đã ban hành bộ Hình thư (1042) và tên vị vua sáng lập Thiền phái Trúc Lâm Yên Tử!' },
+
+      // CẤP CAO (+40đ - NÂNG CAO ĐỘ KHÓ)
+      { level: 'Cao', levelColor: '#991B1B', title: 'Biện Luận Chiến Lược "Tiên Phát Chế Nhân"', time: 15, pts: 40, prompt: 'Giải thích vì sao Lý Thường Kiệt chủ động đem quân đánh sang đất Tống (Ung Châu, Khâm Châu, Liêm Châu năm 1075) rồi mới rút về lập phòng tuyến sông Như Nguyệt?' },
+      { level: 'Cao', levelColor: '#991B1B', title: 'Chính Sách "Ngụ Binh Ư Nông" & "Thái Thượng Hoàng"', time: 15, pts: 40, prompt: 'Phân tích tác dụng kép của chính sách "Ngụ binh ư nông" (thời Lý - Trần) và chế độ "Thái thượng hoàng" (thời Trần) đối với vận mệnh quốc gia!' },
+      { level: 'Cao', levelColor: '#991B1B', title: 'Kế Sách "Vườn Không Nhà Trống" & Bạch Đằng 1288', time: 15, pts: 40, prompt: 'Nêu 2 điểm khác biệt cốt lõi trong nghệ thuật quân sự của Trần Hưng Đạo khi đánh bại thủy binh Ô Mã Nhi trên sông Bạch Đằng năm 1288 so với Ngô Quyền năm 938!' },
+      { level: 'Cao', levelColor: '#991B1B', title: 'Niên Đại & Điển Chế Hành Chính Lý - Trần', time: 12, pts: 40, prompt: 'Nêu chính xác: (1) Năm mở khoa thi Nho học đầu tiên ở Đại Việt, (2) Tên bộ quốc sử đầu tiên của nước ta và tác giả biên soạn dưới thời Trần!' }
     ];
 
     const GAME_CHARACTERS = [
@@ -2614,8 +2623,11 @@
       const box = document.getElementById('activeCardModalContent');
       box.innerHTML = `
         <div>
-          <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1.5px solid rgba(212,175,55,0.45); padding-bottom:0.75rem; margin-bottom:1rem;">
-            <span class="tile-badge tile-thu-thach" style="margin:0;">Thẻ Thử Thách (+${ch.pts}đ)</span>
+          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem; border-bottom:1.5px solid rgba(212,175,55,0.45); padding-bottom:0.75rem; margin-bottom:1rem;">
+            <div style="display:flex; align-items:center; gap:0.45rem;">
+              <span class="tile-badge" style="margin:0; background:${ch.levelColor}; color:#FFFDF8;">Cấp Độ: ${ch.level}</span>
+              <span class="tile-badge tile-thu-thach" style="margin:0;">+${ch.pts} Điểm</span>
+            </div>
             <span id="chTimerSpan" style="font-weight:800; color:var(--crimson);">⏱️ ${totalSec}s ${bonusTime ? '(+5s Mạc Đĩnh Chi)' : ''}</span>
           </div>
           <h3 style="font-size:1.4rem; color:var(--crimson); margin-bottom:0.65rem;">${ch.title}</h3>
